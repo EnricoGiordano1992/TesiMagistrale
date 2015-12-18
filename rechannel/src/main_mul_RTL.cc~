@@ -1,0 +1,13 @@
+#define SC_INCLUDE_DYNAMIC_PROCESSES
+#define RC_DISABLE_CTHREAD_MOBILITY
+#include "mul_RTL.hh"
+#include <ReChannel.h> 
+
+int sc_main(int argc, char **argv)
+{
+  
+  sc_start();
+
+  return 0;
+};
+
