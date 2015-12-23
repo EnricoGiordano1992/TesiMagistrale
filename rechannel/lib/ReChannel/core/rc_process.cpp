@@ -23,6 +23,7 @@
  * Authors: Andreas Raabe and Armin Felke. Implementation by Armin Felke.
  *          {raabe, felke}@cs.uni-bonn.de
  */
+#include "systemc.h"
 #include "rc_process.h"
 
 namespace ReChannel {
