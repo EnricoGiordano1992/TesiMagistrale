@@ -14,8 +14,8 @@ echo "OBJS = ./obj/ReChannel/components/rc_report_ids.o  ./obj/ReChannel/compone
 echo "SRCS = ./ReChannel/components/rc_report_ids.cpp ./ReChannel/components/rc_var.cpp ./ReChannel/components/rc_semaphore.cpp ./ReChannel/components/rc_signal.cpp ./ReChannel/components/rc_join.cpp ./ReChannel/components/rc_signal_resolved.cpp ./ReChannel/components/rc_mutex.cpp ./ReChannel/util/rc_driver_object.cpp ./ReChannel/util/rc_throwable.cpp ./ReChannel/util/rc_port_handle.cpp ./ReChannel/util/rc_object_handle.cpp ./ReChannel/util/rc_report.cpp ./ReChannel/util/rc_mutex_object.cpp ./ReChannel/util/rc_export_handle.cpp ./ReChannel/util/rc_delta_sync_object.cpp ./ReChannel/core/rc_report_ids.cpp ./ReChannel/core/rc_reconfigurable_set.cpp ./ReChannel/core/rc_non_reconfigurable.cpp ./ReChannel/core/rc_reset_channel_if.cpp ./ReChannel/core/rc_common_header.cpp ./ReChannel/core/rc_process_support.cpp ./ReChannel/core/rc_portmap.cpp ./ReChannel/core/rc_switch_connector.cpp ./ReChannel/core/rc_control.cpp ./ReChannel/core/rc_process.cpp ./ReChannel/core/rc_transaction_counter.cpp ./ReChannel/core/rc_reconfigurable.cpp ./ReChannel/communication/rc_abstract_interface_wrapper.cpp ./ReChannel/communication/accessors/rc_signal_accessors.cpp ./ReChannel/communication/accessors/rc_abstract_accessor.cpp ./ReChannel/communication/portals/rc_abstract_portal.cpp ./ReChannel/communication/rc_report_ids.cpp ./ReChannel/communication/exportals/rc_wrapper_pool.cpp ./ReChannel/communication/exportals/rc_abstract_exportal.cpp ./ReChannel/communication/rc_abstract_switch.cpp" >> Makefile 
 echo "INCDIR = -I./include/ -I. -I\$(SYSTEMC)/include/ -I./ -I./Rechannel/" >> Makefile 
 
-echo "all: rechannel.a" >> Makefile 
-echo "rechannel.a: \$(OBJS)" >> Makefile
+echo "all: librechannel.a" >> Makefile 
+echo "librechannel.a: \$(OBJS)" >> Makefile
 echo "	ar rc \$@ \$(OBJS)" >> Makefile
 
 for ((x=0; x<$LEN; x++))
