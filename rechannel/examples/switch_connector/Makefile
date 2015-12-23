@@ -1,44 +1,3 @@
-#
-# Copyright (C) 2005, Technical Computer Science Group,
-#                     University of Bonn
-#
-# This file is part of the ReChannel library.
-#
-# The ReChannel library is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License as
-# published by the Free Software Foundation; either version 2 of the
-# License, or (at your option) any later version.
-#
-# This ReChannel library is distributed in the hope that it will be
-# useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-# General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this library; see the file COPYING. If not, write to the
-# Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
-# Boston, MA 02110-1301, USA.
-#
-
-#
-# Generic Makefile for ReChannel test applications
-#
-# Usable from within a specialized Makefile
-# inside one of the test directories. See ./skeleton/
-# for an example.
-#
-# Author(s): Ralph Thesen <thesen@cs.uni-bonn.de>
-#            Philipp A. Hartmann <hartman@cs.uni-bonn.de>
-#            Armin Felke <felke@cs.uni-bonn.de>
-# Version  : $Revision: 1.1 $
-# Date     : $Date: 2007/10/09 21:52:20 $
-
-#
-# Each of the following variables can be overwritten inside
-# the base Makefile. In most cases, the default values should
-# be fine.
-#
-
 MODULE=switch_connector
 
 # Needed programs
@@ -49,7 +8,9 @@ DEL     ?= rm -f
 OPT     ?= -O3
 DEBUG   ?= -g -DRC_DEBUG
 OTHER  = -DSC_INCLUDE_DYNAMIC_PROCESSES \
-         -DBOOST_MULTI_INDEX_DISABLE_SERIALIZATION -Wall
+         -DBOOST_MULTI_INDEX_DISABLE_SERIALIZATION \
+         -DRC_USE_NON_OSCI_KERNEL \
+         -fpermissive -w -Wall
 
 # Build debugging version by default.
 CFLAGS  ?= $(OPT) $(OTHER)
@@ -62,22 +23,22 @@ TARGET_ARCH ?= linux
 # SystemC installation
 # If the variable that points to SystemC installation path is not
 # set, try a sane default
-SYSTEMC ?= /opt/systemc/default
+SYSTEMC ?= $$SYSTEMC_HOME
 
 # ReChannel source tree
-RECHANNEL2 ?= ../..
+RECHANNEL2 ?= ../../lib
 RECHANNEL2_MAKE_DIR = $(RECHANNEL2)/src
 RECHANNEL2_INC_DIR = $(RECHANNEL2)/src
 RECHANNEL2_LIB_DIR = $(RECHANNEL2)/lib
 
 # Include directories
-INCLUDES = -I. -I$(SYSTEMC)/include -I$(RECHANNEL2_INC_DIR) \
+INCLUDES = -I. -I$(SYSTEMC)/include -I$(RECHANNEL2_INC_DIR) -I$(RECHANNEL2) \
            $(EXTRA_INCLUDES)
 
 # Library paths
-LIBDIRS = -L. -L.. -L$(SYSTEMC)/lib-$(TARGET_ARCH) \
-          -L$(RECHANNEL2_LIB_DIR) $(EXTRA_LIBDIRS)
-LIBS    = -lrechannel -lsystemc -lm $(EXTRA_LIBS)
+LIBDIRS = -L. -L.. -L$(SYSTEMC)/lib-linux64 \
+          -L$(RECHANNEL2) $(EXTRA_LIBDIRS)
+LIBS    = -static -lrechannel -lsystemc -lm -lpthread $(EXTRA_LIBS)
 
 #
 # Look for source files
@@ -109,16 +70,14 @@ DEPS := $(SRCS:.cpp=.d)
 # default target: build the executable
 # depends on object files and static version of
 # ReChannel library
-$(EXE): $(OBJS) $(RECHANNEL2_LIB_DIR)/librechannel.a
+$(EXE): $(OBJS)
 	@echo "* Linking example application '$(MODULE)' ..."
 	$(CXX) $(CFLAGS) \
 	    $(INCLUDES) \
 	    $(LIBDIRS) \
 	    -o $@ \
 	    $(OBJS) \
-	    $(LIBS) \
-	2>&1 | c++filt
-
+	    $(LIBS) 
 # Shortcut: build by module name
 # Additionally, this target runs the test application after
 # a succesful build process. Parameters to this run can be given
@@ -128,14 +87,6 @@ $(MODULE): $(EXE)
 	@echo "* Starting test application '$(MODULE)'..."
 	@echo "*"
 	./$(EXE) $(ARGS)
-
-# ReChannel library depends on phony target to build the lib
-$(RECHANNEL2_LIB_DIR)/librechannel.a: ReChannel
-
-# (phony) rule to remake ReChannel library, if necessary
-ReChannel:
-	@echo "* Rebuild ReChannel library, if necessary..."
-	cd $(RECHANNEL2_MAKE_DIR) && $(MAKE) -f Makefile ReChannel
 
 # rule to compile a single source file
 .cpp.o:
