@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.11.8)  16 SEP 2015 11:38
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.11.8)  29 DEC 2015 01:55
 entering extended mode
 **tesi.tex
 (C:\Users\enric_000\Documents\TESI\tesi.tex
@@ -893,22 +893,20 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 63.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 63.
- [1
-
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
-<cpu.png, id=9, 150.5625pt x 208.3785pt>
+ <cpu.png, id=1, 150.5625pt x 208.3785pt>
 File: cpu.png Graphic file (type png)
  <use cpu.png>
 Package pdftex.def Info: cpu.png used on input line 83.
 (pdftex.def)             Requested size: 150.56212pt x 208.37798pt.
- [2 <C:/Users/enric_000/Documents/TESI/cpu.png>] <fpga.png, id=15, 481.8pt x 34
-9.305pt>
+ [1
+
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] [2 <C:/Users/enric_000/Do
+cuments/TESI/cpu.png>] <fpga.png, id=15, 481.8pt x 349.305pt>
 File: fpga.png Graphic file (type png)
  <use fpga.png>
 Package pdftex.def Info: fpga.png used on input line 102.
 (pdftex.def)             Requested size: 289.08221pt x 209.58461pt.
-
-[3 <C:/Users/enric_000/Documents/TESI/fpga.png>]
+ [3 <C:/Users/enric_000/Documents/TESI/fpga.png>]
 <ciclo_evolutivo.png, id=20, 399.29175pt x 392.667pt>
 File: ciclo_evolutivo.png Graphic file (type png)
 
@@ -923,29 +921,41 @@ File: protocollo_riconfigurazione.png Graphic file (type png)
 Package pdftex.def Info: protocollo_riconfigurazione.png used on input line 161
 .
 (pdftex.def)             Requested size: 219.51959pt x 253.2455pt.
- [7] [8 <C:/Users/enric_000/Documents/TESI/protocollo_riconfigurazione.png>] [9
+ [7 <C:/Users/enric_000/Documents/TESI/protocollo_riconfigurazione.png>] [8] [9
 ]
-(C:\Users\enric_000\Documents\TESI\tesi.aux)
+<portal.png, id=41, 361.95226pt x 248.127pt>
+File: portal.png Graphic file (type png)
+ <use portal.png>
+Package pdftex.def Info: portal.png used on input line 219.
+(pdftex.def)             Requested size: 180.97568pt x 124.06319pt.
+ [10]
+<scheduler_rechannel.png, id=47, 719.0865pt x 374.5995pt>
+File: scheduler_rechannel.png Graphic file (type png)
 
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+<use scheduler_rechannel.png>
+Package pdftex.def Info: scheduler_rechannel.png used on input line 231.
+(pdftex.def)             Requested size: 359.54237pt x 187.29929pt.
+ [11 <C:/Users/enric_000/Documents/TESI/portal.png> <C:/Users/enric_000/Documen
+ts/TESI/scheduler_rechannel.png>] [12]
+(C:\Users\enric_000\Documents\TESI\tesi.aux) ) 
 Here is how much of TeX's memory you used:
- 4685 strings out of 493921
- 66543 string characters out of 3144864
- 133490 words of memory out of 3000000
- 7924 multiletter control sequences out of 15000+200000
- 9435 words of font info for 33 fonts, out of 3000000 for 9000
+ 4700 strings out of 493921
+ 66802 string characters out of 3144864
+ 134490 words of memory out of 3000000
+ 7936 multiletter control sequences out of 15000+200000
+ 9743 words of font info for 34 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 44i,11n,43p,1011b,269s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><
-C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/
-Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Pro
-gram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Progr
-am Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on tesi.pdf (9 pages, 346351 bytes).
+ 44i,10n,43p,1011b,308s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files (x86)/MiKTeX 2.
+9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files (x86)/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/
+type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/typ
+e1/public/amsfonts/cm/cmss12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1
+/public/amsfonts/cm/cmti10.pfb>
+Output written on tesi.pdf (12 pages, 414783 bytes).
 PDF statistics:
- 59 PDF objects out of 1000 (max. 8388607)
+ 74 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
