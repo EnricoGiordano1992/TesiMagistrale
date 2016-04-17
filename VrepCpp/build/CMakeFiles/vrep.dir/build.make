@@ -34,11 +34,14 @@ RM = /usr/bin/cmake -E remove -f
 # Escaping for special characters.
 EQUALS = =
 
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/enrico-giordano/ROBOTICA/VrepCpp
+CMAKE_SOURCE_DIR = /home/enrico-giordano/TesiMagistrale/VrepCpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/enrico-giordano/ROBOTICA/VrepCpp/build
+CMAKE_BINARY_DIR = /home/enrico-giordano/TesiMagistrale/VrepCpp/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/vrep.dir/depend.make
@@ -51,17 +54,17 @@ include CMakeFiles/vrep.dir/flags.make
 
 CMakeFiles/vrep.dir/src/main.cpp.o: CMakeFiles/vrep.dir/flags.make
 CMakeFiles/vrep.dir/src/main.cpp.o: ../src/main.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/enrico-giordano/ROBOTICA/VrepCpp/build/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/enrico-giordano/TesiMagistrale/VrepCpp/build/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/vrep.dir/src/main.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/vrep.dir/src/main.cpp.o -c /home/enrico-giordano/ROBOTICA/VrepCpp/src/main.cpp
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/vrep.dir/src/main.cpp.o -c /home/enrico-giordano/TesiMagistrale/VrepCpp/src/main.cpp
 
 CMakeFiles/vrep.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/vrep.dir/src/main.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/enrico-giordano/ROBOTICA/VrepCpp/src/main.cpp > CMakeFiles/vrep.dir/src/main.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/enrico-giordano/TesiMagistrale/VrepCpp/src/main.cpp > CMakeFiles/vrep.dir/src/main.cpp.i
 
 CMakeFiles/vrep.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/vrep.dir/src/main.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/enrico-giordano/ROBOTICA/VrepCpp/src/main.cpp -o CMakeFiles/vrep.dir/src/main.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/enrico-giordano/TesiMagistrale/VrepCpp/src/main.cpp -o CMakeFiles/vrep.dir/src/main.cpp.s
 
 CMakeFiles/vrep.dir/src/main.cpp.o.requires:
 .PHONY : CMakeFiles/vrep.dir/src/main.cpp.o.requires
@@ -98,6 +101,6 @@ CMakeFiles/vrep.dir/clean:
 .PHONY : CMakeFiles/vrep.dir/clean
 
 CMakeFiles/vrep.dir/depend:
-	cd /home/enrico-giordano/ROBOTICA/VrepCpp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/enrico-giordano/ROBOTICA/VrepCpp /home/enrico-giordano/ROBOTICA/VrepCpp /home/enrico-giordano/ROBOTICA/VrepCpp/build /home/enrico-giordano/ROBOTICA/VrepCpp/build /home/enrico-giordano/ROBOTICA/VrepCpp/build/CMakeFiles/vrep.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/enrico-giordano/TesiMagistrale/VrepCpp/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/enrico-giordano/TesiMagistrale/VrepCpp /home/enrico-giordano/TesiMagistrale/VrepCpp /home/enrico-giordano/TesiMagistrale/VrepCpp/build /home/enrico-giordano/TesiMagistrale/VrepCpp/build /home/enrico-giordano/TesiMagistrale/VrepCpp/build/CMakeFiles/vrep.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/vrep.dir/depend
 

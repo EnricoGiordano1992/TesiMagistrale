@@ -46,11 +46,14 @@ RM = /usr/bin/cmake -E remove -f
 # Escaping for special characters.
 EQUALS = =
 
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/enrico-giordano/ROBOTICA/VrepCpp
+CMAKE_SOURCE_DIR = /home/enrico-giordano/TesiMagistrale/VrepCpp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/enrico-giordano/ROBOTICA/VrepCpp/build
+CMAKE_BINARY_DIR = /home/enrico-giordano/TesiMagistrale/VrepCpp/build
 
 #=============================================================================
 # Target rules for target CMakeFiles/vrep.dir
@@ -59,7 +62,7 @@ CMAKE_BINARY_DIR = /home/enrico-giordano/ROBOTICA/VrepCpp/build
 CMakeFiles/vrep.dir/all:
 	$(MAKE) -f CMakeFiles/vrep.dir/build.make CMakeFiles/vrep.dir/depend
 	$(MAKE) -f CMakeFiles/vrep.dir/build.make CMakeFiles/vrep.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/enrico-giordano/ROBOTICA/VrepCpp/build/CMakeFiles  1
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/enrico-giordano/TesiMagistrale/VrepCpp/build/CMakeFiles  1
 	@echo "Built target vrep"
 .PHONY : CMakeFiles/vrep.dir/all
 
@@ -69,9 +72,9 @@ all: CMakeFiles/vrep.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/vrep.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/enrico-giordano/ROBOTICA/VrepCpp/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/enrico-giordano/TesiMagistrale/VrepCpp/build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/vrep.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/enrico-giordano/ROBOTICA/VrepCpp/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/enrico-giordano/TesiMagistrale/VrepCpp/build/CMakeFiles 0
 .PHONY : CMakeFiles/vrep.dir/rule
 
 # Convenience name for target.

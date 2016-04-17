@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/enrico-giordano/ROBOTICA/VrepCpp/src/main.cpp
+/home/enrico-giordano/TesiMagistrale/VrepCpp/src/main.cpp
 stdio.h
 -
 stdlib.h
@@ -24,7 +24,7 @@ unistd.h
 iostream
 -
 extApi.h
-/home/enrico-giordano/ROBOTICA/VrepCpp/src/extApi.h
+/home/enrico-giordano/TesiMagistrale/VrepCpp/src/extApi.h
 v_repLib.h
 -
 
