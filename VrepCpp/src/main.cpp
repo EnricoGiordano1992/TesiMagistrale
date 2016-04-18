@@ -158,7 +158,7 @@ void abbassati(){
       else if(i == L_B_V2 || i == L_T_V2 || i == R_B_V2 || i == R_T_V2)
         simxSetJointTargetPosition(clientID, verticalJoints.at(i), 1.57, simx_opmode_oneshot);
       else
-      simxSetJointTargetPosition(clientID, verticalJoints.at(i), -0.78, simx_opmode_oneshot);      
+      simxSetJointTargetPosition(clientID, verticalJoints.at(i), -0.78, simx_opmode_oneshot);
   }
 
   assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
@@ -181,148 +181,119 @@ void abbassati(){
 }
 
 
-void cammina_laterale(){
-  while(1){
+void cammina(int passi){
+  int n = passi;
+  while(n--){
 
-    //sinistra
+    //SINISTRA
     assert(simxPauseCommunication(clientID, 1) == simx_return_ok); //necessario quando si da un TARGET VELOCITY al joint
 
-    simxSetJointTargetPosition(clientID, verticalJoints.at(1), 0.78, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(5), 1.04, simx_opmode_oneshot);
+    printf("1\n");
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.26, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), 0, simx_opmode_oneshot);
 
     assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
     simxSynchronousTrigger(clientID);  //  sincronizzazione tra simulazione e remoteApi
     wait_move(2);
     assert(simxPauseCommunication(clientID, 1) == simx_return_ok); //necessario quando si da un TARGET VELOCITY al joint
 
-    simxSetJointTargetPosition(clientID, verticalJoints.at(3), 0.78, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(7), 1.04, simx_opmode_oneshot);
-
-    simxSetJointTargetPosition(clientID, verticalJoints.at(0), 1.04, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(2), 1.04, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(4), 0.78, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(6), 0.78, simx_opmode_oneshot);
-
-    for (int i = 0; i < numHorizontalJoint; ++i)
-    {
-      if(i == 3 || i == 5)
-        simxSetJointTargetPosition(clientID, horizontalJoints.at(i), -0.52, simx_opmode_oneshot);
-      else if(i == 1 || i == 7 )
-        simxSetJointTargetPosition(clientID, horizontalJoints.at(i), 0.52, simx_opmode_oneshot);
-      else
-        simxSetJointTargetPosition(clientID, horizontalJoints.at(i), 0, simx_opmode_oneshot);
-    }
-
-    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
-    simxSynchronousTrigger(clientID);  //  sincronizzazione tra simulazione e remoteApi
-    wait_move(5);
-    assert(simxPauseCommunication(clientID, 1) == simx_return_ok); //necessario quando si da un TARGET VELOCITY al joint
-
-    //destra
-    simxSetJointTargetPosition(clientID, verticalJoints.at(1), 1.04, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(5), 0.78, simx_opmode_oneshot);
-
-    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
-    simxSynchronousTrigger(clientID);  //  sincronizzazione tra simulazione e remoteApi
-    wait_move(5);
-    assert(simxPauseCommunication(clientID, 1) == simx_return_ok); //necessario quando si da un TARGET VELOCITY al joint
-
-    simxSetJointTargetPosition(clientID, verticalJoints.at(3), 1.04, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(7), 0.78, simx_opmode_oneshot);
-
-    simxSetJointTargetPosition(clientID, verticalJoints.at(0), 0.78, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(2), 0.78, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(4), 1.04, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(6), 1.04, simx_opmode_oneshot);
-
-    for (int i = 0; i < numHorizontalJoint; ++i)
-    {
-      if(i == 3 || i == 5)
-        simxSetJointTargetPosition(clientID, horizontalJoints.at(i), -0.52, simx_opmode_oneshot);
-      else if(i == 1 || i == 7 )
-        simxSetJointTargetPosition(clientID, horizontalJoints.at(i), 0.52, simx_opmode_oneshot);
-      else
-        simxSetJointTargetPosition(clientID, horizontalJoints.at(i), 0, simx_opmode_oneshot);
-    }
-
-    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
-
-    simxSynchronousTrigger(clientID);  //  sincronizzazione tra simulazione e remoteApi
-
-    wait_move(5);
-  }
-}
-
-
-void cammina(){
-  while(1){
-
-    //sinistra
-    assert(simxPauseCommunication(clientID, 1) == simx_return_ok); //necessario quando si da un TARGET VELOCITY al joint
-
-    simxSetJointTargetPosition(clientID, verticalJoints.at(1), 0.78, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(5), 1.04, simx_opmode_oneshot);
+    printf("1-1\n");
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 1.57, simx_opmode_oneshot);
 
     assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
     simxSynchronousTrigger(clientID);  //  sincronizzazione tra simulazione e remoteApi
     wait_move(2);
     assert(simxPauseCommunication(clientID, 1) == simx_return_ok); //necessario quando si da un TARGET VELOCITY al joint
 
-    simxSetJointTargetPosition(clientID, verticalJoints.at(3), 0.78, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(7), 1.04, simx_opmode_oneshot);
-
-    simxSetJointTargetPosition(clientID, verticalJoints.at(0), 1.04, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(2), 1.04, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(4), 0.78, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(6), 0.78, simx_opmode_oneshot);
-
-    for (int i = 0; i < numHorizontalJoint; ++i)
-    {
-      if(i == 3 || i == 5)
-        simxSetJointTargetPosition(clientID, horizontalJoints.at(i), -0.52, simx_opmode_oneshot);
-      else if(i == 1 || i == 7 )
-        simxSetJointTargetPosition(clientID, horizontalJoints.at(i), 0.52, simx_opmode_oneshot);
-      else
-        simxSetJointTargetPosition(clientID, horizontalJoints.at(i), 0, simx_opmode_oneshot);
-    }
+    printf("2\n");
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), -1.30, simx_opmode_oneshot);
+    //simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), 0.78, simx_opmode_oneshot);
 
     assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
     simxSynchronousTrigger(clientID);  //  sincronizzazione tra simulazione e remoteApi
-    wait_move(5);
+    wait_move(2);
     assert(simxPauseCommunication(clientID, 1) == simx_return_ok); //necessario quando si da un TARGET VELOCITY al joint
 
-    //destra
-    simxSetJointTargetPosition(clientID, verticalJoints.at(1), 1.04, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(5), 0.78, simx_opmode_oneshot);
+    printf("2-2\n");
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 1.04, simx_opmode_oneshot);
 
     assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
     simxSynchronousTrigger(clientID);  //  sincronizzazione tra simulazione e remoteApi
-    wait_move(5);
+    wait_move(2);
     assert(simxPauseCommunication(clientID, 1) == simx_return_ok); //necessario quando si da un TARGET VELOCITY al joint
 
-    simxSetJointTargetPosition(clientID, verticalJoints.at(3), 1.04, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(7), 0.78, simx_opmode_oneshot);
-
-    simxSetJointTargetPosition(clientID, verticalJoints.at(0), 0.78, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(2), 0.78, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(4), 1.04, simx_opmode_oneshot);
-    simxSetJointTargetPosition(clientID, verticalJoints.at(6), 1.04, simx_opmode_oneshot);
-
-    for (int i = 0; i < numHorizontalJoint; ++i)
-    {
-      if(i == 3 || i == 5)
-        simxSetJointTargetPosition(clientID, horizontalJoints.at(i), -0.52, simx_opmode_oneshot);
-      else if(i == 1 || i == 7 )
-        simxSetJointTargetPosition(clientID, horizontalJoints.at(i), 0.52, simx_opmode_oneshot);
-      else
-        simxSetJointTargetPosition(clientID, horizontalJoints.at(i), 0, simx_opmode_oneshot);
-    }
+    printf("3\n");
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), -0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), 0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.78, simx_opmode_oneshot);
 
     assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);  //  sincronizzazione tra simulazione e remoteApi
+    wait_move(2);
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok); //necessario quando si da un TARGET VELOCITY al joint
 
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
     simxSynchronousTrigger(clientID);  //  sincronizzazione tra simulazione e remoteApi
 
-    wait_move(5);
+
+    //DESTRA
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok); //necessario quando si da un TARGET VELOCITY al joint
+
+    printf("1\n");
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.26, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), 0, simx_opmode_oneshot);
+
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);  //  sincronizzazione tra simulazione e remoteApi
+    wait_move(2);
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok); //necessario quando si da un TARGET VELOCITY al joint
+
+    printf("1-1\n");
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 1.57, simx_opmode_oneshot);
+
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);  //  sincronizzazione tra simulazione e remoteApi
+    wait_move(2);
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok); //necessario quando si da un TARGET VELOCITY al joint
+
+    printf("2\n");
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), -1.30, simx_opmode_oneshot);
+    //simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), 0.78, simx_opmode_oneshot);
+
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);  //  sincronizzazione tra simulazione e remoteApi
+    wait_move(2);
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok); //necessario quando si da un TARGET VELOCITY al joint
+
+    printf("2-2\n");
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 1.04, simx_opmode_oneshot);
+
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);  //  sincronizzazione tra simulazione e remoteApi
+    wait_move(2);
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok); //necessario quando si da un TARGET VELOCITY al joint
+
+    printf("3\n");
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), -0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), 0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.78, simx_opmode_oneshot);
+
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);  //  sincronizzazione tra simulazione e remoteApi
+    wait_move(2);
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok); //necessario quando si da un TARGET VELOCITY al joint
+
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);  //  sincronizzazione tra simulazione e remoteApi
+
   }
 }
 
@@ -431,8 +402,9 @@ int main(int argc,char* argv[])
 
           //sleep(1);
 
-          //printf("cammina\n");
-          //cammina();
+          printf("cammina\n");
+          cammina(5);
+
           printf("eseguo abbassati()\n");
           abbassati();
 
