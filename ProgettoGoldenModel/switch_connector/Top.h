@@ -1,5 +1,6 @@
 #include <systemc.h>
 #include <ReChannel.h>
+#include "specularity.h"
 
 /*
  * The reconfigurable modules and the dynamic side's port map
@@ -45,6 +46,8 @@ SC_MODULE(Top)
 
     // switch connector
     rc_switch_connector<dynPortMap> connector;
+
+    STATES STATUS, NEXT_STATUS;
 
     SC_CTOR(Top)
         : in1_fifo(1), in2_fifo(1), out1_fifo(1), out2_fifo(1),

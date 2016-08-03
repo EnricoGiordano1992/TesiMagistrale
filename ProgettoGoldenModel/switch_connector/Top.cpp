@@ -30,15 +30,31 @@ void Top::activate(rc_reconfigurable& module)
 
 void Top::producer_proc()
 {
+    STATUS = S_INIT;
+    in1_fifo.write(STATUS);
+    RC_COUTL("Top: input written (" << STATUS << ")"
+        " (t=" << sc_time_stamp() << ")");
+    wait(1000, SC_MS);
+
     for (int i=0; i < 50; ++i) {
-        int x = rnd100();
-        int y = rnd100();
-        in1_fifo.write(x);
-        in2_fifo.write(y);
-        RC_COUTL("Top: input written (" << x << ", " << y << ")"
+        STATUS = S_WALK;
+        in1_fifo.write(STATUS);
+        RC_COUTL("Top: input written (" << STATUS << ")"
             " (t=" << sc_time_stamp() << ")");
-        wait(10, SC_NS);
+        wait(2000, SC_MS);
     }
+
+    STATUS = S_STOP;
+    in1_fifo.write(STATUS);
+    RC_COUTL("Top: input written (" << STATUS << ")"
+        " (t=" << sc_time_stamp() << ")");
+    wait(2000, SC_MS);
+
+    STATUS = S_RECONFIG;
+    in1_fifo.write(STATUS);
+    RC_COUTL("Top: input written (" << STATUS << ")"
+        " (t=" << sc_time_stamp() << ")");
+    wait(1000, SC_MS);
 }
 
 void Top::control_proc()
@@ -53,8 +69,8 @@ void Top::monitor_proc()
     while(true) {
         ++i;
         int x = out1_fifo.read();
-        int y = out2_fifo.read();
-        RC_COUTL("Top: " << i << ". output read (" << x << ", " << y << ")"
+//        int y = out2_fifo.read();
+        RC_COUTL("Top: " << i << ". output read (" << x << ")"
             " (t=" << sc_time_stamp() << ")");
     }
 }

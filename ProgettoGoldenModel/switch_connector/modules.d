@@ -883,4 +883,11 @@ modules.o: modules.cpp modules.h \
  /home/enrico-giordano/TesiMagistrale/rechannel/lib/ReChannel/components/rc_sc_signal_resolved.h \
  /home/enrico-giordano/TesiMagistrale/rechannel/lib/ReChannel/components/rc_sc_signal_rv.h \
  /home/enrico-giordano/TesiMagistrale/rechannel/lib/ReChannel/components/rc_sc_fifo.h \
- /home/enrico-giordano/TesiMagistrale/rechannel/lib/ReChannel/communication/exportals/rc_fifo_exportals.h
+ /home/enrico-giordano/TesiMagistrale/rechannel/lib/ReChannel/communication/exportals/rc_fifo_exportals.h \
+ specularity.h robot_model.h \
+ /home/enrico-giordano/VREP/programming/remoteApi/extApi.h \
+ /home/enrico-giordano/VREP/programming/remoteApi/extApiPlatform.h \
+ /home/enrico-giordano/VREP/programming/include/v_repConst.h \
+ /home/enrico-giordano/VREP/programming/include/v_repLib.h \
+ /home/enrico-giordano/VREP/programming/include/v_repConst.h \
+ /home/enrico-giordano/VREP/programming/include/v_repTypes.h

@@ -1,5 +1,6 @@
 #include <systemc.h>
 #include <ReChannel.h>
+#include "specularity.h"
 
 // The port map for automatic binding of the reconfigurable modules:
 
@@ -20,6 +21,8 @@ RC_RECONFIGURABLE_MODULE(Lying_configuration)
     rc_fifo_in<int>  in2;
     rc_fifo_out<int> out1;
     rc_fifo_out<int> out2;
+
+    STATES STATUS, NEXT_STATUS;
 
     dynPortMap pm;
 

@@ -883,8 +883,10 @@ main.o: main.cpp /usr/local/systemc-2.3.1/include/systemc.h \
  /home/enrico-giordano/TesiMagistrale/rechannel/lib/ReChannel/components/rc_sc_signal_rv.h \
  /home/enrico-giordano/TesiMagistrale/rechannel/lib/ReChannel/components/rc_sc_fifo.h \
  /home/enrico-giordano/TesiMagistrale/rechannel/lib/ReChannel/communication/exportals/rc_fifo_exportals.h \
- modules.h robot_model.h \
+ specularity.h robot_model.h \
  /home/enrico-giordano/VREP/programming/remoteApi/extApi.h \
+ /home/enrico-giordano/VREP/programming/remoteApi/extApiPlatform.h \
+ /home/enrico-giordano/VREP/programming/include/v_repConst.h \
  /home/enrico-giordano/VREP/programming/include/v_repLib.h \
  /home/enrico-giordano/VREP/programming/include/v_repConst.h \
- /home/enrico-giordano/VREP/programming/include/v_repTypes.h
+ /home/enrico-giordano/VREP/programming/include/v_repTypes.h modules.h
