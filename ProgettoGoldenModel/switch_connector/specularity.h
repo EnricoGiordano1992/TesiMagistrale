@@ -4,6 +4,8 @@
 #include "robot_model.h"
 
 typedef enum {S_INIT, S_WALK, S_STOP, S_RECONFIG} STATES;
+typedef enum {LYING, ERECT} ROBOT_CONFIG;
+
 
 extern float horizontalPosition[numHorizontalJoint][numHorizontalJoint] ;
 extern float verticalPosition[numVerticalJoint][numVerticalJoint] ;

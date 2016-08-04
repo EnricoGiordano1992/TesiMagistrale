@@ -23,6 +23,7 @@ RC_PORTMAP(
 
 SC_MODULE(Top)
 {
+    bool command_executed = false;
     // channels
     sc_fifo<int> in1_fifo;
     sc_fifo<int> in2_fifo;
@@ -40,6 +41,7 @@ SC_MODULE(Top)
 
     // reconfigurable modules
     Lying_configuration m1;
+    Erect_configuration m2;
 
     // port map for static side binding
     staticPortMap stat_portmap;
@@ -48,10 +50,11 @@ SC_MODULE(Top)
     rc_switch_connector<dynPortMap> connector;
 
     STATES STATUS, NEXT_STATUS;
+    ROBOT_CONFIG robot_config;
 
     SC_CTOR(Top)
         : in1_fifo(1), in2_fifo(1), out1_fifo(1), out2_fifo(1),
-          ctrl("ctrl"), m1("Lying_configuration"),
+          ctrl("ctrl"), m1("Lying_configuration"), m2("Erect_configuration"),
           // initialise the static port map
           stat_portmap(in1_fifo, in2_fifo, out1_fifo, out2_fifo),
           // initialise the switch connector
@@ -63,12 +66,14 @@ SC_MODULE(Top)
 
         // automatically connect portals with the dynamic side
         connector.bind_dynamic(m1);
+        connector.bind_dynamic(m2);
 
         // set module's loading times
         m1.rc_set_delay(RC_LOAD, sc_time(100, SC_NS));
+        m2.rc_set_delay(RC_LOAD, sc_time(100, SC_NS));
 
         // setup the reconfiguration controller
-        ctrl.add(m1);
+        ctrl.add(m1+m2);
 
         // m1 shall be initially active
         ctrl.activate(m1);

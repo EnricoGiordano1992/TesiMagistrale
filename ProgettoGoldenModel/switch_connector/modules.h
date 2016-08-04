@@ -38,3 +38,29 @@ RC_RECONFIGURABLE_MODULE(Lying_configuration)
 private:
     void proc();
 };
+
+
+
+RC_RECONFIGURABLE_MODULE(Erect_configuration)
+{
+    rc_fifo_in<int>  in1;
+    rc_fifo_in<int>  in2;
+    rc_fifo_out<int> out1;
+    rc_fifo_out<int> out2;
+
+    STATES STATUS, NEXT_STATUS;
+
+    dynPortMap pm;
+
+    RC_RECONFIGURABLE_CTOR(Erect_configuration),
+        pm(in1, in2, out1, out2) // initialise the port map with the ports
+    {
+        // add the port map to the module
+        rc_add_portmap(pm);
+
+        RC_THREAD(proc);
+    }
+
+private:
+    void proc();
+};

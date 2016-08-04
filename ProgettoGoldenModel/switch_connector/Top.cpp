@@ -30,37 +30,68 @@ void Top::activate(rc_reconfigurable& module)
 
 void Top::producer_proc()
 {
-    STATUS = S_INIT;
-    in1_fifo.write(STATUS);
-    RC_COUTL("Top: input written (" << STATUS << ")"
-        " (t=" << sc_time_stamp() << ")");
-    wait(1000, SC_MS);
 
-    for (int i=0; i < 50; ++i) {
-        STATUS = S_WALK;
-        in1_fifo.write(STATUS);
-        RC_COUTL("Top: input written (" << STATUS << ")"
-            " (t=" << sc_time_stamp() << ")");
-        wait(2000, SC_MS);
+    while(1){
+      STATUS = S_INIT;
+      in1_fifo.write(STATUS);
+      command_executed = false;
+      RC_COUTL("Top: input written (" << STATUS << ")"
+          " (t=" << sc_time_stamp() << ", config="<< robot_config << ")");
+      wait(1000, SC_MS);
+
+      while(!command_executed);
+      STATUS = S_STOP;
+      in1_fifo.write(STATUS);
+      command_executed = false;
+      RC_COUTL("Top: input written (" << STATUS << ")"
+      " (t=" << sc_time_stamp() << ", config="<< robot_config << ")");
+      wait(1000, SC_MS);
+
+      for (int i=0; i < 5; ++i) {
+          while(!command_executed);
+          STATUS = S_WALK;
+          in1_fifo.write(STATUS);
+          command_executed = false;
+          RC_COUTL("Top: input written (" << STATUS << ")"
+          " (t=" << sc_time_stamp() << ", config="<< robot_config << ")");
+          wait(1000, SC_MS);
+      }
+
+      while(!command_executed);
+
+      STATUS = S_STOP;
+      in1_fifo.write(STATUS);
+      command_executed = false;
+      RC_COUTL("Top: input written (" << STATUS << ")"
+      " (t=" << sc_time_stamp() << ", config="<< robot_config << ")");
+      wait(1000, SC_MS);
+
+      while(!command_executed);
+      STATUS = S_RECONFIG;
+      in1_fifo.write(STATUS);
+      command_executed = false;
+      RC_COUTL("Top: input written (" << STATUS << ")"
+      " (t=" << sc_time_stamp() << ", config="<< robot_config << ")");
+      wait(1000, SC_MS);
     }
-
-    STATUS = S_STOP;
-    in1_fifo.write(STATUS);
-    RC_COUTL("Top: input written (" << STATUS << ")"
-        " (t=" << sc_time_stamp() << ")");
-    wait(2000, SC_MS);
-
-    STATUS = S_RECONFIG;
-    in1_fifo.write(STATUS);
-    RC_COUTL("Top: input written (" << STATUS << ")"
-        " (t=" << sc_time_stamp() << ")");
-    wait(1000, SC_MS);
 }
 
 void Top::control_proc()
 {
-    wait(32, SC_NS);
-    activate(m1);
+    while(1){
+      activate(m1);
+      robot_config = LYING;
+      while(STATUS == S_RECONFIG)
+        wait(1000, SC_MS);
+      while(STATUS != S_RECONFIG)
+        wait(1000, SC_MS);
+      activate(m2);
+      robot_config = ERECT;
+      while(STATUS == S_RECONFIG)
+        wait(1000, SC_MS);
+      while(STATUS != S_RECONFIG)
+        wait(1000, SC_MS);
+    }
 }
 
 void Top::monitor_proc()
@@ -72,5 +103,7 @@ void Top::monitor_proc()
 //        int y = out2_fifo.read();
         RC_COUTL("Top: " << i << ". output read (" << x << ")"
             " (t=" << sc_time_stamp() << ")");
+        if(x == static_cast<int>(STATUS))
+          command_executed = true;
     }
 }

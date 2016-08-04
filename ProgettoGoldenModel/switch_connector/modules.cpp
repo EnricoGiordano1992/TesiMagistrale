@@ -695,12 +695,12 @@ void striscia_al_contrario(int passi){
 
 void Lying_configuration::proc()
 {
+    STATUS = S_INIT;
+
     while(true) {
         //receive FSM status from bus
         NEXT_STATUS =  static_cast<STATES>(in1.read());
         // start transaction after first data has been read
-        RC_COUTL("Lying_configuration: " << STATUS
-            << " (t=" << sc_time_stamp() << ")");
 
         RC_TRANSACTION {
 
@@ -717,6 +717,51 @@ void Lying_configuration::proc()
               break;
 
             case S_STOP:
+              wait_move(20);
+              break;
+
+            case S_RECONFIG:
+              wait_move(20);
+              break;
+
+          }
+          //wait(1000, SC_MS);
+
+          RC_COUTL("Lying_configuration: executed " << STATUS
+              << " (t=" << sc_time_stamp() << ")");
+
+          out1.write(static_cast<int>(STATUS));
+        } // end transaction
+        // continue while loop
+    }
+}
+
+
+void Erect_configuration::proc()
+{
+    STATUS = S_INIT;
+    while(true) {
+        //receive FSM status from bus
+        NEXT_STATUS =  static_cast<STATES>(in1.read());
+        // start transaction after first data has been read
+        RC_COUTL("Erect_configuration: " << STATUS
+            << " (t=" << sc_time_stamp() << ")");
+
+        RC_TRANSACTION {
+
+          STATUS = NEXT_STATUS;
+
+          switch(STATUS){
+
+            case S_INIT:
+              alzati();
+              break;
+
+            case S_WALK:
+              cammina(1);
+              break;
+
+            case S_STOP:
               wait_move(10);
               break;
 
@@ -726,26 +771,10 @@ void Lying_configuration::proc()
 
           }
 
-          RC_COUTL("Lying_configuration: executed " << STATUS
+          RC_COUTL("Erect_configuration: executed " << STATUS
               << " (t=" << sc_time_stamp() << ")");
 
           out1.write(static_cast<int>(STATUS));
-          /*
-            ++i;
-            RC_COUTL("Lying_configuration: 1. input read: " << data1
-                << " (t=" << sc_time_stamp() << ")");
-            RC_COUTL("Lying_configuration: START WORKING #" << i
-                << " (t=" << sc_time_stamp() << ")");
-            int data2 = in2.read();
-            RC_COUTL("Lying_configuration: 2. input read: " << data2
-                << " (t=" << sc_time_stamp() << ")");
-            int maximum = (data1 >= data2 ? data1 : data2);
-            wait(10, SC_NS);
-            out1.write(maximum);
-            out2.write(maximum);
-            RC_COUTL("Lying_configuration: FINISHED #" << i
-                << " (t=" << sc_time_stamp() << ")");
-          */
         } // end transaction
         // continue while loop
     }
