@@ -1,0 +1,1 @@
+/usr/bin/c++    -std=c++0x -Wall -Wextra -ftemplate-depth=1000 -O3 -fopenmp    CMakeFiles/mlpack_gmm_train.dir/gmm_train_main.cpp.o  -o ../../../../bin/mlpack_gmm_train -rdynamic ../../../../lib/libmlpack.so.2.0 -larmadillo -lboost_program_options -lboost_unit_test_framework -lboost_serialization -lrt -Wl,-rpath,/home/enrico-giordano/TesiMagistrale/mlpack-2.0.3/build/lib: 
