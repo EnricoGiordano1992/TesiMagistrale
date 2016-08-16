@@ -6,10 +6,13 @@
 #include <time.h>
 #include <unistd.h>
 #include <iostream>
+#include <thread>
+
 
 
 extern "C" {
     #include "extApi.h"
+    #include "extApiPlatform.h"
     #include <v_repLib.h>
 /*	#include "extApiCustom.h" if you wanna use custom remote API functions! */
 }
@@ -1066,14 +1069,36 @@ int main(int argc,char* argv[])
 
    simxInt errorCode;
 
+   simxInt visionSensor;
+   simxGetObjectHandle(clientID, "Vision_sensor", &visionSensor, simx_opmode_oneshot_wait);
+   simxInt resolution[2];
+   simxUChar* image;
+
+   simxGetVisionSensorImage(clientID,visionSensor,resolution,&image,1,simx_opmode_streaming);
+
+   simxPauseCommunication(clientID, 0);
+
    abbassati();
    wait_move(10);
 
    while(simxGetConnectionId(clientID) != -1)
    {
-/*
      printf("alzati\n");
      alzati();
+
+     simxGetVisionSensorImage(clientID,visionSensor,resolution,&image,1,simx_opmode_oneshot_wait);
+
+      printf("%d %d\n", resolution[0], resolution[1]);
+
+      for(int i = 0; i < resolution[0]; i++){
+        for(int j = 0; j < resolution[1]; j++){
+          printf("%d ", image[i*resolution[0]+j]);
+        }
+        printf("\n");
+      }
+      printf("*********************\n");
+
+      /*
 
      errorCode=simxReadProximitySensor(clientID,sensor, &detectionState, detectedPoint, &detectedObjectHandle, detectedSurfaceNormalVector, simx_opmode_streaming);
      printf("%d %f %f %f\n", detectionState, detectedPoint[0], detectedPoint[1], detectedPoint[2]);
@@ -1113,9 +1138,11 @@ int main(int argc,char* argv[])
 
       errorCode=simxReadProximitySensor(clientID,sensor, &detectionState, detectedPoint, &detectedObjectHandle, detectedSurfaceNormalVector, simx_opmode_streaming);
       printf("%d %f %f %f\n", detectionState, detectedPoint[0], detectedPoint[1], detectedPoint[2]);
-*/
-      rotea_sx();
+
+      rotea_dx();
       wait_move(20);
+*/
+
 	}
 
 

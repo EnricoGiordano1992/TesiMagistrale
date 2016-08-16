@@ -23,8 +23,12 @@ unistd.h
 -
 iostream
 -
+thread
+-
 extApi.h
 /home/enrico-giordano/TesiMagistrale/VrepCppSensore/src/extApi.h
+extApiPlatform.h
+/home/enrico-giordano/TesiMagistrale/VrepCppSensore/src/extApiPlatform.h
 v_repLib.h
 -
 

@@ -30,6 +30,7 @@ int main(void){
   int sensor_down;
   int sensor_left;
   int sensor_right;
+  int sensor_finished_obstacle;
 
   int sensor_finish;
 
@@ -41,7 +42,7 @@ int main(void){
   bool tried_right = false;
 
   do{
-    scanf("%d %d %d %d %d", &sensor_finish, &sensor_up, &sensor_down, &sensor_left, &sensor_right);
+    scanf("%d %d %d %d %d %d", &sensor_finish, &sensor_finished_obstacle, &sensor_up, &sensor_down, &sensor_left, &sensor_right);
 
     //if path not finished
     if(sensor_finish != 1){
@@ -55,13 +56,23 @@ int main(void){
         trying_left = false;
       }
       //else if I can go ahead but I'm lying
-      else if(sensor_up != 1 && !im_standing){
+      else if(sensor_up != 1 && !im_standing && sensor_finished_obstacle != 1){
         actions.push(new Action(AHEAD, true, false));
         cout << "avanti strisciando" << endl;
         tried_left = false;
         tried_right = false;
         trying_right = true;
         trying_left = false;
+      }
+      //else if I can grow up
+      else if(sensor_up != 1 && !im_standing && sensor_finished_obstacle == 1){
+        actions.push(new Action(AHEAD, true, false));
+        cout << "mi rialzo" << endl;
+        tried_left = false;
+        tried_right = false;
+        trying_right = true;
+        trying_left = false;
+        im_standing = true;
       }
       //else if I can't go ahead standing
       else if(sensor_up == 1 && im_standing){
