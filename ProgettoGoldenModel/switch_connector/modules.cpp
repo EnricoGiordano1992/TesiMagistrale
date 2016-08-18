@@ -952,6 +952,14 @@ void Lying_configuration::proc()
               wait_move(20);
               break;
 
+            case S_LEFT:
+              rotea_sx();
+              break;
+
+            case S_RIGHT:
+              rotea_dx();
+              break;
+
           }
           //wait(1000, SC_MS);
 
@@ -995,6 +1003,14 @@ void Erect_configuration::proc()
 
             case S_RECONFIG:
               wait_move(10);
+              break;
+
+            case S_LEFT:
+              rotea_sx();
+              break;
+
+            case S_RIGHT:
+              rotea_dx();
               break;
 
           }

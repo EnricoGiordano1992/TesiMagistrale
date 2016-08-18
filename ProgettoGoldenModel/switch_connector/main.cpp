@@ -11,15 +11,23 @@ float verticalPosition[numVerticalJoint][numVerticalJoint] ;
 
 std::vector<simInt> verticalJoints{-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
 std::vector<simInt> horizontalJoints{-1, -1, -1, -1, -1, -1, -1, -1};
-
 simxInt clientID;
-
 simInt reference;
 float ref_position[3];
 float ref_orientation[3];
-
 simxFloat vel[3] = {0.001,0.001,0.001};
-
+simxUChar detectionState;
+simxFloat detectedPoint[3];
+simxInt detectedObjectHandle;
+simxFloat detectedSurfaceNormalVector[3];
+simInt sensor_up;
+simInt sensor_down;
+simInt sensor_left;
+simInt sensor_right;
+simInt sensor_finished_obstacle;
+simxInt visionSensor;
+simxInt resolution[2];
+simxUChar* image;
 
 int main(int argc, char* argv[])
 {
@@ -99,6 +107,14 @@ int main(int argc, char* argv[])
          simxSetJointTargetPosition(clientID, horizontalJoints.at(i), 1, simx_opmode_oneshot);
      }
 
+     simxGetObjectHandle(clientID, "Proximity_sensor_up", &sensor_up, simx_opmode_oneshot_wait);
+     simxGetObjectHandle(clientID, "Proximity_sensor_down", &sensor_down, simx_opmode_oneshot_wait);
+     simxGetObjectHandle(clientID, "Proximity_sensor_left", &sensor_left, simx_opmode_oneshot_wait);
+     simxGetObjectHandle(clientID, "Proximity_sensor_right", &sensor_right, simx_opmode_oneshot_wait);
+     simxGetObjectHandle(clientID, "Proximity_sensor_finished_obstacle", &sensor_finished_obstacle, simx_opmode_oneshot_wait);
+     simxGetObjectHandle(clientID, "Vision_sensor", &visionSensor, simx_opmode_oneshot_wait);
+
+     simxGetVisionSensorImage(clientID,visionSensor,resolution,&image,1,simx_opmode_streaming);
 
     sc_start();
     delete top;
