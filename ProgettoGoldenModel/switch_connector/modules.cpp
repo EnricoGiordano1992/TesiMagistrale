@@ -450,6 +450,458 @@ void striscia(int passi){
     simxSynchronousTrigger(clientID);
     //wait_move(1);
 
+    /**** RIPETI CON I MOVIMENTI INVERTITI ****/
+
+    //parte bot
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.0, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), -0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), -0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.0, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), -1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), -1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.0, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), -0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), -0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.0, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.0, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.0, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    //inizia parte top
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.52, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.78, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 1.04, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), -0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), -0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.78, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), -1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), -1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.52, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), -0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), -0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.0, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.0, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+    /**** RIPETI CON I MOVIMENTI INVERTITI ****/
+
+    int i = 0;
+
+    while(i--){
+    //parte bot
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.0, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), -0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), -0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.0, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), -1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), -1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.0, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), -0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), -0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.0, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.0, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.0, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    //inizia parte top
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.52, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.78, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 1.04, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), -0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), -0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.78, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), -1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), -1.04, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.52, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), -0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), -0.78, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.0, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+
+    assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V1), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V1), -0.52, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V2), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(R_T_V3), 0.0, simx_opmode_oneshot);
+    simxSetJointTargetPosition(clientID, verticalJoints.at(L_T_V3), 0.0, simx_opmode_oneshot);
+    assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
+    simxSynchronousTrigger(clientID);
+    //wait_move(1);
+    }
   }
 }
 
@@ -706,7 +1158,7 @@ void rotea_sx(){
   assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
   simxSynchronousTrigger(clientID);
 
-  wait_move(2);
+  wait_move(1);
 
   assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
   simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), 0.0, simx_opmode_oneshot);
@@ -742,7 +1194,7 @@ void rotea_sx(){
   assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
   simxSynchronousTrigger(clientID);
 
-  wait_move(8);
+  wait_move(1);
 
   assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
   simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), 0.0, simx_opmode_oneshot);
@@ -796,7 +1248,7 @@ void rotea_sx(){
   assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
   simxSynchronousTrigger(clientID);
 
-  wait_move(8);
+  //wait_move(4);
 
 }
 
@@ -819,7 +1271,7 @@ void rotea_dx(){
   assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
   simxSynchronousTrigger(clientID);
 
-  wait_move(2);
+  wait_move(1);
 
   assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
   simxSetJointTargetPosition(clientID, verticalJoints.at(L_B_V1), 0.0, simx_opmode_oneshot);
@@ -855,7 +1307,7 @@ void rotea_dx(){
   assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
   simxSynchronousTrigger(clientID);
 
-  wait_move(8);
+  wait_move(3);
 
   //step2
   assert(simxPauseCommunication(clientID, 1) == simx_return_ok);
@@ -910,7 +1362,7 @@ void rotea_dx(){
   assert(simxPauseCommunication(clientID, 0) == simx_return_ok);
   simxSynchronousTrigger(clientID);
 
-  wait_move(8);
+  //wait_move(4);
 
 }
 

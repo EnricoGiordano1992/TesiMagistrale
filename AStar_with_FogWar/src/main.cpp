@@ -205,8 +205,9 @@ int main(void){
         cout << "provo ad andare a dx" << endl;
         trying_right = true;
         trying_left = false;
+        under_the_obstacle = true;
         send_message(RIGHT, shm_read, shm_write);
-        wait(shm_read, shm_write, 2);
+        wait(shm_read, shm_write, 3);
       }
       //else if I can't go ahead lying (try to go left)
       else if(sensor_up == 1 && !im_standing && sensor_left != 1 && !trying_right && !tried_left){
@@ -214,8 +215,9 @@ int main(void){
         cout << "provo ad andare a sx" << endl;
         trying_right = false;
         trying_left = true;
+        under_the_obstacle = true;
         send_message(LEFT, shm_read, shm_write);
-        wait(shm_read, shm_write, 2);
+        wait(shm_read, shm_write, 3);
       }
       //else if I can't try another movement to right
       else if(sensor_up == 1 && sensor_right == 1 && trying_right){

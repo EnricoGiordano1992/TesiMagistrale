@@ -40,6 +40,7 @@ void Top::activate(rc_reconfigurable& module)
 void Top::producer_proc()
 {
 
+    simxUChar detectionFinish;
     simxUChar detectionStateUp;
     simxUChar detectionStateDown;
     simxUChar detectionStateLeft;
@@ -50,7 +51,7 @@ void Top::producer_proc()
     char c;
     int shmid_write, shmid_read;
     key_t key_write, key_read;
-    char *shm_write, *s_write, *shm_read, *s_read;
+    char *shm_write, *s_write, *shm_read, *s_read, *shm_img, *s_img;
     key_write = 5678;
     key_read = 5679;
 
@@ -92,13 +93,16 @@ void Top::producer_proc()
       wait(1000, SC_MS);
 
       int counter = 0;
+      int pixel_counter = 0;
 
       while(1){
 
         c = 99;
         counter = 0;
+        pixel_counter = 0;
 
         s_write = shm_write;
+        s_img = shm_img;
 
         simxReadProximitySensor(clientID,sensor_up, &detectionStateUp, detectedPoint, &detectedObjectHandle, detectedSurfaceNormalVector, simx_opmode_oneshot_wait);
         simxReadProximitySensor(clientID,sensor_down, &detectionStateDown, detectedPoint, &detectedObjectHandle, detectedSurfaceNormalVector, simx_opmode_oneshot_wait);
@@ -106,9 +110,31 @@ void Top::producer_proc()
         simxReadProximitySensor(clientID,sensor_right, &detectionStateRight, detectedPoint, &detectedObjectHandle, detectedSurfaceNormalVector, simx_opmode_oneshot_wait);
         simxReadProximitySensor(clientID,sensor_finished_obstacle, &detectionStateFinishedObstacle, detectedPoint, &detectedObjectHandle, detectedSurfaceNormalVector, simx_opmode_oneshot_wait);
 
-        RC_COUTL("Top: " << (int)detectionStateUp << (int)detectionStateLeft << (int)detectionStateDown << (int)detectionStateRight << (int)detectionStateFinishedObstacle);
+        simxGetVisionSensorImage(clientID,visionSensor,resolution,&image,1,simx_opmode_oneshot_wait);
 
-        *s_write++ = '0';
+         printf("%d %d\n", resolution[0], resolution[1]);
+
+         for(int i = 0; i < resolution[0]; i++){
+           for(int j = 0; j < resolution[1]; j++){
+            if(image[i*resolution[0]+j] != 0)
+              pixel_counter++;
+             //printf("%d ", image[i*resolution[0]+j]);
+           }
+           //printf("\n");
+         }
+
+         RC_COUTL("Top: pixel_counter: " << pixel_counter);
+
+         if(pixel_counter > 100){
+           detectionFinish = 1;
+         }
+         else {
+           detectionFinish = 0;
+         }
+
+        RC_COUTL("Top: " << (int)detectionFinish << (int)detectionStateUp << (int)detectionStateLeft << (int)detectionStateDown << (int)detectionStateRight << (int)detectionStateFinishedObstacle);
+
+        *s_write++ = detectionFinish + 48;
         *s_write++ = ' ';
         *s_write++ = detectionStateFinishedObstacle + 48;
         *s_write++ = ' ';
