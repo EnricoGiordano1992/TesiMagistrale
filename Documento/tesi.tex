@@ -31,6 +31,7 @@
 \usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
 % These packages are all incorporated in the memoir class to one degree or another...
 \usepackage[italian]{babel}
+\usepackage{amsmath}
 
 %%% HEADERS & FOOTERS
 \usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
@@ -307,11 +308,91 @@ Sono stati utilizzati quindi i seguenti tool di simulazione:
   \item \textit{Linux Ubuntu} per simulare il programma di intelligenza artificiale che dovrebbe essere eseguito su un qualsiasi processore e che deve interfacciarsi con la parte riconfigurabile (implementata in SystemC Rechannel).
 \end{itemize}
 
+Il funzionamento del sistema è il seguente: il robot può avere 2 differenti configurazioni, ovvero configurazione a quadrupede e configurazione a doppio serpente; queste configurazioni vengono pilotate e mosse dal sistema riconfigurabile in base al percorso che il robot deve eseguire. Il robot è sensibile alle fonti di calore, ovvero tramite sensore di visione di calore, è in grado di percepire dove si trova una fonte di calore e capire quanto è distante da esso. Per capire quanto è distante dalla fonte di calore, viene fatto uno studio statistico sulla quantità di pixel rossi che appaiono nell'immagine acquisita.
+Il robot non conosce l'ambiente in cui si trova, si deve solo basare sui sensori di distanza posti su di esso, uno per ogni lato, e sul sensore di visione; non deve interagire con l'ambiente ma deve solo essere in grado di non essere ostacolato nei suoi movimenti. Il task del robot consiste nel raggiungere o di avvicinarsi il più possibile alla zona di calore e, per farlo, deve riuscire a trovare il percorso migliore (ovvero quello fattibile).
+La strategia del robot consiste nel ``provare'' quale delle 2 sue configurazioni può essergli utile per raggiungere l'obbiettivo: durante il suo tragitto, potrebbe trovare un ostacolo che gli impedisce di proseguire, quindi deve essere in grado di oltrepassarlo o passandoci sotto oppure raggirandolo. Deve inoltre essere in grado di capire se la scelta di strategia per oltrepassare l'ostacolo è corretta: è ammesso che il robot esegua degli sbagli durante le sue scelte, in quanto non ha una mappatura dell'ambiente, ma deve essere in grado di tornare indietro nelle sue scelte, capire quando è avvenuto l'errore della sua scelta e quindi adottare una strategia diversa per raggiungere il target.
+La scelta del tragitto viene sempre attuata in base a dove si trova la fonte di calore: l'euristica è appunto quella di minimizzare il tragitto andando in direzione sempre dove la concentrazione di pixel rossi è maggiore. Ovviamente in questo modo il robot non sa dove si trovano gli ostacoli in quanto è in grado di ``vedere'' soltanto le fonti di calore, quindi il suo tragitto sarà pieno di scelte.
+
 Si vedranno ora nel dettaglio le diverse implementazioni dei componenti.
 
 \subsection{Hardware riconfigurabile}
 
+Il sistema riconfigurabile svolge la funzione di moto, riconfigurazione e sensoristica del robot: tutta la parte di cinematica viene delegata a questa parte, con i relativi controlli sui sensori. Si potrebbe paragonare ad un sistema nervoso adattivo: esso è in grado di adattarsi all'ambiente percependolo, ma non comprendendolo. La comprensione di tutti i segnali viene delegata alla parte di intelligenza artificiale, questa parte si occupa solo di acquisire dati e di inviarli al ``sistema di controllo e comprensione''.
+Questo è stato implementato in simulazione su SystemC Rechannel ed è composto da 2 entità:
+
+\begin{itemize}
+  \item \textit{Top}, che contiene la parte di controllo del sistema riconfigurabile che si interfaccia direttamente con i moduli riconfigurabili; è in grado di dare il comando di riconfigurazione ai moduli riconfigurabili e di acquisire i segnali dai sensori del robot per trasformarli in dati comprensibili alla parte di intelligenza;
+  \item \textit{Moules}, che contiene i moduli riconfigurabili che eseguono gli algoritmi di movimento.
+\end{itemize}
+
+L'algoritmo di funzionamento è il seguente: il Top controlla i sensori del robot e li invia al sistema di intelligenza artificiale che li elabora; successivamente il Top riceve il comando in base ai valori dei sensori e il Top, in base alla sua macchina a stati, invia l'azione da eseguire al modulo riconfigurabile attualmente attivo.
+Parallelamente il Top controlla se deve essere eseguita una riconfigurazione: se deve essere riconfigurato il sistema, dealloca il modulo riconfigurabile e attiva quello prescelto, in modo che venga eseguita la prossima azione su quel modulo.
+Contemporaneamente il modulo riconfigurabile attualmente attivo esegue l'azione che gli è stata precedentemente inviata dal Top, per poi attendere il prossimo comando.
+
+Il Top è composto quindi dai seguenti componenti:
+
+\begin{itemize}
+  \item \textit{activator}, che si occupa di attivare e deattivare i moduli riconfigurabili;
+  \item \textit{producer}, che invia i dati ai moduli riconfigurabili;
+  \item \textit{controller}, che si occupa di tenere traccia della riconfigurazione attuale e di quella futura;
+  \item \textit{monitor}, che si occupa di leggere i dati di risposta dei moduli riconfigurabili.
+\end{itemize}
+
+Si ha quindi anche parallelismo interno al modulo Top, in quanto deve essere in grado di gestire contemporaneamente i diversi aspetti della riconfigurazione. Questo parallelismo è gestito da SystemC Rechannel, però lo scambio di messaggi (che risulta bloccante secondo l'architettura Client-Server rispettivamente dei moduli riconfigurabili e del Top) viene gestito dal progettista.
+
 \subsection{Robot riconfigurabile}
+
+Il robot è stato progettato appositamente per questo progetto, riprendendo il modello del robot serpente di esempio del simulatore V-REP. Questo non presenta una riconfigurabilità totale, in quanto, a causa del simulatore, non era possibile rappresentare un robot che presentasse giunti semovibili. In ogni caso, il robot è in grado di riconfigurarsi grazie alle direttive dell'hardware riconfigurabile.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.3]{tobor_sdraiato.png}
+\qquad\qquad
+\includegraphics[scale=0.3]{tobor_quadrupede.png}
+\caption{Robot nelle sue 2 configurazioni: a serpente doppio e a quadrupede}\label{fig:7}
+\end{figure}
+
+Dal punto di vista di controllo, il robot viene controllato in base alle posizioni dei giunti (controllo di posizione), quindi ogni istante della simulazione viene inviato un comando di posizione a tutti i giunti del robot per eseguire un movimento.
+A causa della natura del sistema che lo comanda (hardware riconfigurabile), ogni posizione è discreta, quindi il moto non è stato descritto con un'equazione nel continuo ma da una serie di posizioni dei giunti.
+
+Il robot è composto dalle seguenti parti:
+\begin{itemize}
+  \item diversi componenti locomotori connessi in maniera opposta l'uno dall'altro, che uniti tra loro permettono di eseguire molteplici movimenti;
+  \item un corpo centrale a forma di ``H'', in cui risiede tutta la circuiteria e permette di avere una base solida per alcuni tipi di movimenti.
+\end{itemize}
+
+Ogni componente pesa $40g$ e deve avere l'attrito necessario per permettere il movimento; sfortunatamente il tool di simulazione non permette di impostarlo e quindi alcuni movimenti non rappresentano correttamente la realtà.
+
+Per le diverse configurazioni, sono stati presi diversi modelli naturali per rappresentare il moto: la configurazione a serpente doppio ha preso spunto dal moto del serpente (moto ondulatorio verticale), mentre la configurazione a quadrupede ha preso spunto dalla marcia del cavallo (passo).
+
+\subsubsection{Configurazione a serpente doppio}
+
+In questa configurazione, il robot si trova sdraiato, completamente a contatto con il terreno. Per muoversi, deve eseguire un moto ondulatorio verticale, come alcuni tipi di serpenti. Questo tipo di moto può essere descritto con queste equazioni:
+
+$$ y(t_{x}) = (j_{v1} \cdot (1-s)+j_{v2} \cdot s) \cdot \sin(t \cdot (v_{v1} \cdot (1-s)+v_{v2} \cdot s)+i \cdot (j_{v1} \cdot (1-s)+j_{v2} \cdot s)) $$
+$$ y(t_{x+1}) = (j_{v1} \cdot (1-s)+j_{v2} \cdot s) \cdot \cos(t \cdot (v_{v1} \cdot (1-s)+v_{v2} \cdot s)+i \cdot (j_{v1} \cdot (1-s)+j_{v2} \cdot s)) $$
+
+~
+
+la variabile $ y $ indica l'output della funzione, $ t_{x} $ indica un istante di tempo generico mentre $ t_{x+1} $ indica l'istante di tempo successivo al precedente. Le variabili $ j_{v1}, j_{v2} $ indicano le posizioni dei giunti verticali, indipendentemente da quanti giunti esistono (come nel caso del tempo, si indicano semplicemente giunti successivi tra loro).  Le variabili $ v_{v1}, v_{v2} $ indicano invece le velocità dei giunti successivi tra loro.
+Si deve pensare che queste 2 equazioni si devono eseguire ciclicamente in modo da avere un movimento continuo ed ondulatorio, per permettere di strisciare.
+
+A causa della natura del robot, poichè la parte centrale è statica, si deve eseguire il movimento con più potenza del necessario, in modo da essere in un'istantanea fase di volo che può dare la spinta necessaria per avanzare (e quindi spostare la parte statica del robot).
+
+Per la rappresentazione spaziale, è stato adottato il modello di \textit{Chirikjian - Burdick}, in cui si prende come sistema di riferimento fisso la ``cod'' del serpente, cioè l’ultimo giunto, e tutti i calcoli relativi ai successivi giunti del corpo serpentoide del robot verranno eseguiti in base a tale scelta. In particolare, il sistema viene visto come un insieme di 4 serpenti collegati ad un corpo rigido:
+in questo modo i movimenti vengono semplicemente ripetuti in maniera speculare o come prolungamento di altri serpenti, semplicemente riferendosi ai giunti sequenziali del robot.
+
+Poichè ogni posizione di ogni giunto è nota durante l'esecuzione, è stata utilizzata la cinematica diretta per determinare la posizione e il movimento di ogni componente. Inoltre, poiché il numero dei giunti era molto elevato, è stata utilizzata la convenzione di \textit{Denavit-Hartenberg}, rappresentando una trasformazione geometrica nello spazio euclideo tridimensionale con 4 parametri.
+Calcolando questi valori, è stato possibile quindi calcolare la posizione dei giunti in maniera ottimale per il corretto movimento del robot.
+
+Quindi, implementando ogni posizione dei giunti, si è riusciti a far muovere il robot con il moto ondulatorio verticale.
+
+~
+
+In questa configurazione è anche possibile muoversi lateralmente, rovesciando il robot lateralmente 2 volte consecutive. Per fare ciò, è necessario piegare contemporaneamente 2 giunti dello stesso lato, in modo che il robot si possa rovesciare nel lato opposto, per poi rieseguire lo stesso movimento con gli altri 2 giunti.
+
+\subsubsection{Configurazione a serpente doppio}
+
 
 \subsection{Intelligenza Artificiale}
 
