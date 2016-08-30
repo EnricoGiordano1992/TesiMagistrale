@@ -32,6 +32,8 @@
 % These packages are all incorporated in the memoir class to one degree or another...
 \usepackage[italian]{babel}
 \usepackage{amsmath}
+\usepackage[]{algorithm2e}
+
 
 %%% HEADERS & FOOTERS
 \usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
@@ -313,6 +315,14 @@ Il robot non conosce l'ambiente in cui si trova, si deve solo basare sui sensori
 La strategia del robot consiste nel ``provare'' quale delle 2 sue configurazioni può essergli utile per raggiungere l'obbiettivo: durante il suo tragitto, potrebbe trovare un ostacolo che gli impedisce di proseguire, quindi deve essere in grado di oltrepassarlo o passandoci sotto oppure raggirandolo. Deve inoltre essere in grado di capire se la scelta di strategia per oltrepassare l'ostacolo è corretta: è ammesso che il robot esegua degli sbagli durante le sue scelte, in quanto non ha una mappatura dell'ambiente, ma deve essere in grado di tornare indietro nelle sue scelte, capire quando è avvenuto l'errore della sua scelta e quindi adottare una strategia diversa per raggiungere il target.
 La scelta del tragitto viene sempre attuata in base a dove si trova la fonte di calore: l'euristica è appunto quella di minimizzare il tragitto andando in direzione sempre dove la concentrazione di pixel rossi è maggiore. Ovviamente in questo modo il robot non sa dove si trovano gli ostacoli in quanto è in grado di ``vedere'' soltanto le fonti di calore, quindi il suo tragitto sarà pieno di scelte.
 
+A causa della difficoltà reale del progetto, sono state fatte diverse assunzioni:
+\begin{itemize}
+  \item il terreno di simulazione è liscio e piatto;
+  \item gli ostacoli sono semplici e facilmente individuabili dai sensori del robot (quindi composti da figure solide semplici);
+  \item l'ambiente risulta statico, quindi non ci sono ulteriori interazioni col robot;
+  \item i movimenti del robot sono rettilinei, a meno di problemi dovuti alla progettazione manuale del robot (giunti non perfettamente allineati, misure approssimative, errori del simulatore).
+\end{itemize}
+
 Si vedranno ora nel dettaglio le diverse implementazioni dei componenti.
 
 \subsection{Hardware riconfigurabile}
@@ -342,14 +352,63 @@ Si ha quindi anche parallelismo interno al modulo Top, in quanto deve essere in 
 
 \subsection{Robot riconfigurabile}
 
+È stato creato un robot riconfigurabile, ovvero capace di mutare la propria forma in modo da presentare una cinematica differente per ogni riconfigurazione. La caratteristica principale di questi robot è di essere composti da moduli semplici che, uniti tra loro, creano una struttura più complessa.
+
+
+\subsubsection{I robot riconfigurabili}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.5]{robot_riconfigurabile1.jpg}
+\caption{Un robot riconfigurabile (M-TRAN III)}\label{fig:9}
+\end{figure}
+
+I robot riconfigurabili sono macchine con cinematica autonoma che possiedono una morfologia variabile. Con morfologia variabile si intende la capacità di mutare forma e quindi la configurazione dei giunti, in modo da permettere al robot di compiere movimenti diversi, quindi avere una cinematica diversa. La caratteristica principale di questi sistemi è quindi di riarrangiare la connessione tra le parti in base a determinate circostanze, in modo da eseguire diversi task, per tornare in situazioni safe, o per ripararsi.
+Questi si dicono anche ``robot modulari'' in quanto sono composti da piccoli componenti (moduli) che si riassemblano tra loro e creano il robot nella sua completezza.
+
+Questi sistemi uniscono diversi aspetti della robotica e di altre discipline, come la progettazione di sistemi embedded, le reti di sistemi embedded e l'intelligenza artificiale, poiché questi sistemi hanno bisogno di una visione completa del mondo circostante ma soprattutto dei pezzi di cui sono composti.
+
+Un robot riconfigurabile è composto da un insieme omogeneo di moduli, che sono tutti simili di forma e di cinematica tra loro (solitamente con 1 grado di libertà) che sono in grado di comunicare e ``organizzarsi'', ovvero coordinarsi per collaborare. La collaborazione serve ai moduli per ``capire'' come collegarsi tra loro e creare una struttura differente per ogni situazione.
+
+Esistono differenti tipi di robot riconfigurabili, tutti raggruppati in 2 macro aree:
+\begin{itemize}
+  \item \textit{parzialmente riconfigurabili}, che sono composti da moduli precedentemente assemblati che, con delle forme prestabilite si riconfigurano in modo da cambiare la morfologia del robot (come in questo caso di studio);
+  \item \textit{completamente riconfigurabili}, che non hanno una forma prestabilita e tutti i moduli sono inizialmente separati, per poi comporsi tra loro completamente in base alla situazione.
+\end{itemize}
+
+Questo stile di progettazione del robot porta essenzialmente vantaggi funzionali e vantaggi economici: i primi sono dovuti alla potenziale robustezza e adattabilità del robot rispetto all'ambiente, rispetto ai robot convenzionali; i secondi derivano dal fatto di costi di produzione ridotti (si creano moduli tutti uguali in serie) e costi di progettazione sia hardware sia software ridotti (si progetta un singolo modulo e si crea un software di coordinazione che è valido per ogni modulo).
+
+Questi robot non sono ancora diventati effettivamente utilizzati in quanto presentano degli svantaggi logistici piuttosto importanti: oltre al fatto che sono ancora in fase sperimentale, non vengono ancora sfruttati metodi ingegneristici per la progettazione, in particolare non è ancora stata studiata una tipologia di hardware e software che, accoppiati, potessero massimizzare le performance e potessero minimizzare i consumi, oltre al fatto che non esiste un modo coerente e standard per simulare e quindi testare il sistema completo.
+Il problema principale infatti di quando si progetta il robot è avere una rappresentazione abbastanza corretta e simile alla realtà, in modo da passare alla fase di produzione per il test reale in maniera piuttosto trasparente ed efficace (minimizzando quindi i costi di progettazione e produzione).
+
+Un aspetto teorico legato a questi robot è la modellazione simile a quella che si utilizza quando si progetta un nuovo linguaggio. Questa infatti è stata formalizzata con aspetti di di analisi ``sintattica'' e ``semantica'': poiché sono strutture difficili da studiare, il moto di questi robot viene studiato attraverso la definizione di un linguaggio, quindi definendo la relativa grammatica (movimenti base dei moduli), sintassi (movimenti ammissibili per i moduli collegati) e semantica (il senso del movimento globale). Quindi, lo studio meccanico della cinematica si limita al semplice modulo, per poi ``orchestrare'' l'insieme dei moduli all'unisono \cite{robot_syntax}.
+Ogni robot riconfigurabile ha quindi
+
+Queste informazioni si adattano perfettamente al modello di hardware riconfigurabile proposto: la sintassi e la semantica vengono gestiti dal Top, mentre la grammatica viene gestita dai moduli riconfigurabili, il tutto gestito da una macchina a stati per tenere traccia dei movimenti da eseguire (ma soprattutto quelli possibili).
+
+\subsubsection{Progettazione}
+
 Il robot è stato progettato appositamente per questo progetto, riprendendo il modello del robot serpente di esempio del simulatore V-REP. Questo non presenta una riconfigurabilità totale, in quanto, a causa del simulatore, non era possibile rappresentare un robot che presentasse giunti semovibili. In ogni caso, il robot è in grado di riconfigurarsi grazie alle direttive dell'hardware riconfigurabile.
+
+Come primo passaggio è stato disegnato il singolo modulo per capire come poteva essere più funzionale per il progetto finale, per poi assemblarli e creare il modello finale del robot, in posizione di riposo. È stato quindi creato un file \textit{.obj} per poter essere importato in un programma di simulazione che potesse supportare l'importazione di mesh poligonali.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.2]{screen_blender.png}
+\caption{Progettazione su Blender del modello del robot}\label{fig:9}
+\end{figure}
+
+Il robot è poi stato importato nel programma di simulazione V-REP. Una volta importato, è stato necessario creare il modello dei moduli e quindi del robot completo definendo i punti di collisione, ovvero gli oggetti solidi che compongono il robot. Il modello di mesh infatti non possiede proprietà fisiche dell'oggetto, è compito del progettista (anche se si cerca di ricavarli in maniera automatica dalle mesh) generare i punti di collisione dalla mesh.
+Una volta creati i punti di collisione, è stato verificato che il robot rimanesse in equilibrio statico; a causa della discretizzazione (e della creazione non molto precisa con Blender), il robot rimane in equilibrio statico ma tende a ``scivolare'' durante la simulazione. Purtroppo non è stato possibile aumentare il coefficiente di attrito dell'oggetto, quindi si ha una simulazione poco precisa.
+
+In ambiente VREP poi sono stati aggiunti poi 1 sensore di visione da 64x64 px e 5 sensori di prossimità; il sensore di visione, posto sopra il robot, è stato impostato per vedere solo le fonti di calore (che rappresentano il target di movimento) e con una bassissima risoluzione, in modo da minimizzare il calcolo da parte dell'hardware riconfigurabile, mentre i sensori di prossimità hanno il fascio cilindrico e sono stati posti ad ogni lato del robot, leggermente sopraelevati rispetto alla base del robot in modo che i movimenti del robot non possano interferire con la rilevazione degli ostacoli.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[scale=0.3]{tobor_sdraiato.png}
 \qquad\qquad
 \includegraphics[scale=0.3]{tobor_quadrupede.png}
-\caption{Robot nelle sue 2 configurazioni: a serpente doppio e a quadrupede}\label{fig:7}
+\caption{Robot nelle sue 2 configurazioni: a serpente doppio e a quadrupede}\label{fig:71}
 \end{figure}
 
 Dal punto di vista di controllo, il robot viene controllato in base alle posizioni dei giunti (controllo di posizione), quindi ogni istante della simulazione viene inviato un comando di posizione a tutti i giunti del robot per eseguire un movimento.
@@ -391,12 +450,91 @@ Quindi, implementando ogni posizione dei giunti, si è riusciti a far muovere il
 
 In questa configurazione è anche possibile muoversi lateralmente, rovesciando il robot lateralmente 2 volte consecutive. Per fare ciò, è necessario piegare contemporaneamente 2 giunti dello stesso lato, in modo che il robot si possa rovesciare nel lato opposto, per poi rieseguire lo stesso movimento con gli altri 2 giunti.
 
-\subsubsection{Configurazione a serpente doppio}
+\subsubsection{Configurazione a quadrupede}
 
+In questa configurazione, il robot si trova in posizione eretta sui suoi 4 arti che nella configurazione precedentemente descritta erano i 4 serpenti. Per questa configurazione non si è trovato un modello analitico per descrivere il moto del robot, quindi ci si è serviti dello studio cinematico di un cavallo, in particolare della cinematica del ``passo''.
+Il passo è la camminata leggera del cavallo, che consiste nel muovere alternativamente e a coppie disallineati gli arti opposti, senza avere una fase di volo; in questo modo, si ha sempre la condizione di equilibrio una volta completato l'insieme di movimenti. La caratterstica di questo movimento però è lo sbilanciamento verso la direzione in cui ci si muove: gli arti vengono alzati in modo che avvenga uno sbilanciamento in avanti in modo che, raddrizzandoli successivamente, si è riusciti ad avanzare.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.5]{cavallo_passo.jpg}
+\qquad\qquad
+\includegraphics[scale=0.25]{passo1.png}
+\caption{Confronto tra il ``passo'' del cavallo e il ``passo'' del robot}\label{fig:7}
+\end{figure}
+
+Per implementare il moto del robot quindi, è stato fatto uno studio cinematico del passo del cavallo, per poi riportare le posizioni dei ``giunti'' del cavallo nelle posizioni dei giunti del robot; in questo modo si è discretizzato il movimento del robot per poi permettergli di muoversi secondo un modello naturale funzionante, oltre a fare uno studio dell'anatomia del cavallo per capire come renderla compatibile con la configurazione a quadrupede del robot.
+Utilizzando un controllo di posizione infine, si è riusciti facilmente ad implementare il corretto movimento: servendosi di uno studio di settore già stato eseguito \cite{robot_horse}, è stata semplicemente trascritta la posizione attesa dei giunti e rappresentata in simulazione.
 
 \subsection{Intelligenza Artificiale}
 
-\subsection{Considerazioni}
+Per completare il progetto, era necessario utilizzare un programma intelligente che potesse gestire il path planning; questo perché sarebbe troppo poco performante far eseguire il tutto all'hardware riconfigurabile, quindi si è implementato un programma esterno per gestire l'aspetto di pianificazione del percorso e il collision avoidance.
+
+Il programma, scritto in C++, è in grado di interpretare i dati ricevuti dall'hardware riconfigurabile e prendere decisioni sul percorso da eseguire: i dati sono organizzati secondo un protocollo specifico, ovvero un ordine di segnali che corrispondono all'individuazione da parte di un sensore di un oggetto vicino. Il programma, sceglie il percorso durante l'avanzamento del robot nello spazio, memorizzando ad ogni passo la scelta eseguita; questo è molto importante per comprendere se durante il tragitto sono state fatte delle scelte sbagliate.
+Il concetto di ``scelta sbagliata'' in questo contesto è semplice: se si ha una una situazione di impossibilità di movimento (il robot non può più eseguire l'azione che stava eseguendo, ci sono troppi ostacoli, ecc), allora il programma ha scelto un tragitto sbagliato. Dal momento che il programma si rende conto che ha commesso un errore di scelta, deve essere in grado di capire quando è stato fatto lo sbaglio, ovvero deve tornare indietro eseguendo i tutti i movimenti al contrario fino all'ultimo movimento errato,
+ovvero quando ha iniziato a fare il movimento che l'ha portato nella situazione errata. Alla fine dell'esecuzione, il programma ha mantenuto la lista di comandi che hanno portato il robot a raggiungere l'obbiettivo, quindi la stessa lista si potrebbe utilizzare potenzialmente per eseguire il percorso senza commettere errori.
+
+Il programma implementa quindi la tecnica di \textit{A Star} con la variante \textit{Fog War and no path information}: si utilizza un'euristica per raggiungere la fonte di calore, ovvero mantenere centrata la fonte di calore nel visualizzatore, senza però sapere com'è fatto il percorso, avvolto quindi da una ``nebbia di guerra'' che impedisce di sapere cosa si trova dinanzi. Il concetto di nebbia di guerra è stato importato dai videogiochi e quindi dall'intelligenza artificiale dei personaggi,
+in quanto in alcuni tipi di giochi strategici è stata implementata una mappa le cui informazioni interne non sono note, devono essere scoperte dal videogiocatore o dal nemico virtuale (che quindi deve viaggiare nella mappa pur non sapendo che ostacoli può trovare).
+La tecnica dell' A star si è dimostrata molto efficace, in quanto il percorso risulta discretizzato in base ai movimenti possibili del robot e la visione della mappa viene modificata dalle 2 configurazioni. Si può pensare quindi di avere una mappa a 2 livelli, i quali possono essere sostituiti a piacere in base alla situazione.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.3]{a_star.jpg}
+\caption{Mappa in cui utilizzare A Star (percorso in rosso, ostacoli in verde, ostacoli in bianco oltrepassabili strisciando)}\label{fig:8}
+\end{figure}
+
+\subsubsection{Algoritmo}
+
+L'algoritmo intelligente definisce una serie di regole che il robot deve adottare in modo da trovare il percorso corretto per raggiungere l'obbiettivo. Questo quindi consisterà in una serie di letture dei dati derivanti dai sensori, che verranno interpretati e quindi si deciderà quale azione eseguire. Da notare che l'ordine dei controlli è molto importante: si definisce una priorità di controlli in modo che, a parità di configurazione, la priorità delle scelte possa cambiare l'esecuzione del programma.
+Il programma sarà sempre sincronizzato con il sistema sottostante, non ha visione del mondo che lo circonda ma semplicemente interpreta tramite regole prestabilite i segnali che arrivano dai sensori. Infine, deve essere un algoritmo semplice e che non richieda troppo utilizzo di memoria e risorse, in quanto deve essere più veloce possibile e calato in un contesto di un microcontrollore che si trova a bordo del robot, quindi indubbiamente con non ottime capacità di calcolo.
+
+\begin{algorithm}[H]
+ \KwData{Robot input}
+ \KwResult{Movement decisions}
+ initialization\;
+ \While{not arrived}{
+    read current data\;
+    \uIf{I can go ahead}{
+      go ahead\;
+     }
+    \uElseIf{I can go ahead but I'm lying}{
+      go ahead dragging\;
+    }
+    \uElseIf{I'm under the obstacle}{
+      go ahead dragging\;
+      memorize that I'm under the obstacle\;
+   }
+   \uElseIf{I'm not under the obstacle}{
+     go ahead dragging\;
+     memorize that I'm not under the obstacle\;
+   }
+   \uElseIf{I can get up}{
+     get up\;
+   }
+   \uElseIf{I can't go ahead for an obstacle}{
+     crouch\;
+   }
+   \uElseIf{I can't go ahead lying (try to go right)}{
+     go right\;
+     memorize that I'm going right\;
+   }
+   \uElseIf{I can't go ahead lying (try to go left)}{
+    go left\;
+    memorize that I'm going left\;
+   }
+   \uElseIf{I can't try another movement to right}{
+    rollback actions\;
+   }
+   \uElseIf{I can't try another movement to left}{
+    rollback actions\;
+   }
+   \uElse{
+    I don't know, abort\;
+   }
+ }
+\caption{Algoritmo di path planning del robot}
+\end{algorithm}
 
 \section{Conclusione}
 
@@ -409,6 +547,8 @@ In questa configurazione è anche possibile muoversi lateralmente, rovesciando i
 \bibitem{PR2} Dirk Koch, \textit{Partial Reconfiguration on FPGAs}, 2013
 \bibitem{Rechannel} Raabe A., Tech. Comput. Sci., Univ. of Bonn, Felke A., \textit{A SYSTEMC language extension for high-level reconfiguration modelling}, 2008
 \bibitem{Rechannel2} Erlangung des Doktorgrades, Mathematisch-Naturwissenschaftlichen Fakultat, Rheinischen Friedrich-Wilhelms-Universitat Bonn, \textit{Describing and Simulating Dynamic Reconfiguration in SystemC Exemplified by a Dedicated 3D Collision Detection Hardware}, 2008
+\bibitem{robot_syntax} Masahiro Fujita Hiroaki Kit an0 Toshitada Doi, \textit{Syntactic-Semantic Analysis of Reconfigurable Robot}, 1999
+\bibitem{robot_horse} S.Makita, N.Murakami, M.Sakaguchi, J.Furusho, \textit{Development of Horse-type Quadruped Robot}, 1999
 \end{thebibliography}
 
 \end{document}

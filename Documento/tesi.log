@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.8.22)  24 AUG 2016 18:07
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.8.22)  30 AUG 2016 18:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -456,16 +456,69 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 LaTeX Info: Redefining \[ on input line 2665.
 LaTeX Info: Redefining \] on input line 2666.
 )
-(/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
-\fancy@headwidth=\skip57
-\f@ncyO@elh=\skip58
-\f@ncyO@erh=\skip59
-\f@ncyO@olh=\skip60
-\f@ncyO@orh=\skip61
-\f@ncyO@elf=\skip62
-\f@ncyO@erf=\skip63
-\f@ncyO@olf=\skip64
-\f@ncyO@orf=\skip65
+(/usr/share/texlive/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
+Package: algorithm2e 2013/01/06 v5.00 algorithms environments
+\c@AlgoLine=\count120
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2009/10/20 v1.13 Space after command names (DPC,MH)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/relsize/relsize.sty
+Package: relsize 2013/03/29 ver 4.1
+)
+********************************************************
+Package `algorithm2e' Release 5.0 -- january 06 2013 --
+- algorithm2e-announce@lirmm.fr mailing list for announcement about releases
+- algorithm2e-discussion@lirmm.fr mailing list for discussion about package
+subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
+- Author: Christophe Fiorio (cfiorio@um2.fr)
+********************************************************
+\skiptotal=\skip57
+\skiplinenumber=\skip58
+\skiprule=\skip59
+\skiphlne=\skip60
+\skiptext=\skip61
+\skiplength=\skip62
+\algomargin=\skip63
+\skipalgocfslide=\skip64
+\algowidth=\dimen146
+\inoutsize=\dimen147
+\inoutindent=\dimen148
+\interspacetitleruled=\dimen149
+\interspacealgoruled=\dimen150
+\interspacetitleboxruled=\dimen151
+\algocf@inoutbox=\box28
+\algocf@inputbox=\box29
+\AlCapSkip=\skip65
+\AlCapHSkip=\skip66
+\algoskipindent=\skip67
+\algocf@nlbox=\box30
+\algocf@hangingbox=\box31
+\algocf@untilbox=\box32
+\algocf@skipuntil=\skip68
+\algocf@capbox=\box33
+\algoheightruledefault=\skip69
+\algoheightrule=\skip70
+\algotitleheightruledefault=\skip71
+\algotitleheightrule=\skip72
+\c@algocfline=\count121
+\c@algocfproc=\count122
+\c@algocf=\count123
+\algocf@algoframe=\box34
+\algocf@algobox=\box35
+) (/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+\fancy@headwidth=\skip73
+\f@ncyO@elh=\skip74
+\f@ncyO@erh=\skip75
+\f@ncyO@olh=\skip76
+\f@ncyO@orh=\skip77
+\f@ncyO@elf=\skip78
+\f@ncyO@erf=\skip79
+\f@ncyO@olf=\skip80
+\f@ncyO@orf=\skip81
 )
 (/usr/share/texlive/texmf-dist/tex/latex/sectsty/sectsty.sty
 Package: sectsty 2002/02/25 v2.0.2 Commands to change all sectional heading sty
@@ -481,58 +534,62 @@ Package tocbibind Note: Using section or other style headings.
 ) (/usr/share/texlive/texmf-dist/tex/latex/tocloft/tocloft.sty
 Package: tocloft 2013/05/02 v2.3f parameterised ToC, etc., typesetting
 Package tocloft Info: The document has section divisions on input line 44.
-\cftparskip=\skip66
-\cftbeforetoctitleskip=\skip67
-\cftaftertoctitleskip=\skip68
-\cftbeforepartskip=\skip69
-\cftpartnumwidth=\skip70
-\cftpartindent=\skip71
-\cftbeforesecskip=\skip72
-\cftsecindent=\skip73
-\cftsecnumwidth=\skip74
-\cftbeforesubsecskip=\skip75
-\cftsubsecindent=\skip76
-\cftsubsecnumwidth=\skip77
-\cftbeforesubsubsecskip=\skip78
-\cftsubsubsecindent=\skip79
-\cftsubsubsecnumwidth=\skip80
-\cftbeforeparaskip=\skip81
-\cftparaindent=\skip82
-\cftparanumwidth=\skip83
-\cftbeforesubparaskip=\skip84
-\cftsubparaindent=\skip85
-\cftsubparanumwidth=\skip86
-\cftbeforeloftitleskip=\skip87
-\cftafterloftitleskip=\skip88
-\cftbeforefigskip=\skip89
-\cftfigindent=\skip90
-\cftfignumwidth=\skip91
-\cftbeforelottitleskip=\skip92
-\cftafterlottitleskip=\skip93
-\cftbeforetabskip=\skip94
-\cfttabindent=\skip95
-\cfttabnumwidth=\skip96
-\cftbeforesubfigskip=\skip97
-\cftsubfigindent=\skip98
-\cftsubfignumwidth=\skip99
-\cftbeforesubtabskip=\skip100
-\cftsubtabindent=\skip101
-\cftsubtabnumwidth=\skip102
-) (./tesi.aux)
+\cftparskip=\skip82
+\cftbeforetoctitleskip=\skip83
+\cftaftertoctitleskip=\skip84
+\cftbeforepartskip=\skip85
+\cftpartnumwidth=\skip86
+\cftpartindent=\skip87
+\cftbeforesecskip=\skip88
+\cftsecindent=\skip89
+\cftsecnumwidth=\skip90
+\cftbeforesubsecskip=\skip91
+\cftsubsecindent=\skip92
+\cftsubsecnumwidth=\skip93
+\cftbeforesubsubsecskip=\skip94
+\cftsubsubsecindent=\skip95
+\cftsubsubsecnumwidth=\skip96
+\cftbeforeparaskip=\skip97
+\cftparaindent=\skip98
+\cftparanumwidth=\skip99
+\cftbeforesubparaskip=\skip100
+\cftsubparaindent=\skip101
+\cftsubparanumwidth=\skip102
+\cftbeforeloftitleskip=\skip103
+\cftafterloftitleskip=\skip104
+\cftbeforefigskip=\skip105
+\cftfigindent=\skip106
+\cftfignumwidth=\skip107
+\cftbeforelottitleskip=\skip108
+\cftafterlottitleskip=\skip109
+\cftbeforetabskip=\skip110
+\cfttabindent=\skip111
+\cfttabnumwidth=\skip112
+\cftbeforesubfigskip=\skip113
+\cftsubfigindent=\skip114
+\cftsubfignumwidth=\skip115
+\cftbeforesubtabskip=\skip116
+\cftsubtabindent=\skip117
+\cftsubtabnumwidth=\skip118
+) (./tesi.aux
+
+LaTeX Warning: Label `fig:9' multiply defined.
+
+)
 \openout1 = `tesi.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 63.
-LaTeX Font Info:    ... okay on input line 63.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 65.
+LaTeX Font Info:    ... okay on input line 65.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -570,16 +627,16 @@ LaTeX Font Info:    ... okay on input line 63.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count120
-\scratchdimen=\dimen146
-\scratchbox=\box28
-\nofMPsegments=\count121
-\nofMParguments=\count122
+\scratchcounter=\count124
+\scratchdimen=\dimen152
+\scratchbox=\box36
+\nofMPsegments=\count125
+\nofMParguments=\count126
 \everyMPshowfont=\toks27
-\MPscratchCnt=\count123
-\MPscratchDim=\dimen147
-\MPnumerator=\count124
-\makeMPintoPDFobject=\count125
+\MPscratchCnt=\count127
+\MPscratchDim=\dimen153
+\MPnumerator=\count128
+\makeMPintoPDFobject=\count129
 \everyMPtoPDFconversion=\toks28
 ) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
@@ -628,8 +685,8 @@ e
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Info: Redefining \it@ocap on input line 63.
-LaTeX Info: Redefining \it@ccap on input line 63.
+LaTeX Info: Redefining \it@ocap on input line 65.
+LaTeX Info: Redefining \it@ccap on input line 65.
 
 
 File italian.ldf warning: 
@@ -637,7 +694,7 @@ italian.ldf    With OT1 encoding guillemets are poorly faked
 italian.ldf    Use T1 encoding
 italian.ldf    or specify a font with command \CaporaliFrom
 italian.ldf    See the documentation concerning the babel-italian typesetting 
-italian.ldf    on input line 63.
+italian.ldf    on input line 65.
 
 [1
 
@@ -645,104 +702,146 @@ italian.ldf    on input line 63.
 <cpu.png, id=10, 150.5625pt x 208.3785pt>
 File: cpu.png Graphic file (type png)
  <use cpu.png>
-Package pdftex.def Info: cpu.png used on input line 84.
+Package pdftex.def Info: cpu.png used on input line 86.
 (pdftex.def)             Requested size: 150.56212pt x 208.37798pt.
  [2 <./cpu.png>]
 <fpga.png, id=16, 481.8pt x 349.305pt>
 File: fpga.png Graphic file (type png)
  <use fpga.png>
-Package pdftex.def Info: fpga.png used on input line 103.
+Package pdftex.def Info: fpga.png used on input line 105.
 (pdftex.def)             Requested size: 289.08221pt x 209.58461pt.
  [3 <./fpga.png>]
 <ciclo_evolutivo.png, id=21, 399.29175pt x 392.667pt>
 File: ciclo_evolutivo.png Graphic file (type png)
 
 <use ciclo_evolutivo.png>
-Package pdftex.def Info: ciclo_evolutivo.png used on input line 119.
+Package pdftex.def Info: ciclo_evolutivo.png used on input line 121.
 (pdftex.def)             Requested size: 239.57689pt x 235.60202pt.
  [4 <./ciclo_evolutivo.png>] [5] [6]
 <protocollo_riconfigurazione.png, id=31, 439.04025pt x 506.49225pt>
 File: protocollo_riconfigurazione.png Graphic file (type png)
 
 <use protocollo_riconfigurazione.png>
-Package pdftex.def Info: protocollo_riconfigurazione.png used on input line 162
+Package pdftex.def Info: protocollo_riconfigurazione.png used on input line 164
 .
 (pdftex.def)             Requested size: 219.51959pt x 253.2455pt.
  [7 <./protocollo_riconfigurazione.png>]
 [8] [9] <portal.png, id=42, 361.95226pt x 248.127pt>
 File: portal.png Graphic file (type png)
  <use portal.png>
-Package pdftex.def Info: portal.png used on input line 220.
+Package pdftex.def Info: portal.png used on input line 222.
 (pdftex.def)             Requested size: 180.97568pt x 124.06319pt.
  [10]
 <scheduler_rechannel.png, id=48, 719.0865pt x 374.5995pt>
 File: scheduler_rechannel.png Graphic file (type png)
 
 <use scheduler_rechannel.png>
-Package pdftex.def Info: scheduler_rechannel.png used on input line 232.
+Package pdftex.def Info: scheduler_rechannel.png used on input line 234.
 (pdftex.def)             Requested size: 359.54237pt x 187.29929pt.
  [11 <./portal.png> <./scheduler_rechannel.png>]
 <processo_sintesi.png, id=52, 463.13025pt x 460.72125pt>
 File: processo_sintesi.png Graphic file (type png)
 
 <use processo_sintesi.png>
-Package pdftex.def Info: processo_sintesi.png used on input line 254.
+Package pdftex.def Info: processo_sintesi.png used on input line 256.
 (pdftex.def)             Requested size: 277.8803pt x 276.43488pt.
  [12] [13 <./processo_sintesi.png>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 270.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 272.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 270.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 272.
 
 <reconfigurable_structure.png, id=60, 625.33624pt x 355.3275pt>
 File: reconfigurable_structure.png Graphic file (type png)
 
 <use reconfigurable_structure.png>
-Package pdftex.def Info: reconfigurable_structure.png used on input line 280.
+Package pdftex.def Info: reconfigurable_structure.png used on input line 282.
 (pdftex.def)             Requested size: 375.20464pt x 213.19814pt.
  [14] [15 <./reconfigurable_structure.png>]
-[16] [17] <tobor_sdraiato.png, id=75, 478.78876pt x 425.59pt>
-File: tobor_sdraiato.png Graphic file (type png)
+[16] [17] <robot_riconfigurabile1.jpg, id=75, 401.5pt x 184.69pt>
+File: robot_riconfigurabile1.jpg Graphic file (type jpg)
 
-<use tobor_sdraiato.png>
-Package pdftex.def Info: tobor_sdraiato.png used on input line 349.
+<use robot_riconfigurabile1.jpg>
+Package pdftex.def Info: robot_riconfigurabile1.jpg used on input line 362.
+(pdftex.def)             Requested size: 200.7495pt x 92.34476pt.
+ [18 <./robot_riconfigurabile1.jpg>] [19]
+<screen_blender.png, id=84, 1444.39626pt x 937.5025pt>
+File: screen_blender.png Graphic file (type png)
+
+<use screen_blender.png>
+Package pdftex.def Info: screen_blender.png used on input line 397.
+(pdftex.def)             Requested size: 288.87413pt x 187.49718pt.
+ [20 <./screen_blender.png>]
+<tobor_sdraiato.png, id=88, 478.78876pt x 425.59pt>
+File: tobor_sdraiato.png Graphic file (type png)
+ <use tobor_sdraiato.png>
+Package pdftex.def Info: tobor_sdraiato.png used on input line 408.
 (pdftex.def)             Requested size: 143.63773pt x 127.67798pt.
 
-<tobor_quadrupede.png, id=76, 429.605pt x 392.46625pt>
+<tobor_quadrupede.png, id=89, 429.605pt x 392.46625pt>
 File: tobor_quadrupede.png Graphic file (type png)
 
 <use tobor_quadrupede.png>
-Package pdftex.def Info: tobor_quadrupede.png used on input line 351.
+Package pdftex.def Info: tobor_quadrupede.png used on input line 410.
 (pdftex.def)             Requested size: 128.88249pt x 117.74077pt.
- [18 <./tobor_sdraiato.png> <./tobor_quadrupede.png>] [19] [20] (./tesi.aux) ) 
+ [21 <./tobor_sdraiato.png> <./tobor_quadrupede.png>] [22] <cavallo_passo.jpg, 
+id=99, 237.88875pt x 205.76875pt>
+File: cavallo_passo.jpg Graphic file (type jpg)
+
+<use cavallo_passo.jpg>
+Package pdftex.def Info: cavallo_passo.jpg used on input line 460.
+(pdftex.def)             Requested size: 118.94408pt x 102.88411pt.
+ <passo1.png, id=100, 589.20125pt x 399.4925pt>
+File: passo1.png Graphic file (type png)
+
+<use passo1.png>
+Package pdftex.def Info: passo1.png used on input line 462.
+(pdftex.def)             Requested size: 147.29994pt x 99.87288pt.
+ [23 <./cavallo_passo.jpg> <./passo1.png>]
+<a_star.jpg, id=104, 903.375pt x 722.7pt>
+File: a_star.jpg Graphic file (type jpg)
+ <use a_star.jpg>
+Package pdftex.def Info: a_star.jpg used on input line 483.
+(pdftex.def)             Requested size: 271.01459pt x 216.81166pt.
+ [24 <./a_star.jpg>]
+[25] [26]
+Underfull \hbox (badness 2158) in paragraph at lines 551--552
+[]\OT1/cmr/m/n/10.95 S.Makita, N.Murakami, M.Sakaguchi, J.Furusho, \OT1/cmr/m/i
+t/10.95 De-ve-lo-p-ment of Horse-type
+ []
+
+[27] (./tesi.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
 Here is how much of TeX's memory you used:
- 5671 strings out of 493304
- 80747 string characters out of 6139871
- 169514 words of memory out of 5000000
- 9022 multiletter control sequences out of 15000+600000
+ 7097 strings out of 493304
+ 100916 string characters out of 6139871
+ 212086 words of memory out of 5000000
+ 10429 multiletter control sequences out of 15000+600000
  11856 words of font info for 42 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 44i,11n,43p,1011b,308s stack positions out of 5000i,500n,10000p,200000b,80000s
-<
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmss12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
-0.pfb>
-Output written on tesi.pdf (20 pages, 1078863 bytes).
+ 44i,12n,43p,1011b,377s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmss10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmss12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+ti10.pfb>
+Output written on tesi.pdf (27 pages, 1399559 bytes).
 PDF statistics:
- 127 PDF objects out of 1000 (max. 8388607)
- 80 compressed objects within 1 object stream
+ 154 PDF objects out of 1000 (max. 8388607)
+ 95 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 51 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 76 words of extra memory for PDF output out of 10000 (max. 10000000)
 
