@@ -382,7 +382,7 @@ Questi robot non sono ancora diventati effettivamente utilizzati in quanto prese
 Il problema principale infatti di quando si progetta il robot è avere una rappresentazione abbastanza corretta e simile alla realtà, in modo da passare alla fase di produzione per il test reale in maniera piuttosto trasparente ed efficace (minimizzando quindi i costi di progettazione e produzione).
 
 Un aspetto teorico legato a questi robot è la modellazione simile a quella che si utilizza quando si progetta un nuovo linguaggio. Questa infatti è stata formalizzata con aspetti di di analisi ``sintattica'' e ``semantica'': poiché sono strutture difficili da studiare, il moto di questi robot viene studiato attraverso la definizione di un linguaggio, quindi definendo la relativa grammatica (movimenti base dei moduli), sintassi (movimenti ammissibili per i moduli collegati) e semantica (il senso del movimento globale). Quindi, lo studio meccanico della cinematica si limita al semplice modulo, per poi ``orchestrare'' l'insieme dei moduli all'unisono \cite{robot_syntax}.
-Ogni robot riconfigurabile ha quindi
+Ogni robot riconfigurabile ha quindi una rappresentazione secondo un linguaggio: tramite questo, si riesce a modellare correttamente ed in maniera efficace tutte le possibili configurazioni e transizioni compatibili tra esse.
 
 Queste informazioni si adattano perfettamente al modello di hardware riconfigurabile proposto: la sintassi e la semantica vengono gestiti dal Top, mentre la grammatica viene gestita dai moduli riconfigurabili, il tutto gestito da una macchina a stati per tenere traccia dei movimenti da eseguire (ma soprattutto quelli possibili).
 
