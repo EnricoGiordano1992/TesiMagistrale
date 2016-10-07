@@ -22,6 +22,18 @@ top-init:
 
 reconfigurable-modules-init:
   num: 2
+  port:
+    num: 4
+    type: [int, int, int, int]
+  channels:
+    - type: int
+      name: in1
+    - type: int
+      name: in2
+    - type: int
+      name: out1
+    - type: int
+      name: out2
   configuration-names: [LYING, ERECT]
   create: [
       {type: Lying_configuration, name: m1, activation_delay: 100_NS},
@@ -62,7 +74,48 @@ common-other-variables: [
   {type: "extern simxUChar*", name: "image"}
   ]
 
+specularity-code: |
+  #include "robot_model.h"
+
+  typedef enum {S_INIT, S_WALK, S_STOP, S_RECONFIG, S_LEFT, S_RIGHT} STATES;
+  typedef enum {LYING, ERECT} ROBOT_CONFIG;
+
+
+  extern float horizontalPosition[numHorizontalJoint][numHorizontalJoint] ;
+  extern float verticalPosition[numVerticalJoint][numVerticalJoint] ;
+
+  extern std::vector<simInt> verticalJoints;
+  extern std::vector<simInt> horizontalJoints;
+
+  extern simxInt clientID;
+
+  extern simInt reference;
+  extern float ref_position[3];
+  extern float ref_orientation[3];
+
+  extern simxFloat vel[3];
+
+  extern simxUChar detectionState;
+  extern simxFloat detectedPoint[3];
+  extern simxInt detectedObjectHandle;
+  extern simxFloat detectedSurfaceNormalVector[3];
+  extern simInt sensor_up;
+  extern simInt sensor_down;
+  extern simInt sensor_left;
+  extern simInt sensor_right;
+  extern simInt sensor_finished_obstacle;
+  extern simxInt visionSensor;
+  extern simxInt resolution[2];
+  extern simxUChar* image;
+
+
 top-code:
+  pre-code: |
+    #define SHMSZ     27
+    typedef enum {AHEAD=0, BACK, UP, DOWN, LEFT, RIGHT} Movement;
+
+  debug-activation: true
+
   producer:
     variables: [
         {type: simxUChar, name: detectionFinish},
@@ -237,6 +290,10 @@ top-code:
         }
 
   controller:
+    variables:
+      - type: int
+        name: i
+        value: 0
     code: |
         while(1){
           activate(m2);
@@ -1663,6 +1720,9 @@ modules-code:
         }
 
 main:
+  includes: |
+    #include "robot_model.h"
+
   init: |
       float horizontalPosition[numHorizontalJoint][numHorizontalJoint] ;
       float verticalPosition[numVerticalJoint][numVerticalJoint] ;
@@ -1688,7 +1748,6 @@ main:
       simxUChar* image;
 
 code: |
- Top* top = new Top("top");
 
 
  simxFinish(-1);
@@ -1772,8 +1831,3 @@ code: |
  simxGetObjectHandle(clientID, "Vision_sensor", &visionSensor, simx_opmode_oneshot_wait);
 
  simxGetVisionSensorImage(clientID,visionSensor,resolution,&image,1,simx_opmode_streaming);
-
- sc_start();
- delete top;
- return 0;
- 

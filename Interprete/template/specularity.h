@@ -1,0 +1,6 @@
+#ifndef SPECULARITY_H
+#define SPECULARITY_H
+
+___SPECULARITY_CODE___
+
+#endif

@@ -5,6 +5,7 @@ import yaml, sys, getopt
 def main(argv):
     inputfile = ''
     outputfile = ''
+    proj_obj = {}
     try:
         opts, args = getopt.getopt(argv,"hi:o:",["ifile=","ofile="])
         if len(opts) < 2:
@@ -27,9 +28,11 @@ def main(argv):
 
     with open(inputfile, 'r') as stream:
         try:
-            print(yaml.load(stream))
+            proj_obj = yaml.load(stream)
         except yaml.YAMLError as exc:
             print(exc)
+
+    print proj_obj['port']
 
 
 if __name__ == "__main__":
