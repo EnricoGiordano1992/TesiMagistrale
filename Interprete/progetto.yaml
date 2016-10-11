@@ -14,10 +14,10 @@ top-init:
       {type: int, name: out4_fifo}
     ]
   portals: [
-      {type: int, name: in1_portal},
-      {type: int, name: in2_portal},
-      {type: int, name: out1_portal},
-      {type: int, name: out2_portal}
+      {type: int, io-type: in, name: in1_portal},
+      {type: int, io-type: in, name: in2_portal},
+      {type: int, io-type: out, name: out1_portal},
+      {type: int, io-type: out, name: out2_portal}
   ]
 
 reconfigurable-modules-init:
@@ -36,8 +36,8 @@ reconfigurable-modules-init:
       name: out2
   configuration-names: [LYING, ERECT]
   create: [
-      {type: Lying_configuration, name: m1, activation_delay: 100_NS},
-      {type: Erect_configuration, name: m2, activation_delay: 100_NS},
+      {type: Lying_configuration, name: m1, activation_delay: 100, activation_delay_measure: SC_NS},
+      {type: Erect_configuration, name: m2, activation_delay: 100, activation_delay_measure: SC_NS},
     ]
   first-module: m1
 

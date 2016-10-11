@@ -12,9 +12,9 @@
 // (note: exports and channels can be mapped, too)
 
 RC_PORTMAP(
-    staticPortMap, ___RC_TOP_PORT_N___,     // name and size of the port map
+    staticPortMap, 4,     // name and size of the port map
     RC_PORT_TYPES(        // a list of port/export or channel types
-      ___RC_TOP_PORT_TYPE___
+      sc_fifo<int>,sc_fifo<int>,sc_fifo<int>,sc_fifo<int>
     )
 );
 
@@ -22,16 +22,26 @@ SC_MODULE(Top)
 {
     bool command_executed = false;
     // channels
-___RC_TOP_CHANNELS_PORT_TYPE___
+		sc_fifo<int> in1_fifo;
+		sc_fifo<int> in2_fifo;
+		sc_fifo<int> out3_fifo;
+		sc_fifo<int> out4_fifo;
+
 
     // portals
-___RC_TOP_PORTAL_PORT_TYPE___
+		sc_fifo<int> in1_fifo;
+		sc_fifo<int> in2_fifo;
+		sc_fifo<int> out3_fifo;
+		sc_fifo<int> out4_fifo;
+
 
     // reconfiguration control
     rc_control ctrl;
 
     // reconfigurable modules
-___RC_RECONFIGURABLE_MODULES_DEF___
+		Lying_configuration m1;
+		Erect_configuration m2;
+
 
     // port map for static side binding
     staticPortMap stat_portmap;
@@ -40,25 +50,33 @@ ___RC_RECONFIGURABLE_MODULES_DEF___
     rc_switch_connector<dynPortMap> connector;
 
     STATES STATUS, NEXT_STATUS;
-___RC_TOP_VARIABLES___
+		Lying_configuration m1;
+		Erect_configuration m2;
+
 
     SC_CTOR(Top)
-        : ___RC_CTOR_INITIALIZER___
+        : in1_fifo(1) ,in2_fifo(1) ,out3_fifo(1) ,out4_fifo(1) ,ctrl("ctrl"), m1("Lying_configuration"), m2("Erect_configuration"), stat_portmap(in1_portal, in2_portal, out1_portal, out2_portal), active_module(NULL)
     {
         // automatically connect portals with the static side
         connector.bind_static(stat_portmap);
 
         // automatically connect portals with the dynamic side
-___RC_BINDING_DYNAMIC_CONNECTOR___
+				connector.bind_dynamic(m1);
+				connector.bind_dynamic(m2);
+
 
         // set module's loading times
-___RC_LOADING_LOADING_TIMES___
+				m1.rc_set_delay(RC_LOAD, sc_time(100, SC_NS));
+				m2.rc_set_delay(RC_LOAD, sc_time(100, SC_NS));
+
 
         // setup the reconfiguration controller
-___RC_ADD_MODULES___
+				ctrl.add(m1+m2);
 
         // m1 shall be initially active
-___RC_FIRST_MODULE___
+				ctrl.activate(m1);
+				active_module = &m1;
+
 
         // producer thread sending the test data
         SC_THREAD(producer_proc);
