@@ -43,9 +43,9 @@ void Top::activate(rc_reconfigurable& module)
 
 void Top::producer_proc()
 {
-    ___TOP_PRODUCER_VARIABLES___
+___TOP_PRODUCER_VARIABLES___
 
-    ___TOP_PRODUCER_CODE___
+___TOP_PRODUCER_CODE___
 }
 
 void Top::control_proc()
@@ -57,7 +57,5 @@ void Top::control_proc()
 
 void Top::monitor_proc()
 {
-    ___TOP_MONITOR_VARIABLES___
-
     ___TOP_MONITOR_CODE___
 }

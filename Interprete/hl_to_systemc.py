@@ -133,6 +133,43 @@ def main(argv):
     top_h_file_text = top_h_file_text.replace("___RC_FIRST_MODULE___", add_first_active_modules)
 
 
+    ##TOP.C
+    ###___TOP_PRE_CODE___
+    top_pre_code=proj_obj['top-code']['pre-code']
+    if proj_obj['top-code']['debug-activation']:
+        top_pre_code += "\n#define DEBUG_ACTIVATION_TOP 1\n"
+    top_c_file_text = top_c_file_text.replace("___TOP_PRE_CODE___", top_pre_code)
+
+    ###___TOP_PRODUCER_VARIABLES___
+    top_producer_variables = ""
+    for obj in proj_obj['top-code']['producer']['variables']:
+        if "value" in obj:
+            top_producer_variables += "\t"+obj['type']+" "+obj['name']+" = "+obj['name']+";\n"
+        else:
+            top_producer_variables += "\t"+obj['type']+" "+obj['name']+";\n"
+    top_c_file_text = top_c_file_text.replace("___TOP_PRODUCER_VARIABLES___", top_producer_variables)
+
+    ###___TOP_PRODUCER_CODE___
+    top_producer_code = proj_obj['top-code']['producer']['code']
+    top_c_file_text = top_c_file_text.replace("___TOP_PRODUCER_CODE___", top_producer_code)
+
+    ###___TOP_CONTROLLER_VARIABLES___
+    top_controller_variables = ""
+    for obj in proj_obj['top-code']['controller']['variables']:
+        if "value" in obj:
+            top_producer_variables += "\t"+obj['type']+" "+obj['name']+" = "+obj['name']+";\n"
+        else:
+            top_producer_variables += "\t"+obj['type']+" "+obj['name']+";\n"
+    top_c_file_text = top_c_file_text.replace("___TOP_CONTROLLER_VARIABLES___", top_controller_variables)
+
+    ###___TOP_CONTROLLER_CODE___
+    top_controller_code = proj_obj['top-code']['controller']['code']
+    top_c_file_text = top_c_file_text.replace("___TOP_CONTROLLER_CODE___", top_controller_code)
+
+    ###___TOP_MONITOR_CODE___
+    top_monitor_code = proj_obj['top-code']['monitor']['code']
+    top_c_file_text = top_c_file_text.replace("___TOP_MONITOR_CODE___", top_monitor_code)
+
     #save all
     print "generate files..."
 
