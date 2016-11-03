@@ -95,7 +95,7 @@ def main(argv):
     top_h_file_text = top_h_file_text.replace("___RC_RECONFIGURABLE_MODULES_DEF___", reconfigurable_modules_def)
 
     ###___RC_TOP_VARIABLES___
-    top_variables = "";
+    top_variables = ""
     for obj in proj_obj['top-init']['variables']:
         if "value" in obj:
             top_variables += "\t\t"+obj['type']+" "+obj['name']+" = "+str(obj['value'])+";\n"
@@ -117,7 +117,7 @@ def main(argv):
     loading_loading_times = "";
     for obj in proj_obj['reconfigurable-modules-init']['create']:
         loading_loading_times += "\t\t\t\t"+obj['name']+".rc_set_delay(RC_LOAD, sc_time("+str(obj['activation_delay'])+", "+obj['activation_delay_measure']+"));\n"
-        #add module strings
+        # add module strings
         add_modules += obj['name']+"+"
     all_connector = all_connector[:-1]
     add_modules = add_modules[:-1]
@@ -170,19 +170,82 @@ def main(argv):
     top_monitor_code = proj_obj['top-code']['monitor']['code']
     top_c_file_text = top_c_file_text.replace("___TOP_MONITOR_CODE___", top_monitor_code)
 
+    ## MODULES.H
+    print("generate modules.h strings...")
+    ### ___RC_MODULES_PORT_N___
+    modules_h_file_text = modules_h_file_text.replace("___RC_MODULES_PORT_N___", str(proj_obj['reconfigurable-modules-init']['port']['num']))
+
+    ### ___RC_MODULES_PORT_TYPE___
+    fifo_string = ""
+    i = 0
+    for value in proj_obj['reconfigurable-modules-init']['channels_in']:
+        i += 1
+        fifo_string += "\t\tsc_fifo<"+value['type']+">,\n"
+    i = 0
+    for value in proj_obj['reconfigurable-modules-init']['channels_out']:
+        i += 1
+        fifo_string += "\t\tsc_fifo<"+value['type']+">,\n"
+    modules_h_file_text = modules_h_file_text.replace("___RC_MODULES_PORT_TYPE___", fifo_string)
+
+    ### ___RC_RECONFIGURABLE_MODULES_CONSTRUCTORS___
+    modules_constructors = ""
+    fifo_string = ""
+    fifo_names = ""
+    pm = ""
+    i = 0
+    for value in proj_obj['reconfigurable-modules-init']['channels_in']:
+        i += 1
+        fifo_string += "\t\t\tsc_fifo<"+value['type']+"> "+value['name']+",\n"
+        fifo_names = value['name']+", "
+
+    i = 0
+    for value in proj_obj['reconfigurable-modules-init']['channels_out']:
+        i += 1
+        fifo_string += "\t\t\tsc_fifo<"+value['type']+"> "+value['name']+",\n"
+        fifo_names = value['name'] + ", "
+
+    fifo_names = fifo_names[:-2]
+
+    pm ="\tSTATES STATUS, NEXT_STATUS; \n"\
+        "\tdynPortMap pm;\n"\
+        "\tRC_RECONFIGURABLE_CTOR(Lying_configuration),\n"\
+        "\t\tpm("+fifo_names+") // initialise the port map with the ports\n"\
+        "\t\t{\n"\
+        "\t\trc_add_portmap(pm);\n"\
+        "\t\tRC_THREAD(proc);\n"\
+        "\t\t}"
+
+    fifo_string = fifo_string.replace(",", ";")
+    fifo_string = fifo_string.replace("\t\t", "")
+
+    for value in proj_obj['reconfigurable-modules-init']['create']:
+        modules_constructors += "RC_RECONFIGURABLE_MODULE("+value['type']+")\n"
+        modules_constructors += "{\n"
+        modules_constructors += fifo_string
+        modules_constructors += pm
+        modules_constructors += "private:\n"\
+                                "    void proc();\n"
+        modules_constructors += "};\n"
+
+    modules_h_file_text = modules_h_file_text.replace("___RC_RECONFIGURABLE_MODULES_CONSTRUCTORS___", modules_constructors)
+
     #save all
     print "generate files..."
 
     if not os.path.exists(output):
         os.makedirs(output)
 
-    top_h_out_file = open(output+"/Top.h","w")
+    top_h_out_file = open(output+"/Top.h", "w")
     top_h_out_file.write(top_h_file_text)
     top_h_out_file.close()
 
-    top_c_out_file = open(output+"/Top.cpp","w")
+    top_c_out_file = open(output+"/Top.cpp", "w")
     top_c_out_file.write(top_c_file_text)
     top_c_out_file.close()
+
+    modules_h_out_file = open(output+"/modules.h", "w")
+    modules_h_out_file.write(modules_h_file_text)
+    modules_h_file.close()
 
     #END PROGRAM
 

@@ -7,7 +7,7 @@
 RC_PORTMAP(
     dynPortMap, ___RC_MODULES_PORT_N___,            // name and size of the port map
     RC_PORT_TYPES(            // a list of port types (order is relevant)
-      ___RC_MODULES_PORT_TYPE___
+___RC_MODULES_PORT_TYPE___
     )
 );
 

@@ -24,12 +24,12 @@ reconfigurable-modules-init:
   num: 2
   port:
     num: 4
-    type: [int, int, int, int]
-  channels:
+  channels_in:
     - type: int
       name: in1
     - type: int
       name: in2
+  channels_out:
     - type: int
       name: out1
     - type: int
