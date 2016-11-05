@@ -229,6 +229,33 @@ def main(argv):
 
     modules_h_file_text = modules_h_file_text.replace("___RC_RECONFIGURABLE_MODULES_CONSTRUCTORS___", modules_constructors)
 
+    ## MODULES.C
+    modules_c_file_text = "#include \"modules.h\"\n\n"+modules_c_file_text
+    ### ___RC_RECONFIGURABLE_MODULES_COMMON_CODE___
+    modules_c_file_text = modules_c_file_text.replace("___RC_RECONFIGURABLE_MODULES_COMMON_CODE___", proj_obj['modules-code']['common-code'])
+    ### ___RC_RECONFIGURABLE_MODULES_IMPLEMENTATION_CODE___
+    conf_code = ""
+    for value in proj_obj['modules-code']['descriptions']:
+        conf_code += "\n"
+        conf_code += "void "+value['type']+"::proc()"\
+                     "\n{"\
+                     "\n\tSTATUS = S_INIT;\n\t" \
+                     "\n\twhile (true) {"\
+                     "\n\t\tNEXT_STATUS =  static_cast < STATES > (in1.read());"\
+                     "\n\t\tRC_TRANSACTION {"\
+                     "\n\t\t\tSTATUS = NEXT_STATUS;"\
+                     "\n\t\t\tswitch(STATUS){"
+        for state in value['fsm']:
+            conf_code += "\n\t\t\t\tcase "+state['state']+":"\
+                         "\n\t\t\t\t\t"+state['code']+""\
+                         "\n\t\t\t\t\tbreak;\n"
+        conf_code += "\n\t\t\t}"
+        conf_code += "\n\t\t"+value['other-code']
+        conf_code += "\n\t\t}"
+        conf_code += "\n\t}"
+        conf_code += "\n}"
+    modules_c_file_text = modules_c_file_text.replace("___RC_RECONFIGURABLE_MODULES_IMPLEMENTATION_CODE___", conf_code)
+
     #save all
     print "generate files..."
 
@@ -246,6 +273,10 @@ def main(argv):
     modules_h_out_file = open(output+"/modules.h", "w")
     modules_h_out_file.write(modules_h_file_text)
     modules_h_file.close()
+
+    modules_c_out_file = open(output+"/modules.cpp", "w")
+    modules_c_out_file.write(modules_c_file_text)
+    modules_c_file.close()
 
     #END PROGRAM
 
