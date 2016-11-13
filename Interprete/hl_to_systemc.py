@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import yaml, sys, getopt
 import os
+from shutil import copyfile
 
 def main(argv):
     inputfile = ''
@@ -230,6 +231,7 @@ def main(argv):
     modules_h_file_text = modules_h_file_text.replace("___RC_RECONFIGURABLE_MODULES_CONSTRUCTORS___", modules_constructors)
 
     ## MODULES.C
+    print("generate modules.cpp strings...")
     modules_c_file_text = "#include \"modules.h\"\n\n"+modules_c_file_text
     ### ___RC_RECONFIGURABLE_MODULES_COMMON_CODE___
     modules_c_file_text = modules_c_file_text.replace("___RC_RECONFIGURABLE_MODULES_COMMON_CODE___", proj_obj['modules-code']['common-code'])
@@ -256,6 +258,22 @@ def main(argv):
         conf_code += "\n}"
     modules_c_file_text = modules_c_file_text.replace("___RC_RECONFIGURABLE_MODULES_IMPLEMENTATION_CODE___", conf_code)
 
+
+    ## MAIN.C
+    print("generate main.c strings...")
+    ### ___MAIN_INCLUDES___
+    main_file_text = main_file_text.replace("___MAIN_INCLUDES___", proj_obj['main']['includes'])
+    ### ___MAIN_INIT_CODE___
+    main_file_text = main_file_text.replace("___MAIN_INIT_CODE___", proj_obj['main']['init'])
+    ### ___MAIN_CODE___
+    main_file_text = main_file_text.replace("___MAIN_CODE___", proj_obj['main']['code'])
+
+    ## SPECULARITY.H
+    print("generate specularity.h strings...")
+    ### ___SPECULARITY_CODE___
+    specularity_file_text = specularity_file_text.replace("___SPECULARITY_CODE___", proj_obj['specularity-code'])
+
+
     #save all
     print "generate files..."
 
@@ -276,7 +294,17 @@ def main(argv):
 
     modules_c_out_file = open(output+"/modules.cpp", "w")
     modules_c_out_file.write(modules_c_file_text)
-    modules_c_file.close()
+    modules_c_out_file.close()
+
+    main_file_out_file = open(output+"/main.cpp", "w")
+    main_file_out_file.write(main_file_text)
+    main_file_out_file.close()
+
+    specularity_out_file = open(output+"/specularity.h", "w")
+    specularity_out_file.write(specularity_file_text)
+    specularity_out_file.close()
+
+    copyfile("template/Makefile", output+"/Makefile")
 
     #END PROGRAM
 

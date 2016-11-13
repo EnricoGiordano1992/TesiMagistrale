@@ -2,9 +2,6 @@
 #include "Top.h"
 ___MAIN_INCLUDES___
 
-//elements for VREP
-//
-
 
 int main(int argc, char* argv[])
 {
