@@ -293,9 +293,70 @@ Fino ad ora la garanzia di stato safe del sistema dal punto di vista di asincron
 
 Con questo progetto quindi non si propone esclusivamente una metodologia di progettazione, ma anche un tool automatico per progettare correttamente questi sistemi.
 
-\section{Tool automatico}
 
-TODO
+\section{Rappresentazione della metodologia di progettazione}
+
+Il processo di progettazione proposto per questi sistemi deve seguire il Sequence Diagram proposto nella figura \ref{fig:7}.
+
+\begin{figure}[!hb]
+\centering
+\includegraphics[scale=0.75]{processo.png}
+\caption{Sequence diagram del processo di progettazione}\label{fig:7}
+\end{figure}
+
+Si può notare che il processo proposto risulta lineare, senza cicli e con un'unica diramazione: questo è molto importante dal punto di vista dello sviluppo in quanto non costringe lo sviluppatore ad eseguire delle scelte in base alla situazione e non deve iterare varie parti della progettazione in base al tipo di progetto. La complessità di progettazione quindi è pressochè costante, mentre il punto critico della diramazione consiste in un singolo passo quindi non può portare problemi di sviluppo (dal punto di vista di tempistiche e di utilizzo di risorse).
+
+Tutto parte dalla comprensione delle specifiche da parte del progettista: queste, descritte in qualsiasi forma, devono essere ben comprese dal progettista per identificare la ''forma'' del sistema futuro. Ogni sistema può essere rappresentato con una macchina a stati finiti estesa, quindi è necessario che il progettista riesca ad indentificare come formalizzare il sistema tramite una FSM estesa. Una volta formalizzata la FSM estesa, si può descrivere l'intero sistema disegnandolo come fosse una FSM.
+
+La FSM può essere descritta a proprio piacimento, ma deve essere abbastanza eloquente in modo da far capire quali siano le parte predestinate alla riconfigurazione. Questo significa che ogni parte del sistema deve essere descritta in maniera generica, tralasciando gli aspetti implementativi (ovvero la descrizione di ciò che avviene all'interno degli stati del sistema), ma bisogna descrivere nel dettaglio ogni potenziale stato del sistema. 
+
+Una volta ottenuta la FSM del sistema, si esegue manualmente il partizionamento della FSM candidata alla parte statica del sistema e alla parte dinamica: per farlo si possono seguire le seguenti euristiche:
+
+\begin{itemize}
+
+\item considerare le parti ripetute della FSM (dal punto di vista semantico): quando si nota che una parte della FSM viene ripetuta, ovvero ha le stesse transizioni nel grafo e il comportamento interno ha lo stesso significato (ma l'implementazione futura genererà un comportamento diverso), allora si può inserire quella parte di FSM nella parte dinamica futura della FSM, mentre il restante grafico si implementerà nella parte statica;
+
+ \item identificare i potenziali punti in cui il sistema dovrebbe riconfigurarsi e cambiare comportamento (rimanendo semanticamente uguale tra le configurazioni): in alcune situazioni è ben chiaro quando il sistema deve cambiare la propria descrizione interna in base alla situazione ed eseguire un task che contiene delle piccole variazioni rispetto ad altri. 
+
+\end{itemize}
+
+Quindi si può capire che ciò che caratterizza la parte dinamica del sistema è la semantica: devono essere implementati comportamenti diversi, ma la semantica del task deve essere la medesima per ogni riconfigurazione. Basti pensare un forno con diverse modalità di cottura, ognuna ha il significato di ``cuocere qualcosa'', ma la modalità di cottura è differente, quindi il codice che implementa la cottura sarà differente.
+
+~ 
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=1.5]{fsm.png}
+\caption{Descrizione della FSM standardizzata}\label{fig:8}
+\end{figure}
+
+In aggiunta a ciò, si propone anche uno standard di FSM presentato nella figura \ref{fig:8}: poiché questo metodo di progettazione è molto efficiente, si può utilizzare uno standard anche di rappresentazione della macchina a stati, in modo da rendere più semplice e chiara la partizione tra sistemi e più semplice la descrizione degli stati.
+
+Questa FSM è composta da almeno 3 stati, uno di questi può essere esteso a quanti stati si vuole. Lo stato iniziale è lo stato ``Init'' (nella figura, ``I''), in cui avviene l'inizializzazione del sistema riconfigurabile (quindi si resettano i valori delle variabili, si aspetta che la configurazione sia pronta e si prepara il sistema ad eseguire il futuro algoritmo); lo stato successivo è lo stato di ``Work'' (nella figura, ``W''), in cui si esegue effettivamente l'algoritmo per cui il sistema è stato progettato; questo stato può essere esteso a quanti stati si vuole, in base al modello di sistema che si è rappresentato precedentemente. Infine, lo stato ``Reconfigure'' (nella figura, ``R''), esegue la riconfigurazione del sistema per ottenere un comportamento diverso dal precedentemente; si può dire che questo stato è l'opposto della fase di Init, in quando prepara il sistema alla futura fase di Init di un'altra configurazione.
+
+Non è necessario rappresentare la FSM nel modo precedentemente descritto, ma è consigliato in quanto aiuta a comprendere meglio la partizione del sistema e a creare gli stati correttamente ed in maniera ordinata.
+
+~ 
+
+Una volta eseguito il partizionamento si può ottenere il codice del sistema finale in 2 modi: o scrivendo il codice a mano in SystemC Rechannel, o utilizzando un tool automatico che genera il codice SystemC partendo da una descrizione ad alto livello. Il tool automatico verrà descritto nella prossima sezione.
+
+Infine, avendo il codice SystemC, è possibile sia simulare il sistema, tramite compilazione, sia generale l'effettivo codice finale per eseguire il deploy su FPGA dedicata. Per convertire il codice da SystemC a Netlist, si può utilizzare un qualsiasi tool automatico di conversione da codice a Netlist.
+
+\section{Tool automatico (Pyngu)}
+
+Poichè il processo di generazione di codice è standard e meccanico, è possibile implementare con un tool automatico tutto il processo di scrittura di codice utilizzando un programma di supporto che possa aiutare il progettista. 
+
+Poiché non tutti i progettisti di sistemi embedded conoscono la teoria e la parte implementativa dell'hardware riconfigurabile, è utile astrarre il più possibile dall'utilizzo di SystemC Rechannel e dallo studio dei sistemi riconfigurabili e concentrarsi sulla semantica del sistema. Nasce quindi la necessità di rendere disponibile al progettista un tool automatico che utilizza un mezzo semplificato per descrivere ed implementare il sistema, senza perdere comunque l'espressività di SystemC Rechannel. Utilizzando questo tool, si implementa, secondo lo standard proposto precedentemente, l'intero sistema finale, ottenendo il codice SystemC Rechannel senza sapere i dettagli implementativi della libreria.
+
+Il tool proposto si chiama Pyngu, un interprete e compilatore code-to-code scritto in Python; il nome deriva dal noto personaggio dei cartoni, Pingu, che parlava una lingua incomprensibile all'uomo ma riusciva a farsi capire dai suoi simili, oltre al fatto di capire il linguaggio umano (ciò che fa anche questo tool, ovvero trasforma una descrizione ad alto livello del sistema in un linguaggio che non sempre è noto al progettista); l'aggiunga del suffisso ``Py'' è dovuto allo standard Python dei progetti.
+
+Il tool prende in input una descrizione ad alto livello del sistema completo, tenendo conto della divisione tra parte statica e parte dinamica: in questo modo, il tool genererà i differenti file in base al modo in cui è stato descritto il sistema, tenendo separata la parte statica dalla parte dinamica.
+
+Come linguaggio di base ad alto livello è stato scelto YAML (pronunciato `jaemel), un linguaggio di serializzazione dati che permette facilmente di descrivere con item e sequenze dati e parti di codice; \'{E} stato scelto questo linguaggio perché è molto semplice da imparare e non richiede nessuna conoscenza di programmazione, in modo da renderlo comprensibile anche a chi non conosce i sistemi riconfigurabili.
+
+Seguendo le regole del linguaggio di base ed aggiungendo delle parole chiave che hanno significato solo per il tool automatico, il tool automatico genera il sistema descritto. In particolare, il tool esegue gli stessi passi che esegue il progettista mentre progetta il sistema: identifica la descrizione della parte statica e dinamica del sistema, trasforma la descrizione in FSM in SystemC e infine genera il codice del sistema finale.
+
+Il tool fa sia da interprete sia da compilatore code-to-code: prima di tutto controlla che non ci siano errori nel codice scritto dal progettista, analizzando i tag che riesce a riconoscere, poi, partendo da dei template di file SystemC che contengono la struttura del sistema secondo lo standard, popola i file finali SystemC trasformando ciò che ha descritto il progettista in codice.
 
 \section{Caso di studio}
 
@@ -535,11 +596,6 @@ Il programma sarà sempre sincronizzato con il sistema sottostante, non ha visio
  }
 \caption{Algoritmo di path planning del robot}
 \end{algorithm}
-
-\subsection{Comuncazione tra entità}
-
-\section{Conclusione}
-
 
 
 \begin{thebibliography}{1}
