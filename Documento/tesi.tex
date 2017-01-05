@@ -1,10 +1,5 @@
-% !TEX TS-program = pdflatex
-% !TEX encoding = UTF-8 Unicode
-
-% This is a simple template for a LaTeX document using the "article" class.
-% See "book", "report", "letter" for other types of document.
-
-\documentclass[11pt]{article} % use larger type; default would be 10pt
+\documentclass[a4paper,titlepage]{book}
+\usepackage{frontespizio}
 
 \usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
 
@@ -42,30 +37,23 @@
 \lhead{}\chead{}\rhead{}
 \lfoot{}\cfoot{\thepage}\rfoot{}
 
-%%% SECTION TITLE APPEARANCE
-\usepackage{sectsty}
-\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
-% (This matches ConTeXt defaults)
-
-%%% ToC (table of contents) APPEARANCE
-\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
-\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
-\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
-\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
-
-%%% END Article customizations
-
-%%% The "real" document content comes below...
-
-\title{Una metodologia di progettazione per hardware riconfigurabile}
-\author{Enrico Giordano}
-\date{} % Activate to display a given date or no date (if empty),
-         % otherwise the current date is printed
 
 \begin{document}
-\maketitle
 
-\section{Introduzione}
+
+\begin{frontespizio}
+\Universita{Verona}
+\Dipartimento{Informatica}
+\Corso[Laurea Magistrale]{Ingegneria e Scienze Informatiche}
+\Titoletto{Tesi di laurea magistrale}
+\Titolo{Una metodologia di progettazione per hardware riconfigurabile}
+\Candidato[VR386687]{Enrico Giordano}
+\Relatore{Prof. Graziano Pravadelli}
+\Annoaccademico{2015-2016}
+\end{frontespizio}
+
+
+\chapter*{Introduzione}
 
 Il flusso di progettazione standard di un sistema embedded si divide in tre step: analisi, progettazione e sintesi; questo flusso mira ad avere un sistema specifico per una situazione particolare e alla sintesi finale di tale sistema il meno generale possibile, in modo da renderlo massimamente performante per quel particolare ambiente.
 
@@ -73,10 +61,13 @@ Con questa tesi, si vuole proporre un approccio alternativo il cui mezzo è l'ut
 
 Si presenteranno quindi, a livello descrittivo, le diverse tecniche di configurabilità parziale, introducendo poi un modello di progettazione che mira ad un approccio standardizzato per i futuri sviluppi di questa idea, per poi provare il tutto su un caso di studio reale che possa dimostrare i benefici di questa tecnologia e tecnica di progettazione.
 
-\section{Tecnologia attuale del silicio}
+
+\tableofcontents
+
+\chapter{Tecnologia attuale del silicio}
 Attualmente esistono 3 tecnologie differenti riguardo l'utilizzo del silicio per scopi computazionali: Hardware General Purpoise, Hardware Embedded e Hardware Riprogrammabile. Queste 3 tipologie differiscono sia per la composizione, sia per la progettazione ma anche per il settore di utilizzo.
 
-\subsection{Hardware General Purpoise}
+\section{Hardware General Purpoise}
 Questo tipo di Hardware lo si può trovare in processori e microprocessori utilizzati in strumenti di calcolo generici, come PC, moderni telefoni e televisori. La caratteristica peculiare di questi è la generalità: non essendo stati progettati per un sistema specifico, devono permettere di eseguire più operazioni possibili ed essere riprogrammati a piacimento, al limite delle loro potenzialità.
 
 Questi sono composti da un'architettura standard,  rappresentata nella figura  \ref{fig:0}, e viene implementata in ogni CPU, ovvero ciò che implementa questa tecnologia.
@@ -91,13 +82,13 @@ Il ciclo di vita di questo hardware è contraddistinto da 3 fasi: fetch, decode,
 
 Questo tipo di hardware è molto utile per implementare sistemi generici: la filosofia alla base di questa tecnologia è l'utilizzo più generico possibile, mettendo in secondo piano l'ottimizzazione e il consumo, oltre al costo che cerca di stare relativamente nelle politiche di mercato.
 
-\subsection{Hardware Embedded}
+\section{Hardware Embedded}
 Questo tipo di Hardware è contraddistinto dalla specificità dei suoi componenti interni in base al suo utilizzo; infatti si cerca di utilizzare questo hardware in ambienti o condizioni specifiche, in cui sono richieste operazioni particolari ma soprattutto è necessario ridurre i costi e il consumo dell'applicazione finale.
 La tecnologia che rappresenta questo tipo di hardware è una ASIC e difficilmente si trova un'architettura standard, proprio perché l'architettura è specifica per un certo comportamento. Esistono in commercio dei sistemi embedded basati su microprocessori RISC, come ad esempio i Cortex-M della ARM, che hanno un'architettura molto simile a quella delle CPU. In generale comunque ogni ASIC è diversa, in quanto viene mappato su silicio uno specifico algoritmo o un'architettura più complessa.
 
 Un' ASIC deve costare il meno possibile e deve consumare il meno possibile, in base alle esigenze richieste; ovviamente potrà eseguire solo il compito per cui è stata progettata; ha quindi una filosofia di progettazione opposta a quella dell'Hardware General Purpoise.
 
-\subsection{Hardware Riprogrammabile}
+\section{Hardware Riprogrammabile}
 L'ultimo tipo di Hardware è quello riprogrammabile, ovvero permette di essere configurato a livello di celle di memoria più volte per implementare diversi comportamenti. Di solito viene utilizzato sia in ambito embedded, per permettere più libertà di progettazione e più efficienza, ma anche a scopo sperimentale, perchè è utile per testare un sistema in fase di sviluppo.
 
 \begin{figure}
@@ -109,6 +100,10 @@ L'ultimo tipo di Hardware è quello riprogrammabile, ovvero permette di essere c
 Un esempio di architettura (dipende molto dal modello che si vuole utilizzare) lo si può osservare nella figura \ref{fig:00}: la parte riconfigurabile, denotata con FPGA, consiste in un blocco di celle riconfigurabili, che, in base alla descrizione hardware caricata nella memoria flash, possono cambiare struttura. Attorno alla FPGA sono presenti vari moduli standard che possono servire per il consueto utilizzo in ambito di controlli, ma non sempre sono necessarie, in quanto si possono descrivere all'interno della parte riconfigurabile. Parte necessaria per il funzionamento corretto di una FPGA è la logica di controllo della parte riprogrammabile: deve esserci un hardware dedicato per rimappare questa parte, in modo che il processo di riconfigurazione avvenga più velocemente possibile; questo si occuperà quindi di riconfigurare, in base al bitstream che rappresenta l'hardware, la parte riconfigurabile.
 
 In base al suo utilizzo può assumere aspetti di un hardware general purpoise e di un hardware embedded; essendo una tecnologia piuttosto costosa si cerca di utilizzarla il meno possibile, o almeno solo in fase di test.
+
+\chapter{Hardware Metamorfico e tecnologia associata}
+
+TODO INTRO CHAPTER
 
 \section{Il concetto di Hardware Metamorfico}
 
@@ -132,7 +127,7 @@ Nei primi anni `90 nasce una tecnica di progettazione chiamata ``Riconfigurabili
 
 Quindi, più precisamente, si più parlare di ``riconfigurabilità parziale'' e ``riconfigurabilità run-time'': il primo termine pone enfasi su la parziale capacità del dispositivo di modificarsi, in quanto ci sarà una parte progettata che non deve modificarsi ma soprattutto perché il dispositivo non si modificherà completamente, avrà delle modifiche consentite prestabilite; il secondo termine indica il fatto di potersi modificare durante il suo ciclo di vita, cambiando la propria configurazione di porte logiche ottenendo quindi una forma diversa.
 
-\subsection{Metodi di riconfigurazione}
+\section{Metodi di riconfigurazione}
 
 Essendo la Riconfigurabilità una tecnica di progettazione, prevede vari metodi per essere implementata, che possono essere scelti sia per la tecnologia sia in base alle risorse disponibili su essa. Questi metodi sono stati proposti dall'Altera \cite{PR1} e dall'insegnante Dirk Koch , dell'Università di Manchester \cite{PR2}.
 
@@ -149,7 +144,7 @@ La seconda tecnica è la ``Rilocazione parziale di bitstream'', che consiste nel
 
 Dal modello ``Virtex 6'' delle FPGA Xilinx, è possibile leggere il contenuto della FPGA e quindi ottenere la configurazione attuale del sistema. Esistono due tipi di lettura: la ``readback verify'', che consiste nella lettura di tutte le celle di memoria, e la ``readback capture'', che permette di leggere le celle di memoria e lo stato dei registri, eseguendo un effettivo dump totale. Questa informazione è di particolare interesse per questo progetto, in quanto permette di ottenere la configurazione ottenuta dopo la metamorfosi, quindi ottenere un nuovo codice. Questa proprietà è stata in parte resa negativa dal punto di vista della sicurezza informatica, in quanto permette di estrapolare codice per poi potenzialmente farne un cattivo uso, però è molto utile per sapere l'andamento della metamorfosi.
 
-\subsection{Metodi di reallocazione}
+\section{Metodi di reallocazione}
 
 La parte cruciale quindi di queste tecniche è proprio la reallocazione dei moduli, in quanto la riconfigurabilità consiste proprio nello ``spostare'' un modulo da una sezione attiva a una non attiva. Esistono due modalità di reallocazione: usando dei tools offerti dalla Xilinx e usando il bus.
 
@@ -157,7 +152,7 @@ I tools della Xilinx sono dei software che fungono da middleware per gestire lo 
 
 Entrambi i metodi si basano sulla riconfigurazione runtime della parte di logica programmabile tramite lo stesso hardware della FPGA che si occupa della riconfigurazione statica (quindi durante la progettazione da parte del progettista), ma in maniera automatica: il modulo di controllo di riconfigurazione sceglie quale può essere la zona di logica programmabile corretta (la prima che ha abbastanza spazio per contenere la nuova logica) e genera il segnale di riconfigurazione; al momento del segnale, si esegue la procedura di riconfigurazione come da prassi ma il bitstream da caricare non deriva da un programma esterno via JTAG bensì dalla memoria interna. Quindi ciò che viene caricato non viene generato runtime, è già presente all'interno della memoria, ma il comportamento globale del sistema cambia in quanto viene caricata una porzione di bitstream che andrà ad alterare il circuito generato dal bitstream statico (che non cambia mai) e quello dinamico (caricato runtime).
 
-\subsection{Aree di reallocazione}
+\section{Aree di reallocazione}
 
 \begin{figure}
 \centering
@@ -178,15 +173,15 @@ Il punto di partenza della progettazione non dovrà essere l'analisi dell'ambien
 
 Lo scopo di questa tesi sarà comunque capire come sviluppare al meglio la progettazione di questo tipo di sistema, comprendendo il grado di libertà che si può raggiungere per la parte dinamica e capire quale tipo di riconfigurabilità è più conveniente usare, oltre al fatto di essere sicuri che sia conveniente sfruttare la metamorfosi per risparmiare tempo e denaro durante la progettazione di un sistema embedded.
 
-\section{Simulazione e sintesi di sistemi embedded}
+\chapter{Simulazione e sintesi di sistemi embedded}
 
 Esistono vari metodi per progettare un sistema embedded; l'approccio ingegneristico più avanzato vuole che si progetti in maniera astratta il sistema, per poi calarlo in un contesto di descrizione tramite HDL per poi eseguire la sintesi.
 
-\subsection{Simulazione}
+\section{Simulazione}
 
 Per la descrizione ad alto livello e simulazione, solitamente si utilizza SystemC a diversi livelli, passando da una descrizione mirata a osservare il comportamento dei diversi moduli durante la loro interazione (TLM), fino alla descrizione a livello di EFSM cycle accurate o analogica (RTL e AMS). I vantaggi dell'utilizzo di SystemC sono molteplici, soprattutto grazie allo scheduler interno si riesce a simulare correttamente i vari comportamenti a livello di segnali e attivazione dei moduli.
 
-\subsection{Scheduler di SystemC}
+\section{Scheduler di SystemC}
 
 Lo scheduler di SystemC è stato progettato in modo da rispettare una gerarchia di wakeup dei moduli, in quanto l'hardware solitamente è pilotato sia da un clock interno sia da segnali provenienti da diversi moduli, quindi è stato necessario modellare questo parallelismo tramite uno scheduler. Lo schedule eseguito dallo scheduler è diviso in passi:
 
@@ -201,7 +196,7 @@ Lo scheduler di SystemC è stato progettato in modo da rispettare una gerarchia 
 
 Grazie a questo scheduler, si ha uno strumento che simula correttamente un sistema embedded, rispettando anche i tempi accuratamente di esecuzione, osservabili tramite timestamp.
 
-\subsection{Sintesi}
+\section{Sintesi}
 
 Una volta preparato il modello del sistema in SystemC e simulato correttamente, si procede con la descrizione hardware in HDL, simulazione ed infine sintesi. Solitamente si utilizza VHDL e Verilog, due linguaggi di descrizione hardware che permettono sia di simulare sia di sintetizzare. Solitamente se viene descritto correttamente il sistema in SystemC, il passaggio ad una descrizione HDL è quasi automatico, in quanto si rappresentano gli stessi concetti semanticamente; infatti questo processo dovrebbe essere una traduzione sintattica tra linguaggi.
 
@@ -209,7 +204,7 @@ Una volta preparato il modello del sistema in SystemC e simulato correttamente, 
 
 Poichè non esiste un metodo standard per progettare sistemi metamorfici, bisogna definire \textit{ex novo} un metodo efficace. Intuitivamente sarebbe consigliato utilizzare la stessa metodologia di progettazione di sistemi embedded standard, in modo da rendere facile l'apprendimento a chi è già abituato a progettare sistemi embedded consuetudinari, oltre a sfruttare le potenzialità di un metodo già assodato e verificato nel tempo.
 
-\subsection{Simulazione con SystemC ReChannel}
+\section{Simulazione con SystemC ReChannel}
 
 Per la simulazione si vorrebbe utilizzare SystemC, in quanto offre una descrizione fedele dell'hardware da simulare e sfrutta la conoscenza di C++ per descrivere i sistemi. Attualmente esiste una libreria di SystemC per la descrizione di sistemi riconfigurabili chiamata ReChannel.
 
@@ -243,7 +238,7 @@ Solitamente si utilizza un modulo statico che si occupa di fare da transattore t
 Un ultimo aspetto molto importante che simula correttamente la realtà è la possibilità di impostare il tempo necessario per la riconfigurazione: ogni modulo, in base alla FPGA target, può metterci tempi differenti per essere attivato e disattivare gli altri, quindi è neccesario un meccanismo per modellare il tempo di riconfigurazione. Questa libreria modella il tempo di riconfigurazione in base al caso pessimo di tempistiche, ovvero permette al progettista di impostare il tempo massimo che impiega il modulo ad essere attivato (infatti non sempre impiega lo stesso tempo per essere riconfigurato, per questo bisogna ragionare per caso pessimo). Può essere deciso questo tempo secondo le specifiche della FPGA target proporzionali all'area che il circuito ricopre (si possono effettuare delle stime in base a quante e quali operazioni vengono eseguite).
 
 
-\subsection{Sintesi}
+\section{Sintesi}
 
 La sintesi di questi sistemi è molto simile alla sintesi dei normali sistemi embedded, poiché si utilizza HDL compilato e sintetizzato tramite tool automatici.
 
@@ -261,7 +256,7 @@ Come si può notare con la figura \ref{fig:5}, il tool automatico identifica i s
 
 L'ultimo passaggio del tool automatico è la creazione delle partizioni della FPGA, perché deve essere possibile identificare dove caricare la parte riconfigurabile e dove deve rimanere staticamente il codice; viene creato quindi il file delle partizioni, solitamente chiamato \textit{XPARTITION.xml}, che risiede in memoria e viene consultato ogni volta che deve avvenire una riconfigurazione.
 
-\section{Metodologia di progettazione proposta}
+\chapter{Metodologia di progettazione proposta}
 
 Lo scopo di questo documento è di proporre una metodologia efficiente di progettazione e simulazione per questa particolare architettura. Attualmente non esiste un metodo standard per la progettazione di sistemi basati su questa architettura, quindi si è cercato di proporre un metodo più efficiente possibile per garantire anche a chi non conosce approfonditamente questa tecnologia di poterla sfruttare al meglio.
 Per decidere uno stile di progettazione, si è deciso di basarsi su uno stile già noto nei sistemi consuetudinari embedded, ovvero la progettazione di macchine a stati finiti. La tecnica delle macchine a stati finiti garantisce chiarezza di progettazione e un flusso chiaro di istruzioni che vengono eseguite durante la ``vita'' del sistema, evidenziando anche i possibili blocchi ed anomalie che possono esserci durante l'esecuzione. Inoltre ci si è serviti del noto concetto di ``macchine a stati finiti non deterministiche'': è possibile rappresentare un sistema a stati che può comportarsi ``contemporaneamente'' in molteplici modi, quindi avere più comportamenti tramite lo stesso input in ingresso (solitamente evitato durante la progettazione delle macchine a stati finiti, in quanto non è implementabile).
@@ -358,7 +353,7 @@ Seguendo le regole del linguaggio di base ed aggiungendo delle parole chiave che
 
 Il tool fa sia da interprete sia da compilatore code-to-code: prima di tutto controlla che non ci siano errori nel codice scritto dal progettista, analizzando i tag che riesce a riconoscere, poi, partendo da dei template di file SystemC che contengono la struttura del sistema secondo lo standard, popola i file finali SystemC trasformando ciò che ha descritto il progettista in codice.
 
-\section{Caso di studio}
+\chapter{Caso di studio}
 
 Per verificare le potenzialità di questa architettura e del metodo di progettazione proposto, è stato implementato un progetto complesso che comprende molteplici aspetti avanzati dell'applicazione dell'informatica; in questo modo, si è proposto un esempio robusto per far notare i pregi (anche dal punto di vista della complessità di progettazione) di questa architettura.
 Il caso di studio consiste in un robot \textit{intelligente} e \textit{riconfigurabile} che deve essere in grado di affrontare un percorso ad ostacoli per raggiungere una fonte di calore, quindi calato in un contesto di robot di salvataggio che è in grado di ricercare persone in ambienti avversi o identificare fonti di incendi e tentare di domare le fiamme. Il tutto è stato implementato con diversi tool di simulazione che sono stati fatti comunicare e rispettando i vincoli temporali di un sistema reale (quindi utilizzando clock, tempi fisici realistici con tutti i problemi di hard realtime annessi).
@@ -386,7 +381,7 @@ A causa della difficoltà reale del progetto, sono state fatte diverse assunzion
 
 Si vedranno ora nel dettaglio le diverse implementazioni dei componenti.
 
-\subsection{Hardware riconfigurabile}
+\section{Hardware riconfigurabile}
 
 Il sistema riconfigurabile svolge la funzione di moto, riconfigurazione e sensoristica del robot: tutta la parte di cinematica viene delegata a questa parte, con i relativi controlli sui sensori. Si potrebbe paragonare ad un sistema nervoso adattivo: esso è in grado di adattarsi all'ambiente percependolo, ma non comprendendolo. La comprensione di tutti i segnali viene delegata alla parte di intelligenza artificiale, questa parte si occupa solo di acquisire dati e di inviarli al ``sistema di controllo e comprensione''.
 Questo è stato implementato in simulazione su SystemC Rechannel ed è composto da 2 entità:
@@ -411,12 +406,12 @@ Il Top è composto quindi dai seguenti componenti:
 
 Si ha quindi anche parallelismo interno al modulo Top, in quanto deve essere in grado di gestire contemporaneamente i diversi aspetti della riconfigurazione. Questo parallelismo è gestito da SystemC Rechannel, però lo scambio di messaggi (che risulta bloccante secondo l'architettura Client-Server rispettivamente dei moduli riconfigurabili e del Top) viene gestito dal progettista.
 
-\subsection{Robot riconfigurabile}
+\section{Robot riconfigurabile}
 
 È stato creato un robot riconfigurabile, ovvero capace di mutare la propria forma in modo da presentare una cinematica differente per ogni riconfigurazione. La caratteristica principale di questi robot è di essere composti da moduli semplici che, uniti tra loro, creano una struttura più complessa.
 
 
-\subsubsection{I robot riconfigurabili}
+\subsection{I robot riconfigurabili}
 
 \begin{figure}[htbp]
 \centering
@@ -447,7 +442,7 @@ Ogni robot riconfigurabile ha quindi una rappresentazione secondo un linguaggio:
 
 Queste informazioni si adattano perfettamente al modello di hardware riconfigurabile proposto: la sintassi e la semantica vengono gestiti dal Top, mentre la grammatica viene gestita dai moduli riconfigurabili, il tutto gestito da una macchina a stati per tenere traccia dei movimenti da eseguire (ma soprattutto quelli possibili).
 
-\subsubsection{Progettazione}
+\subsection{Progettazione}
 
 Il robot è stato progettato appositamente per questo progetto, riprendendo il modello del robot serpente di esempio del simulatore V-REP. Questo non presenta una riconfigurabilità totale, in quanto, a causa del simulatore, non era possibile rappresentare un robot che presentasse giunti semovibili. In ogni caso, il robot è in grado di riconfigurarsi grazie alle direttive dell'hardware riconfigurabile.
 
@@ -485,7 +480,7 @@ Ogni componente pesa $40g$ e deve avere l'attrito necessario per permettere il m
 
 Per le diverse configurazioni, sono stati presi diversi modelli naturali per rappresentare il moto: la configurazione a serpente doppio ha preso spunto dal moto del serpente (moto ondulatorio verticale), mentre la configurazione a quadrupede ha preso spunto dalla marcia del cavallo (passo).
 
-\subsubsection{Configurazione a serpente doppio}
+\subsection{Configurazione a serpente doppio}
 
 In questa configurazione, il robot si trova sdraiato, completamente a contatto con il terreno. Per muoversi, deve eseguire un moto ondulatorio verticale, come alcuni tipi di serpenti. Questo tipo di moto può essere descritto con queste equazioni:
 
@@ -511,7 +506,7 @@ Quindi, implementando ogni posizione dei giunti, si è riusciti a far muovere il
 
 In questa configurazione è anche possibile muoversi lateralmente, rovesciando il robot lateralmente 2 volte consecutive. Per fare ciò, è necessario piegare contemporaneamente 2 giunti dello stesso lato, in modo che il robot si possa rovesciare nel lato opposto, per poi rieseguire lo stesso movimento con gli altri 2 giunti.
 
-\subsubsection{Configurazione a quadrupede}
+\subsection{Configurazione a quadrupede}
 
 In questa configurazione, il robot si trova in posizione eretta sui suoi 4 arti che nella configurazione precedentemente descritta erano i 4 serpenti. Per questa configurazione non si è trovato un modello analitico per descrivere il moto del robot, quindi ci si è serviti dello studio cinematico di un cavallo, in particolare della cinematica del ``passo''.
 Il passo è la camminata leggera del cavallo, che consiste nel muovere alternativamente e a coppie disallineati gli arti opposti, senza avere una fase di volo; in questo modo, si ha sempre la condizione di equilibrio una volta completato l'insieme di movimenti. La caratterstica di questo movimento però è lo sbilanciamento verso la direzione in cui ci si muove: gli arti vengono alzati in modo che avvenga uno sbilanciamento in avanti in modo che, raddrizzandoli successivamente, si è riusciti ad avanzare.
@@ -527,7 +522,7 @@ Il passo è la camminata leggera del cavallo, che consiste nel muovere alternati
 Per implementare il moto del robot quindi, è stato fatto uno studio cinematico del passo del cavallo, per poi riportare le posizioni dei ``giunti'' del cavallo nelle posizioni dei giunti del robot; in questo modo si è discretizzato il movimento del robot per poi permettergli di muoversi secondo un modello naturale funzionante, oltre a fare uno studio dell'anatomia del cavallo per capire come renderla compatibile con la configurazione a quadrupede del robot.
 Utilizzando un controllo di posizione infine, si è riusciti facilmente ad implementare il corretto movimento: servendosi di uno studio di settore già stato eseguito \cite{robot_horse}, è stata semplicemente trascritta la posizione attesa dei giunti e rappresentata in simulazione.
 
-\subsection{Intelligenza Artificiale}
+\section{Intelligenza Artificiale}
 
 Per completare il progetto, era necessario utilizzare un programma intelligente che potesse gestire il path planning; questo perché sarebbe troppo poco performante far eseguire il tutto all'hardware riconfigurabile, quindi si è implementato un programma esterno per gestire l'aspetto di pianificazione del percorso e il collision avoidance.
 
@@ -545,7 +540,7 @@ La tecnica dell' A star si è dimostrata molto efficace, in quanto il percorso r
 \caption{Mappa in cui utilizzare A Star (percorso in rosso, ostacoli in verde, ostacoli in bianco oltrepassabili strisciando)}\label{fig:8}
 \end{figure}
 
-\subsubsection{Algoritmo}
+\subsection{Algoritmo}
 
 L'algoritmo intelligente definisce una serie di regole che il robot deve adottare in modo da trovare il percorso corretto per raggiungere l'obbiettivo. Questo quindi consisterà in una serie di letture dei dati derivanti dai sensori, che verranno interpretati e quindi si deciderà quale azione eseguire. Da notare che l'ordine dei controlli è molto importante: si definisce una priorità di controlli in modo che, a parità di configurazione, la priorità delle scelte possa cambiare l'esecuzione del programma.
 Il programma sarà sempre sincronizzato con il sistema sottostante, non ha visione del mondo che lo circonda ma semplicemente interpreta tramite regole prestabilite i segnali che arrivano dai sensori. Infine, deve essere un algoritmo semplice e che non richieda troppo utilizzo di memoria e risorse, in quanto deve essere più veloce possibile e calato in un contesto di un microcontrollore che si trova a bordo del robot, quindi indubbiamente con non ottime capacità di calcolo.
