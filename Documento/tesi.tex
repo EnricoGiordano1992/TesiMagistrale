@@ -103,7 +103,7 @@ In base al suo utilizzo può assumere aspetti di un hardware general purpoise e 
 
 \chapter{Hardware Metamorfico e tecnologia associata}
 
-TODO INTRO CHAPTER
+Si vedrà ora nel dettaglio il significato di hardware metamorfico e in particolare la tecnologia che implementa questo concetto. 
 
 \section{Il concetto di Hardware Metamorfico}
 
@@ -327,7 +327,7 @@ Quindi si può capire che ciò che caratterizza la parte dinamica del sistema è
 
 In aggiunta a ciò, si propone anche uno standard di FSM presentato nella figura \ref{fig:8}: poiché questo metodo di progettazione è molto efficiente, si può utilizzare uno standard anche di rappresentazione della macchina a stati, in modo da rendere più semplice e chiara la partizione tra sistemi e più semplice la descrizione degli stati.
 
-Questa FSM è composta da almeno 3 stati, uno di questi può essere esteso a quanti stati si vuole. Lo stato iniziale è lo stato ``Init'' (nella figura, ``I''), in cui avviene l'inizializzazione del sistema riconfigurabile (quindi si resettano i valori delle variabili, si aspetta che la configurazione sia pronta e si prepara il sistema ad eseguire il futuro algoritmo); lo stato successivo è lo stato di ``Work'' (nella figura, ``W''), in cui si esegue effettivamente l'algoritmo per cui il sistema è stato progettato; questo stato può essere esteso a quanti stati si vuole, in base al modello di sistema che si è rappresentato precedentemente. Infine, lo stato ``Reconfigure'' (nella figura, ``R''), esegue la riconfigurazione del sistema per ottenere un comportamento diverso dal precedentemente; si può dire che questo stato è l'opposto della fase di Init, in quando prepara il sistema alla futura fase di Init di un'altra configurazione.
+Questa FSM è composta da almeno 3 stati, uno di questi può essere esteso a quanti stati si vuole. Lo stato iniziale è lo stato ``Init'' (nella figura, ``I''), in cui avviene l'inizializzazione del sistema riconfigurabile (quindi si resettano i valori delle variabili, si aspetta che la configurazione sia pronta e si prepara il sistema ad eseguire il futuro algoritmo); lo stato successivo è lo stato di ``Work'' (nella figura, ``W''), in cui si esegue effettivamente l'algoritmo per cui il sistema è stato progettato; questo stato può essere esteso a quanti stati si vuole, in base al modello di sistema che si è rappresentato precedentemente. Infine, lo stato ``Reconfigure'' (nella figura, ``R''), esegue la riconfigurazione del sistema per ottenere un comportamento diverso dal precedente; si può dire che questo stato è l'opposto della fase di Init, in quando prepara il sistema alla futura fase di Init di un'altra configurazione.
 
 Non è necessario rappresentare la FSM nel modo precedentemente descritto, ma è consigliato in quanto aiuta a comprendere meglio la partizione del sistema e a creare gli stati correttamente ed in maniera ordinata.
 
@@ -338,6 +338,14 @@ Una volta eseguito il partizionamento si può ottenere il codice del sistema fin
 Infine, avendo il codice SystemC, è possibile sia simulare il sistema, tramite compilazione, sia generale l'effettivo codice finale per eseguire il deploy su FPGA dedicata. Per convertire il codice da SystemC a Netlist, si può utilizzare un qualsiasi tool automatico di conversione da codice a Netlist.
 
 \section{Tool automatico (Pyngu)}
+
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.2]{pyngulogo.png}
+\caption{Logo del tool Pyngu}\label{fig:9}
+\end{figure}
+
 
 Poichè il processo di generazione di codice è standard e meccanico, è possibile implementare con un tool automatico tutto il processo di scrittura di codice utilizzando un programma di supporto che possa aiutare il progettista. 
 
@@ -352,6 +360,20 @@ Come linguaggio di base ad alto livello è stato scelto YAML (pronunciato `jaeme
 Seguendo le regole del linguaggio di base ed aggiungendo delle parole chiave che hanno significato solo per il tool automatico, il tool automatico genera il sistema descritto. In particolare, il tool esegue gli stessi passi che esegue il progettista mentre progetta il sistema: identifica la descrizione della parte statica e dinamica del sistema, trasforma la descrizione in FSM in SystemC e infine genera il codice del sistema finale.
 
 Il tool fa sia da interprete sia da compilatore code-to-code: prima di tutto controlla che non ci siano errori nel codice scritto dal progettista, analizzando i tag che riesce a riconoscere, poi, partendo da dei template di file SystemC che contengono la struttura del sistema secondo lo standard, popola i file finali SystemC trasformando ciò che ha descritto il progettista in codice.
+
+Inoltre il tool rispetta lo standard di SystemC Rechannel, aggiungendo lo standard proposto in questa tesi, oltre al fatto di gestire le condizioni di safety descritte precedentemente: utilizzando correttamente questo tool e il relativo linguaggio, si eviteranno futuri errori di implementazione che potrebbero compromettere l'intero funzionamento del sistema.
+
+\subsection{Il linguaggio (PynguLang)}
+
+TODO
+
+\section{Utilizzo del tool durante la progettazione}
+
+Il tool automatico risulta essere particolarmente efficace durante la progettazione, avendo fatto le giuste scelte implementative seguendo il flusso proposto. In particolare, il linguaggio riconosciuto dal tool, basato appunto su YAML, ha massimo potere espressivo nel contesto del flusso di progettazione, in quanto permette di descrivere ogni componente del sistema riconfigurabile da produrre. Se sono state fatte le scelte giuste (precedentemente descritte), la conversione delle FSM ottenute sarà molto facile seguendo il linguaggio, mentre scelte sbagliate renderanno la descrizione tramite il linguaggio leggermente più complesse (o comunque non efficaci).
+
+Il tool inoltre non ha un ruolo fondamentale, semplicemente aiuta il progettista che non conosce la libreria oppure necessita di una scrittura velocizzata del codice: lo stesso codice SystemC ottenuto dal tool può essere scritto a mano dal progettista. Si suppone che comunque il tempo necessario per apprendere il linguaggio PynguLang sia molto minore rispetto ad apprendere il funzionamento della libreria SystemC Rechannel, quindi un guadagno di apprendimento si ha, oltre al fatto di ottenere codice che risulta essere safe e corretto per costruzione.
+
+
 
 \chapter{Caso di studio}
 
