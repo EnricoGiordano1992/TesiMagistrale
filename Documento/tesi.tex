@@ -46,7 +46,7 @@
 \Dipartimento{Informatica}
 \Corso[Laurea Magistrale]{Ingegneria e Scienze Informatiche}
 \Titoletto{Tesi di laurea magistrale}
-\Titolo{Una metodologia di progettazione per hardware riconfigurabile}
+\Titolo{Generazione automatica di modelli SystemC RTL di hardware riconfigurabile dinamicamente}
 \Candidato[VR386687]{Enrico Giordano}
 \Relatore{Prof. Graziano Pravadelli}
 \Annoaccademico{2015-2016}
@@ -365,7 +365,38 @@ Inoltre il tool rispetta lo standard di SystemC Rechannel, aggiungendo lo standa
 
 \subsection{Il linguaggio (PynguLang)}
 
-TODO
+Il linguaggio riconosciuto dal tool automatico serve per descrivere sia la parte statica sia la parte dinamica del sistema ad alto livello basandosi sulla conoscenza dello standard YAML. Il progettista dovrà essere in grado, dopo lo studio di questo linguaggio, di creare un file ``.yaml'' contenente la descrizione del sistema secondo lo standard del linguaggio, in modo da astrarsi completamente dalla conoscenza e studio di SystemC Rechannel.
+
+La descrizione del sistema tramite il linguaggio  consiste in 2 passaggi: la descrizione della parte di struttura delle singole parti del sistema (quindi parte statica e parte dinamica) e la descrizione del comportamento interno delle singole parti.
+
+~ 
+
+La prima parte consiste nel descrivere le porte di ingresso, le uscite, le variabili interne e i tipi di segnali che compongono le parti del sistema. Le parole chiave sono contraddistinte dalla presenza della stringa ``\textit{init}''
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.6]{pyngu_init_example.png}
+\caption{Esempio della prima parte della descrizione del sistema}\label{fig:10}
+\end{figure}
+
+In questa parte, si possono descrivere: 
+\begin{itemize}
+
+\item il Top, ovvero la parte statica del sistema (tramite il tag ``top-init''), di cui si possono definire le variabili (``variables''), i canali di input e output (``channels'') e i canali di comunicazione con la parte dinamica (``portals'') ;
+
+\item i moduli riconfigurabili (tramite il tag ``reconfigurable-modules-init''), di cui si possono definire la quantità di moduli che il sistema può avere (``num''), il numero di porte di ingresso e uscita che può avere (``port->num''), il tipo di canali di comunicazione che può avere (``channels\_in'' e ``channels\_out''), il nome che si vuole dare alle diverse configurazioni (``configuration\_names''), il primo modulo che deve attivarsi e le modalità di caricamento dei moduli (``create'', con cui si può definire il tempo di attivazione tramite ``activation\_delay'' e l'unità di misura in cui viene espresso questo tempo tramite ``activation\_delay\_measure'');
+
+\item la FSM in comune tra i due sistemi (tramite il tag ``fsm-init''), di cui si definiscono il numero di stati (``num''), e il nome degli stati (``states'');
+
+\item altre variabili di supporto definite dal progettista (tramite il tag ``common-other-variables''), di cui si identifica il tipo (tramite ``type''),  il nome (tramite ``name'') e il relativo valore se necessario (tramite ``value'');
+
+\end{itemize}
+
+Nella prima parte quindi si dà particolare enfasi alla parte di specifiche strutturali, dove è fondamentale capire gli inputs e gli outputs del sistema, oltre ad implementare il metodo corretto di comunicazione tra parte statica e parte dinamica del sistema.
+
+~ 
+
+La seconda parte invece consiste nello scrivere l'effettivo codice che verrà eseguito all'interno dei diversi sistemi. . Le parole chiave sono contraddistinte dalla presenza della stringa ``\textit{code}'' e il linguaggio permette l'inserimento di codice puro (raw) di SystemC.
 
 \section{Utilizzo del tool durante la progettazione}
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.11.8)  6 JAN 2017 17:20
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.11.8)  11 JAN 2017 23:22
 entering extended mode
 **C:/Users/enric_000/Documents/TESI/Documento/tesi.tex
 (C:/Users/enric_000/Documents/TESI/Documento/tesi.tex
@@ -1123,57 +1123,76 @@ File: pyngulogo.png Graphic file (type png)
 Package pdftex.def Info: pyngulogo.png used on input line 345.
 (pdftex.def)             Requested size: 90.53664pt x 92.14261pt.
  [27 <C:/Users/enric_000/Documents/TESI/Documento/fsm.png>] [28 <C:/Users/enric
-_000/Documents/TESI/Documento/pyngulogo.png>] [29] [30
+_000/Documents/TESI/Documento/pyngulogo.png>]
+<pyngu_init_example.png, id=139, 700.11563pt x 299.61937pt>
+File: pyngu_init_example.png Graphic file (type png)
 
-]
+<use pyngu_init_example.png>
+Package pdftex.def Info: pyngu_init_example.png used on input line 378.
+(pdftex.def)             Requested size: 420.07262pt x 179.77301pt.
+
+Overfull \hbox (1.81894pt too wide) in paragraph at lines 378--379
+ [][] 
+ []
+
+
+Overfull \hbox (0.7194pt too wide) in paragraph at lines 391--392
+[]\OT1/cmr/m/n/10 altre va-ria-bi-li di sup-por-to de-fi-ni-te dal pro-get-ti-s
+ta (tra-mi-te il tag ``common-other-variables''),
+ []
+
+[29 <C:/Users/enric_000/Documents/TESI/Documento/pyngu_init_example.png>]
+[30]
 Capitolo 5.
-[31] [32] <robot_riconfigurabile1.jpg, id=152, 401.5pt x 184.69pt>
+[31
+
+] [32] <robot_riconfigurabile1.jpg, id=153, 401.5pt x 184.69pt>
 File: robot_riconfigurabile1.jpg Graphic file (type jpg)
 
 <use robot_riconfigurabile1.jpg>
-Package pdftex.def Info: robot_riconfigurabile1.jpg used on input line 440.
+Package pdftex.def Info: robot_riconfigurabile1.jpg used on input line 471.
 (pdftex.def)             Requested size: 200.7495pt x 92.34476pt.
  [33 <C:/Users/enric_000/Documents/TESI/Documento/robot_riconfigurabile1.jpg>]
-<screen_blender.png, id=156, 1444.39626pt x 937.5025pt>
+<screen_blender.png, id=157, 1444.39626pt x 937.5025pt>
 File: screen_blender.png Graphic file (type png)
 
 <use screen_blender.png>
-Package pdftex.def Info: screen_blender.png used on input line 475.
+Package pdftex.def Info: screen_blender.png used on input line 506.
 (pdftex.def)             Requested size: 288.87413pt x 187.49718pt.
  [34]
-<tobor_sdraiato.png, id=160, 478.78876pt x 425.59pt>
+<tobor_sdraiato.png, id=161, 478.78876pt x 425.59pt>
 File: tobor_sdraiato.png Graphic file (type png)
  <use tobor_sdraiato.png>
-Package pdftex.def Info: tobor_sdraiato.png used on input line 486.
+Package pdftex.def Info: tobor_sdraiato.png used on input line 517.
 (pdftex.def)             Requested size: 143.63773pt x 127.67798pt.
 
-<tobor_quadrupede.png, id=161, 429.605pt x 392.46625pt>
+<tobor_quadrupede.png, id=162, 429.605pt x 392.46625pt>
 File: tobor_quadrupede.png Graphic file (type png)
 
 <use tobor_quadrupede.png>
-Package pdftex.def Info: tobor_quadrupede.png used on input line 488.
+Package pdftex.def Info: tobor_quadrupede.png used on input line 519.
 (pdftex.def)             Requested size: 128.88249pt x 117.74077pt.
  [35 <C:/Users/enric_000/Documents/TESI/Documento/screen_blender.png> <C:/Users
 /enric_000/Documents/TESI/Documento/tobor_sdraiato.png> <C:/Users/enric_000/Doc
 uments/TESI/Documento/tobor_quadrupede.png>] [36]
-<cavallo_passo.jpg, id=171, 237.88875pt x 205.76875pt>
+<cavallo_passo.jpg, id=172, 237.88875pt x 205.76875pt>
 File: cavallo_passo.jpg Graphic file (type jpg)
  <use cavallo_passo.jpg>
-Package pdftex.def Info: cavallo_passo.jpg used on input line 538.
+Package pdftex.def Info: cavallo_passo.jpg used on input line 569.
 (pdftex.def)             Requested size: 118.94408pt x 102.88411pt.
 
-<passo1.png, id=172, 589.20125pt x 399.4925pt>
+<passo1.png, id=173, 589.20125pt x 399.4925pt>
 File: passo1.png Graphic file (type png)
  <use passo1.png>
-Package pdftex.def Info: passo1.png used on input line 540.
+Package pdftex.def Info: passo1.png used on input line 571.
 (pdftex.def)             Requested size: 147.29994pt x 99.87288pt.
  [37 <C:/Users/enric_000/Documents/TESI/Documento/cavallo_passo.jpg> <C:/Users/
-enric_000/Documents/TESI/Documento/passo1.png>] <a_star.jpg, id=177, 903.375pt 
+enric_000/Documents/TESI/Documento/passo1.png>] <a_star.jpg, id=178, 903.375pt 
 x 722.7pt>
 File: a_star.jpg Graphic file (type jpg)
 
 <use a_star.jpg>
-Package pdftex.def Info: a_star.jpg used on input line 561.
+Package pdftex.def Info: a_star.jpg used on input line 592.
 (pdftex.def)             Requested size: 271.01459pt x 216.81166pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1181,7 +1200,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [38 <C:/Users/enric_000/Documents/TESI/Documento/a_star.jpg>] [39] [40
 
 ]
-Underfull \hbox (badness 4454) in paragraph at lines 625--626
+Underfull \hbox (badness 4454) in paragraph at lines 656--657
 []\OT1/cmr/m/n/10 Masahiro Fu-ji-ta Hi-roa-ki Kit an0 To-shi-ta-da Doi, \OT1/cm
 r/m/it/10 Syntactic-Semantic Ana-ly-sis of
  []
@@ -1196,10 +1215,10 @@ LaTeX Warning: There were multiply-defined labels.
 ### simple group (level 1) entered at line 1061 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 6661 strings out of 493921
- 94097 string characters out of 3144864
- 182429 words of memory out of 3000000
- 9848 multiletter control sequences out of 15000+200000
+ 6667 strings out of 493921
+ 94234 string characters out of 3144864
+ 182440 words of memory out of 3000000
+ 9853 multiletter control sequences out of 15000+200000
  7170 words of font info for 26 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  44i,12n,43p,1055b,2002s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1214,9 +1233,9 @@ fb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb>
 /Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Pro
 gram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Progr
 am Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on tesi.pdf (41 pages, 1477944 bytes).
+Output written on tesi.pdf (41 pages, 1498537 bytes).
 PDF statistics:
- 219 PDF objects out of 1000 (max. 8388607)
+ 220 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 96 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 101 words of extra memory for PDF output out of 10000 (max. 10000000)
 
