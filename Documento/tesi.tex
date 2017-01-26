@@ -646,6 +646,11 @@ Il programma sarà sempre sincronizzato con il sistema sottostante, non ha visio
 \end{algorithm}
 
 
+\chapter{Conclusione}
+
+Si ripercorrono ora i passi descritti precedentemente per dare rilevanza al lavoro svolto.
+Innanzitutto si è partiti dai diversi tipi di architetture hardware ora esistenti, focalizzandosi in particolar modo sui sistemi metamorfici, in quando si basano su un concetto di evoluzione molto utile per risolvere particolari problemi e dare valore aggiunto alle tecnologie hardware; rimane il problema di trovare una tecnologia che riesca ad implementare questo concetto, trovando nella tecnologia dell'hardware riconfigurabile una buona strategia implementativa. Contrariamente alle altre tecnologie però, non esiste una metodologia di sviluppo rigorosa ed ingegnerizzata per progettare questi sistemi, quindi si è cercato di creare un ambiente di sviluppo, analisi e sintesi in modo da sfruttare al meglio questi sistemi. Si è quindi creata, tramite una libreria caduta in disuso (SystemC Rechannel), una metodologia di sviluppo di questi sistemi basata sulla creazione di una EFSM associata ai diversi comportamenti del sistema, dividendo rigorosamente una parte dedicata alla riconfigurazione e una parte statica. Inoltre per l'implementazione velocizzata, è stato creato un linguaggio apposito per la descrizione facilitata del sistema, oltre a rendere possibile ad ogni progettista di progettare un sistema del genere senza conoscere le problematiche di fondo e senza conoscere la libreria di supporto di SystemC. È stato provato questo approccio con un progetto di esempio che rappresenta al meglio questo sistema, dimostrando che con questi sistemi si può implementare abbastanza facilmente qualcosa di molto complesso.
+
 \begin{thebibliography}{1}
 \bibitem{MS1} Garrison W. Greenwood,Senior Member, IEEE and Andy M. Tyrrell,Senior Member, IEEE, ``\textit{Metamorphic Systems: A New Model for Adaptive System Design''}, 2010
 \bibitem{EIE} Sekanina, L. ; Brno Univ. of Technol., Brno ; Martinek, T. ; Gajda, Z., \textit{Extrinsic and Intrinsic Evolution of Multifunctional Combinational Modules}, 2006
