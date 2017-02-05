@@ -22,13 +22,13 @@
 \contentsline {section}{\numberline {4.1}Rappresentazione della metodologia di progettazione}{25}
 \contentsline {section}{\numberline {4.2}Tool automatico (Pyngu)}{27}
 \contentsline {subsection}{\numberline {4.2.1}Il linguaggio (PynguLang)}{28}
-\contentsline {section}{\numberline {4.3}Utilizzo del tool durante la progettazione}{30}
-\contentsline {chapter}{\numberline {5}Caso di studio}{31}
-\contentsline {section}{\numberline {5.1}Hardware riconfigurabile}{32}
-\contentsline {section}{\numberline {5.2}Robot riconfigurabile}{33}
-\contentsline {subsection}{\numberline {5.2.1}I robot riconfigurabili}{33}
-\contentsline {subsection}{\numberline {5.2.2}Progettazione}{34}
-\contentsline {subsection}{\numberline {5.2.3}Configurazione a serpente doppio}{36}
-\contentsline {subsection}{\numberline {5.2.4}Configurazione a quadrupede}{37}
-\contentsline {section}{\numberline {5.3}Intelligenza Artificiale}{37}
-\contentsline {subsection}{\numberline {5.3.1}Algoritmo}{39}
+\contentsline {section}{\numberline {4.3}Utilizzo del tool durante la progettazione}{31}
+\contentsline {chapter}{\numberline {5}Caso di studio}{33}
+\contentsline {section}{\numberline {5.1}Hardware riconfigurabile}{34}
+\contentsline {section}{\numberline {5.2}Robot riconfigurabile}{35}
+\contentsline {subsection}{\numberline {5.2.1}I robot riconfigurabili}{35}
+\contentsline {subsection}{\numberline {5.2.2}Progettazione}{36}
+\contentsline {subsection}{\numberline {5.2.3}Configurazione a serpente doppio}{38}
+\contentsline {subsection}{\numberline {5.2.4}Configurazione a quadrupede}{39}
+\contentsline {section}{\numberline {5.3}Intelligenza Artificiale}{39}
+\contentsline {subsection}{\numberline {5.3.1}Algoritmo}{41}

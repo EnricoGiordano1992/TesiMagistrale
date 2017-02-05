@@ -379,12 +379,12 @@ La prima parte consiste nel descrivere le porte di ingresso, le uscite, le varia
 \caption{Esempio della prima parte della descrizione del sistema}\label{fig:10}
 \end{figure}
 
-In questa parte, si possono descrivere: 
+In questa parte si possono descrivere: 
 \begin{itemize}
 
 \item il Top, ovvero la parte statica del sistema (tramite il tag ``top-init''), di cui si possono definire le variabili (``variables''), i canali di input e output (``channels'') e i canali di comunicazione con la parte dinamica (``portals'') ;
 
-\item i moduli riconfigurabili (tramite il tag ``reconfigurable-modules-init''), di cui si possono definire la quantità di moduli che il sistema può avere (``num''), il numero di porte di ingresso e uscita che può avere (``port->num''), il tipo di canali di comunicazione che può avere (``channels\_in'' e ``channels\_out''), il nome che si vuole dare alle diverse configurazioni (``configuration\_names''), il primo modulo che deve attivarsi e le modalità di caricamento dei moduli (``create'', con cui si può definire il tempo di attivazione tramite ``activation\_delay'' e l'unità di misura in cui viene espresso questo tempo tramite ``activation\_delay\_measure'');
+\item i moduli riconfigurabili (tramite il tag ``reconfigurable-modules-init''), di cui si possono definire la quantità di moduli che il sistema può avere (``num''), il numero di porte di ingresso e uscita che può avere (``port:num''), il tipo di canali di comunicazione che può avere (``channels\_in'' e ``channels\_out''), il nome che si vuole dare alle diverse configurazioni (``configuration\_names''), il primo modulo che deve attivarsi e le modalità di caricamento dei moduli (``create'', con cui si può definire il tempo di attivazione tramite ``activation\_delay'' e l'unità di misura in cui viene espresso questo tempo tramite ``activation\_delay\_measure'');
 
 \item la FSM in comune tra i due sistemi (tramite il tag ``fsm-init''), di cui si definiscono il numero di stati (``num''), e il nome degli stati (``states'');
 
@@ -396,7 +396,30 @@ Nella prima parte quindi si dà particolare enfasi alla parte di specifiche stru
 
 ~ 
 
-La seconda parte invece consiste nello scrivere l'effettivo codice che verrà eseguito all'interno dei diversi sistemi. . Le parole chiave sono contraddistinte dalla presenza della stringa ``\textit{code}'' e il linguaggio permette l'inserimento di codice puro (raw) di SystemC.
+La seconda parte invece consiste nello scrivere l'effettivo codice che verrà eseguito all'interno dei diversi sistemi. Le parole chiave sono contraddistinte dalla presenza della stringa ``\textit{code}'' e il linguaggio permette l'inserimento di codice puro (raw) di SystemC.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.6]{pyngu_code_example.png}
+\caption{Esempio della prima parte dell'implementazione di codice del sistema}\label{fig:11}
+\end{figure}
+
+In questa parte si possono descrivere:
+
+\begin{itemize}
+
+\item il codice in comune tra i due sistemi (tramite il tag ``specularity-code'');
+
+\item il codice del Top (tramite il tag ``top-code''), in cui si può definire il codice di preparazione (``pre-code''), il codice del produttore (``producer''),  del controller (``controller'') e del monitor (``monitor'');
+
+\item il codice dei moduli (tramite il tag ``modules-code''), in cui si descrive, per ogni modulo associato ad un nome (``type'') si descrivono gli stati della FSM (``fsm'');
+
+\item il main del programma di simulazione (tramite il tag ``main''). 
+
+\end{itemize}
+
+Dopo la scrittura del codice, si otterrà il file YAML che rappresenta il sistema ed è pronto per essere trasfomato nella descrizione in SystemC Rechannel tramite il tool automatico.
+
 
 \section{Utilizzo del tool durante la progettazione}
 
