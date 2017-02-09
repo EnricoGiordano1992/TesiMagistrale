@@ -52,22 +52,37 @@
 \Annoaccademico{2015-2016}
 \end{frontespizio}
 
-
-\chapter*{Introduzione}
-
-Il flusso di progettazione standard di un sistema embedded si divide in tre step: analisi, progettazione e sintesi; questo flusso mira ad avere un sistema specifico per una situazione particolare e alla sintesi finale di tale sistema il meno generale possibile, in modo da renderlo massimamente performante per quel particolare ambiente.
-
-Con questa tesi, si vuole proporre un approccio alternativo il cui mezzo è l'utilizzo di hardware metamorfico e quindi di una particolare tecnica di progettazione basata sulla ``configurabilità parziale'' della tecnologia delle FPGA. Usando questo mezzo, si vuole progettare un sistema che presenta aspetti embedded (quindi specifici per il target finale) e aspetti più generici e, calato in un contesto particolare, sarà in grado di modificarsi in base alle esigenze ed essere più performante per il contesto in cui viene utilizzato, risparmiando energia, computazioni e memoria. Basandosi sul concetto di ``evoluzione'', secondo cui un oggetto si modifica in base all'ambiente, si otterrà per ogni ambiente un particolare sistema embedded.
-
-Si presenteranno quindi, a livello descrittivo, le diverse tecniche di configurabilità parziale, introducendo poi un modello di progettazione che mira ad un approccio standardizzato per i futuri sviluppi di questa idea, per poi provare il tutto su un caso di studio reale che possa dimostrare i benefici di questa tecnologia e tecnica di progettazione.
-
-
 \tableofcontents
 
-\chapter{Tecnologia attuale del silicio}
+\chapter{Introduzione}
+
+I sistemi embedded sono un particolare tipo di hardware progettato per eseguire una specifica funzione; per questo sono definiti ``special purpose'' per differenziarli dai sistemi ``general purpose'', che invece sono sistemi generici in grado di svolgere diverse funzioni generiche. I sistemi embedded stanno diventanto sempre più utilizzati in differenti contesti (domotica, automotive, comunicazione, ecc.) grazie ai loro punti di forza, ovvero il costo e il consumo (molto inferiore rispetto ai sistemi general purpose).
+
+Il flusso di progettazione di questi sistemi è basato sulla comprensione delle specifiche del progetto, per poi creare un modello del sistema tramite modelli di computazione (FSM, Reti di Petri, ecc.) e ricavarne un sistema effettivamente implementabile. Una volta scelto il modello e il linguaggio di specifica, si procede nell'implementazione del sistema, per poi ottenere un sistema da verificare e testare, ovvero rispettivamente dimostrando differenti proprietà del sistema e identificare problemi durante la sintesi del sistema su silicio.
+
+Una tecnologia utilizzata per la progettazione di sistemi embedded è la FPGA, un circuito integrato le cui funzionalità sono programmate via software (``Field Programmable Gate Array''). Questi dispositivi possono essere riprogrammati ogni volta che si desidera rappresentare un sistema diverso dal precedente. Esistono molteplici tipi di FPGA, in base al sistema che si vuole rappresentare.
+
+In particolare esistono le FPGA riconfigurabili dinamicamente che sono in grado di riconfigurarsi a runtime secondo le regole scelte dal progettista. Attualmente non esiste un metodo standard per la progettazione di questo tipo di FPGA.
+
+Con questa tesi, si vuole proporre una metodologia di sviluppo di sistemi embedded basato sull'utilizzo di FPGA riconfigurabili dinamicamente, proponendo un flusso di progettazione e un tool di generazione automatica di codice utilizzando un linguaggio appositamente progettato per questo scopo. Usando questo mezzo, si vuole progettare un sistema che presenta aspetti embedded (quindi specifici per il target finale) e aspetti più generici e, calato in un contesto particolare, sarà in grado di modificarsi in base alle esigenze ed essere più performante per il contesto in cui viene utilizzato, ottenendo diversi benefici. Basandosi sul concetto di ``evoluzione'', secondo cui un oggetto si modifica in base all'ambiente, si otterrà per ogni ambiente un particolare sistema embedded.
+
+Si presenteranno quindi i seguenti aspetti nei vari capitoli:
+
+\begin{itemize}
+\item nel Capitolo 2 verrà introdotto, a livello descrittivo , lo stato dell'arte delle tecnologie utilizzate per la rappresentazione dei sistemi embedded e in particolare delle FPGA riconfigurabili; 
+\item nel Capitolo 3 verranno esplicitati gli obiettivi di questa tesi; 
+\item nel Capitolo 4 verrà mostrata la metodologia proposta per la progettazione dei sistemi basati su FPGA riconfigurabili; 
+\item nel Capitolo 5 verrà presentato il caso di studio creato appositamente per dimostrare l'efficacia della metodologia;
+\item nel Capitolo 6 verranno mosse le relative conclusioni di questo progetto;
+\item nel Capitolo 7 si mostrerà la bibliografia.
+\end{itemize}
+
+\chapter{Stato dell'arte}
+
+\section{Tecnologia attuale del silicio}
 Attualmente esistono 3 tecnologie differenti riguardo l'utilizzo del silicio per scopi computazionali: Hardware General Purpoise, Hardware Embedded e Hardware Riprogrammabile. Queste 3 tipologie differiscono sia per la composizione, sia per la progettazione ma anche per il settore di utilizzo.
 
-\section{Hardware General Purpoise}
+\subsection{Hardware General Purpoise}
 Questo tipo di Hardware lo si può trovare in processori e microprocessori utilizzati in strumenti di calcolo generici, come PC, moderni telefoni e televisori. La caratteristica peculiare di questi è la generalità: non essendo stati progettati per un sistema specifico, devono permettere di eseguire più operazioni possibili ed essere riprogrammati a piacimento, al limite delle loro potenzialità.
 
 Questi sono composti da un'architettura standard,  rappresentata nella figura  \ref{fig:0}, e viene implementata in ogni CPU, ovvero ciò che implementa questa tecnologia.
@@ -82,13 +97,13 @@ Il ciclo di vita di questo hardware è contraddistinto da 3 fasi: fetch, decode,
 
 Questo tipo di hardware è molto utile per implementare sistemi generici: la filosofia alla base di questa tecnologia è l'utilizzo più generico possibile, mettendo in secondo piano l'ottimizzazione e il consumo, oltre al costo che cerca di stare relativamente nelle politiche di mercato.
 
-\section{Hardware Embedded}
+\subsection{Hardware Embedded}
 Questo tipo di Hardware è contraddistinto dalla specificità dei suoi componenti interni in base al suo utilizzo; infatti si cerca di utilizzare questo hardware in ambienti o condizioni specifiche, in cui sono richieste operazioni particolari ma soprattutto è necessario ridurre i costi e il consumo dell'applicazione finale.
 La tecnologia che rappresenta questo tipo di hardware è una ASIC e difficilmente si trova un'architettura standard, proprio perché l'architettura è specifica per un certo comportamento. Esistono in commercio dei sistemi embedded basati su microprocessori RISC, come ad esempio i Cortex-M della ARM, che hanno un'architettura molto simile a quella delle CPU. In generale comunque ogni ASIC è diversa, in quanto viene mappato su silicio uno specifico algoritmo o un'architettura più complessa.
 
 Un' ASIC deve costare il meno possibile e deve consumare il meno possibile, in base alle esigenze richieste; ovviamente potrà eseguire solo il compito per cui è stata progettata; ha quindi una filosofia di progettazione opposta a quella dell'Hardware General Purpoise.
 
-\section{Hardware Riprogrammabile}
+\subsection{Hardware Riprogrammabile}
 L'ultimo tipo di Hardware è quello riprogrammabile, ovvero permette di essere configurato a livello di celle di memoria più volte per implementare diversi comportamenti. Di solito viene utilizzato sia in ambito embedded, per permettere più libertà di progettazione e più efficienza, ma anche a scopo sperimentale, perchè è utile per testare un sistema in fase di sviluppo.
 
 \begin{figure}
@@ -101,11 +116,11 @@ Un esempio di architettura (dipende molto dal modello che si vuole utilizzare) l
 
 In base al suo utilizzo può assumere aspetti di un hardware general purpoise e di un hardware embedded; essendo una tecnologia piuttosto costosa si cerca di utilizzarla il meno possibile, o almeno solo in fase di test.
 
-\chapter{Hardware Metamorfico e tecnologia associata}
+\section{Hardware Metamorfico e tecnologia associata}
 
 Si vedrà ora nel dettaglio il significato di hardware metamorfico e in particolare la tecnologia che implementa questo concetto. 
 
-\section{Il concetto di Hardware Metamorfico}
+\subsection{Il concetto di Hardware Metamorfico}
 
 Il concetto di ``Hardware Metamorfico'' nasce nei primi anni del 1990, per poi perdere parzialmente interesse in quanto veniva presentato come idea, non come tecnologia pratica. Con questo concetto si intende un tipo di Hardware capace di cambiare il proprio comportamento (``evolvere'') utilizzando un ``metodo'' di riconfigurazione: i termini ``evolvere'' e ``metodo'' non sono mai stati definiti in maniera standard, l'articolo che cerca di porre chiarezza su tutto questo ambito \cite{MS1} focalizza l'attenzione sulle diverse sfaccettature del termine ``evoluzione'', parlando di evoluzione ``intrinseca'' , ``estrinseca'' e ``mixata'', rimandando la definizione ad un articolo scientifico precedente \cite{EIE}.
 
@@ -119,7 +134,7 @@ Questo tipo di Hardware è tipico del mondo naturale, in quanto tutti gli oggett
 
 Il ciclo di vita di un Hardware Metamorfico può essere rappresentato come nella figura \ref{fig:1}: il superciclo che compone questo sistema, chiamato ``ciclo innato'', ha un sotto-ciclo di acquisizione di stimoli, chiamato ``ciclo di acquisizione'', che, tramite il sottostrato di algoritmi di esecuzione, cambia il funzionamento del sistema in base al ``comportamento attuale'' e il ``comportamento desiderato''; con questi dati, tramite un modulo di valutazione degli stimoli e un meccanismo di investigazione (per valutare il comportamento desiderato rispetto al comportamento attuale), viene generato dal modulo di ``decisione'' il risultato che fa modificare l'intero sistema. Il ciclo innato successivamente fa rieseguire questo procedimento, in modo da permettere, potenzialmente all'infinito, la metamorfosi del sistema.
 
-\section{Hardware riconfigurabile}
+\subsection{Hardware riconfigurabile}
 
 Per rendere utile l'hardware metamorfico, è necessario trovare una tecnologia che lo rappresenti, in modo da rendere concreto l'utilizzo di tale idea. Per renderla concreta, è necessaria la presenza di un oggetto che possa riprodurre sia il comportamento di silicio, sia il comportamento evolutivo dell'hardware metamorfico. Nel 1985, la Xilinx aveva creato le prime FPGA, rilasciando in commercio il primo modello ``XC2064'', utilizzabile perloppiù per la prototipizzazione di circuiti programmabili. Questa tecnologia sembra prestarsi coerentemente con l'idea di Hardware metamorfico, in quanto è in grado di poter cambiare il proprio comportamento a livello hardware cambiando la propria struttura interna. Il suo carattere riconfigurabile però è stato progettato e utilizzato per la prototipizzazione, non per l'effettivo mutamento di comportamento durante il suo ciclo di vita.
 
@@ -127,7 +142,7 @@ Nei primi anni `90 nasce una tecnica di progettazione chiamata ``Riconfigurabili
 
 Quindi, più precisamente, si più parlare di ``riconfigurabilità parziale'' e ``riconfigurabilità run-time'': il primo termine pone enfasi su la parziale capacità del dispositivo di modificarsi, in quanto ci sarà una parte progettata che non deve modificarsi ma soprattutto perché il dispositivo non si modificherà completamente, avrà delle modifiche consentite prestabilite; il secondo termine indica il fatto di potersi modificare durante il suo ciclo di vita, cambiando la propria configurazione di porte logiche ottenendo quindi una forma diversa.
 
-\section{Metodi di riconfigurazione}
+\subsection{Metodi di riconfigurazione}
 
 Essendo la Riconfigurabilità una tecnica di progettazione, prevede vari metodi per essere implementata, che possono essere scelti sia per la tecnologia sia in base alle risorse disponibili su essa. Questi metodi sono stati proposti dall'Altera \cite{PR1} e dall'insegnante Dirk Koch , dell'Università di Manchester \cite{PR2}.
 
@@ -140,11 +155,8 @@ Questa tecnica è molto efficace quando si ha a disposizione poca memoria per me
 
 La seconda tecnica è la ``Rilocazione parziale di bitstream'', che consiste nello ``spostare'' i moduli compilati che descrivono l'hardware (che rappresentano la parte riconfigurabile) da un'area della FPGA all'altra con le stesse dimensioni e proprietà. Questa tecnica è più limitante della precendente, un quanto si pone il vincolo di avere due moduli con stesse dimensioni e proprietà, però può essere utile per questioni di ottimizzazione di codice, in quanto i due moduli possono rappresentare la stessa unità ma al loro interno eseguono lo stesso algoritmo in maniera differente.
 
-\subsection{Readback}
 
-Dal modello ``Virtex 6'' delle FPGA Xilinx, è possibile leggere il contenuto della FPGA e quindi ottenere la configurazione attuale del sistema. Esistono due tipi di lettura: la ``readback verify'', che consiste nella lettura di tutte le celle di memoria, e la ``readback capture'', che permette di leggere le celle di memoria e lo stato dei registri, eseguendo un effettivo dump totale. Questa informazione è di particolare interesse per questo progetto, in quanto permette di ottenere la configurazione ottenuta dopo la metamorfosi, quindi ottenere un nuovo codice. Questa proprietà è stata in parte resa negativa dal punto di vista della sicurezza informatica, in quanto permette di estrapolare codice per poi potenzialmente farne un cattivo uso, però è molto utile per sapere l'andamento della metamorfosi.
-
-\section{Metodi di reallocazione}
+\subsection{Metodi di reallocazione}
 
 La parte cruciale quindi di queste tecniche è proprio la reallocazione dei moduli, in quanto la riconfigurabilità consiste proprio nello ``spostare'' un modulo da una sezione attiva a una non attiva. Esistono due modalità di reallocazione: usando dei tools offerti dalla Xilinx e usando il bus.
 
@@ -152,7 +164,7 @@ I tools della Xilinx sono dei software che fungono da middleware per gestire lo 
 
 Entrambi i metodi si basano sulla riconfigurazione runtime della parte di logica programmabile tramite lo stesso hardware della FPGA che si occupa della riconfigurazione statica (quindi durante la progettazione da parte del progettista), ma in maniera automatica: il modulo di controllo di riconfigurazione sceglie quale può essere la zona di logica programmabile corretta (la prima che ha abbastanza spazio per contenere la nuova logica) e genera il segnale di riconfigurazione; al momento del segnale, si esegue la procedura di riconfigurazione come da prassi ma il bitstream da caricare non deriva da un programma esterno via JTAG bensì dalla memoria interna. Quindi ciò che viene caricato non viene generato runtime, è già presente all'interno della memoria, ma il comportamento globale del sistema cambia in quanto viene caricata una porzione di bitstream che andrà ad alterare il circuito generato dal bitstream statico (che non cambia mai) e quello dinamico (caricato runtime).
 
-\section{Aree di reallocazione}
+\subsection{Aree di reallocazione}
 
 \begin{figure}
 \centering
@@ -165,7 +177,7 @@ Le aree precedentemente descritte quindi si trovano all'interno di PL, dove risi
 
 Spostare un nuovo settore dentro la parte di logica programmata significa quindi configurare hardware precedentemente inattivo, dando quindi una nuova configurazione hardware e quindi un diverso comportamento del sistema. In base alla grandezza delle aree da spostare, possono coesistere all'interno dell'area PL, ma non avrebbe senso perché potrebbe significare avere hardware non utilizzato e configurato, quindi si spreca silicio.
 
-\section{La progettazione}
+\subsection{La progettazione}
 
 Poichè non esiste un metodo standard per progettare, sviluppare o semplicemente simulare questi sistemi, si vuole creare un nuovo flusso di progettazione per gestire al meglio la fase di sviluppo. Poiché questi sistemi fanno parte di un sottoinsieme dei Sistemi Embedded generici, si utilizzerà ciò che è noto durante la fase di sviluppo di un normale Sistema Embedded per poi aggiungere ciò che serve per specializzare tale sistema in uno Metamorfico.
 
@@ -173,15 +185,15 @@ Il punto di partenza della progettazione non dovrà essere l'analisi dell'ambien
 
 Lo scopo di questa tesi sarà comunque capire come sviluppare al meglio la progettazione di questo tipo di sistema, comprendendo il grado di libertà che si può raggiungere per la parte dinamica e capire quale tipo di riconfigurabilità è più conveniente usare, oltre al fatto di essere sicuri che sia conveniente sfruttare la metamorfosi per risparmiare tempo e denaro durante la progettazione di un sistema embedded.
 
-\chapter{Simulazione e sintesi di sistemi embedded}
+\section{Simulazione e sintesi di sistemi embedded}
 
 Esistono vari metodi per progettare un sistema embedded; l'approccio ingegneristico più avanzato vuole che si progetti in maniera astratta il sistema, per poi calarlo in un contesto di descrizione tramite HDL per poi eseguire la sintesi.
 
-\section{Simulazione}
+\subsection{Simulazione}
 
 Per la descrizione ad alto livello e simulazione, solitamente si utilizza SystemC a diversi livelli, passando da una descrizione mirata a osservare il comportamento dei diversi moduli durante la loro interazione (TLM), fino alla descrizione a livello di EFSM cycle accurate o analogica (RTL e AMS). I vantaggi dell'utilizzo di SystemC sono molteplici, soprattutto grazie allo scheduler interno si riesce a simulare correttamente i vari comportamenti a livello di segnali e attivazione dei moduli.
 
-\section{Scheduler di SystemC}
+\subsection{Scheduler di SystemC}
 
 Lo scheduler di SystemC è stato progettato in modo da rispettare una gerarchia di wakeup dei moduli, in quanto l'hardware solitamente è pilotato sia da un clock interno sia da segnali provenienti da diversi moduli, quindi è stato necessario modellare questo parallelismo tramite uno scheduler. Lo schedule eseguito dallo scheduler è diviso in passi:
 
@@ -196,15 +208,15 @@ Lo scheduler di SystemC è stato progettato in modo da rispettare una gerarchia 
 
 Grazie a questo scheduler, si ha uno strumento che simula correttamente un sistema embedded, rispettando anche i tempi accuratamente di esecuzione, osservabili tramite timestamp.
 
-\section{Sintesi}
+\subsection{Sintesi}
 
 Una volta preparato il modello del sistema in SystemC e simulato correttamente, si procede con la descrizione hardware in HDL, simulazione ed infine sintesi. Solitamente si utilizza VHDL e Verilog, due linguaggi di descrizione hardware che permettono sia di simulare sia di sintetizzare. Solitamente se viene descritto correttamente il sistema in SystemC, il passaggio ad una descrizione HDL è quasi automatico, in quanto si rappresentano gli stessi concetti semanticamente; infatti questo processo dovrebbe essere una traduzione sintattica tra linguaggi.
 
-\section{Simulazione e sintesi di sistemi metamorfici}
+\subsection{Simulazione e sintesi di sistemi metamorfici}
 
 Poichè non esiste un metodo standard per progettare sistemi metamorfici, bisogna definire \textit{ex novo} un metodo efficace. Intuitivamente sarebbe consigliato utilizzare la stessa metodologia di progettazione di sistemi embedded standard, in modo da rendere facile l'apprendimento a chi è già abituato a progettare sistemi embedded consuetudinari, oltre a sfruttare le potenzialità di un metodo già assodato e verificato nel tempo.
 
-\section{Simulazione con SystemC ReChannel}
+\subsection{Simulazione con SystemC ReChannel}
 
 Per la simulazione si vorrebbe utilizzare SystemC, in quanto offre una descrizione fedele dell'hardware da simulare e sfrutta la conoscenza di C++ per descrivere i sistemi. Attualmente esiste una libreria di SystemC per la descrizione di sistemi riconfigurabili chiamata ReChannel.
 
@@ -238,7 +250,7 @@ Solitamente si utilizza un modulo statico che si occupa di fare da transattore t
 Un ultimo aspetto molto importante che simula correttamente la realtà è la possibilità di impostare il tempo necessario per la riconfigurazione: ogni modulo, in base alla FPGA target, può metterci tempi differenti per essere attivato e disattivare gli altri, quindi è neccesario un meccanismo per modellare il tempo di riconfigurazione. Questa libreria modella il tempo di riconfigurazione in base al caso pessimo di tempistiche, ovvero permette al progettista di impostare il tempo massimo che impiega il modulo ad essere attivato (infatti non sempre impiega lo stesso tempo per essere riconfigurato, per questo bisogna ragionare per caso pessimo). Può essere deciso questo tempo secondo le specifiche della FPGA target proporzionali all'area che il circuito ricopre (si possono effettuare delle stime in base a quante e quali operazioni vengono eseguite).
 
 
-\section{Sintesi}
+\subsection{Sintesi}
 
 La sintesi di questi sistemi è molto simile alla sintesi dei normali sistemi embedded, poiché si utilizza HDL compilato e sintetizzato tramite tool automatici.
 
@@ -256,7 +268,10 @@ Come si può notare con la figura \ref{fig:5}, il tool automatico identifica i s
 
 L'ultimo passaggio del tool automatico è la creazione delle partizioni della FPGA, perché deve essere possibile identificare dove caricare la parte riconfigurabile e dove deve rimanere staticamente il codice; viene creato quindi il file delle partizioni, solitamente chiamato \textit{XPARTITION.xml}, che risiede in memoria e viene consultato ogni volta che deve avvenire una riconfigurazione.
 
-\chapter{Metodologia di progettazione proposta}
+\chapter{Obiettivi}
+TODO
+
+\chapter{Metodologia}
 
 Lo scopo di questo documento è di proporre una metodologia efficiente di progettazione e simulazione per questa particolare architettura. Attualmente non esiste un metodo standard per la progettazione di sistemi basati su questa architettura, quindi si è cercato di proporre un metodo più efficiente possibile per garantire anche a chi non conosce approfonditamente questa tecnologia di poterla sfruttare al meglio.
 Per decidere uno stile di progettazione, si è deciso di basarsi su uno stile già noto nei sistemi consuetudinari embedded, ovvero la progettazione di macchine a stati finiti. La tecnica delle macchine a stati finiti garantisce chiarezza di progettazione e un flusso chiaro di istruzioni che vengono eseguite durante la ``vita'' del sistema, evidenziando anche i possibili blocchi ed anomalie che possono esserci durante l'esecuzione. Inoltre ci si è serviti del noto concetto di ``macchine a stati finiti non deterministiche'': è possibile rappresentare un sistema a stati che può comportarsi ``contemporaneamente'' in molteplici modi, quindi avere più comportamenti tramite lo stesso input in ingresso (solitamente evitato durante la progettazione delle macchine a stati finiti, in quanto non è implementabile).
@@ -669,10 +684,12 @@ Il programma sarà sempre sincronizzato con il sistema sottostante, non ha visio
 \end{algorithm}
 
 
-\chapter{Conclusione}
+\chapter{Conclusione e sviluppi futuri}
 
 Si ripercorrono ora i passi descritti precedentemente per dare rilevanza al lavoro svolto.
 Innanzitutto si è partiti dai diversi tipi di architetture hardware ora esistenti, focalizzandosi in particolar modo sui sistemi metamorfici, in quando si basano su un concetto di evoluzione molto utile per risolvere particolari problemi e dare valore aggiunto alle tecnologie hardware; rimane il problema di trovare una tecnologia che riesca ad implementare questo concetto, trovando nella tecnologia dell'hardware riconfigurabile una buona strategia implementativa. Contrariamente alle altre tecnologie però, non esiste una metodologia di sviluppo rigorosa ed ingegnerizzata per progettare questi sistemi, quindi si è cercato di creare un ambiente di sviluppo, analisi e sintesi in modo da sfruttare al meglio questi sistemi. Si è quindi creata, tramite una libreria caduta in disuso (SystemC Rechannel), una metodologia di sviluppo di questi sistemi basata sulla creazione di una EFSM associata ai diversi comportamenti del sistema, dividendo rigorosamente una parte dedicata alla riconfigurazione e una parte statica. Inoltre per l'implementazione velocizzata, è stato creato un linguaggio apposito per la descrizione facilitata del sistema, oltre a rendere possibile ad ogni progettista di progettare un sistema del genere senza conoscere le problematiche di fondo e senza conoscere la libreria di supporto di SystemC. È stato provato questo approccio con un progetto di esempio che rappresenta al meglio questo sistema, dimostrando che con questi sistemi si può implementare abbastanza facilmente qualcosa di molto complesso.
+
+\chapter{Bibliografia}
 
 \begin{thebibliography}{1}
 \bibitem{MS1} Garrison W. Greenwood,Senior Member, IEEE and Andy M. Tyrrell,Senior Member, IEEE, ``\textit{Metamorphic Systems: A New Model for Adaptive System Design''}, 2010
