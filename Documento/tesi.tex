@@ -82,39 +82,38 @@ Si presenteranno quindi i seguenti aspetti nei vari capitoli:
 \section{Tecnologia attuale del silicio}
 Attualmente esistono 3 tecnologie differenti riguardo l'utilizzo del silicio per scopi computazionali: Hardware General Purpoise, Hardware Embedded e Hardware Riprogrammabile. Queste 3 tipologie differiscono sia per la composizione, sia per la progettazione ma anche per il settore di utilizzo.
 
-\subsection{Hardware General Purpoise}
-Questo tipo di Hardware lo si può trovare in processori e microprocessori utilizzati in strumenti di calcolo generici, come PC, moderni telefoni e televisori. La caratteristica peculiare di questi è la generalità: non essendo stati progettati per un sistema specifico, devono permettere di eseguire più operazioni possibili ed essere riprogrammati a piacimento, al limite delle loro potenzialità.
+\subsection{Hardware General Purpose}
+L'Hardware General Purpose identifica quel tipo di hardware che serve per risolvere problemi generali e quindi non è dedicato ad una specifica funzione. 
 
-Questi sono composti da un'architettura standard,  rappresentata nella figura  \ref{fig:0}, e viene implementata in ogni CPU, ovvero ciò che implementa questa tecnologia.
+Questo tipo di Hardware lo si può trovare in processori e microprocessori utilizzati in strumenti di calcolo generici, come PC, moderni telefoni e televisori, che non rispondono a una particolare esigenza ma si adattano a quelle dell'utilizzatore. . La caratteristica peculiare di questi è la generalità: non essendo stati progettati per un sistema specifico, devono permettere di eseguire più operazioni possibili ed essere riprogrammati a piacimento.
 
-\begin{figure}
-\centering
-\includegraphics[scale=1]{cpu.png}
-\caption{Architettura di una CPU}\label{fig:0}
-\end{figure}
-
-Il ciclo di vita di questo hardware è contraddistinto da 3 fasi: fetch, decode, exec; ogni fase è contraddistinta da un insieme di componenti interni utilizzati. La fase di ``fetch'' consiste nel caricare l'istruzione corrente per essere eseguita; la fase di ``decode'' fa in modo che tutti i valori siano disponibili per il calcolo e che l'istruzione possa essere eseguita correttamente impostando i registri interni; la fase di ``exec'' permette, tramite i componenti di memoria e di calcolo (registri e ALU), di eseguire l'istruzione.
-
-Questo tipo di hardware è molto utile per implementare sistemi generici: la filosofia alla base di questa tecnologia è l'utilizzo più generico possibile, mettendo in secondo piano l'ottimizzazione e il consumo, oltre al costo che cerca di stare relativamente nelle politiche di mercato.
+Questo tipo di hardware è molto utile per implementare sistemi generici: la filosofia alla base di questa tecnologia è l'utilizzo più generico possibile. Un esempio di questa tecnologia è la CPU, unità di elaborazione di un PC domestico, che deve essere in grado di eseguire programmi di vario tipo, non limitandosi ad una specifica funzione.
 
 \subsection{Hardware Embedded}
-Questo tipo di Hardware è contraddistinto dalla specificità dei suoi componenti interni in base al suo utilizzo; infatti si cerca di utilizzare questo hardware in ambienti o condizioni specifiche, in cui sono richieste operazioni particolari ma soprattutto è necessario ridurre i costi e il consumo dell'applicazione finale.
-La tecnologia che rappresenta questo tipo di hardware è una ASIC e difficilmente si trova un'architettura standard, proprio perché l'architettura è specifica per un certo comportamento. Esistono in commercio dei sistemi embedded basati su microprocessori RISC, come ad esempio i Cortex-M della ARM, che hanno un'architettura molto simile a quella delle CPU. In generale comunque ogni ASIC è diversa, in quanto viene mappato su silicio uno specifico algoritmo o un'architettura più complessa.
 
-Un' ASIC deve costare il meno possibile e deve consumare il meno possibile, in base alle esigenze richieste; ovviamente potrà eseguire solo il compito per cui è stata progettata; ha quindi una filosofia di progettazione opposta a quella dell'Hardware General Purpoise.
+Con Hardware Embedded si identificano genericamente tutti quei sistemi elettronici di elaborazione digitale a microprocessore progettati appositamente per una determinata applicazione (special purpose) ovvero non riprogrammabili dall'utente per altri scopi, spesso con una piattaforma hardware ad hoc, integrati nel sistema che controllano ed in grado di gestirne tutte o parte delle funzionalità richieste.
+
+Questo tipo di Hardware è contraddistinto dalla specificità dei suoi componenti interni in base al suo utilizzo; infatti si cerca di utilizzare questo hardware in ambienti o condizioni specifiche, in cui sono richieste operazioni particolari ma soprattutto è necessario ridurre i costi e il consumo dell'applicazione finale.
+Esistono  vari tipi di tecnologie che implementano questo tipo di hardware, come ASIC, SoC, ASIP, PLC, ecc, e difficilmente si trova un'architettura standard, proprio perché l'architettura è specifica per un certo comportamento. Esistono in commercio dei sistemi embedded basati su microprocessori RISC, come ad esempio i Cortex-M della ARM, che hanno un'architettura molto simile a quella delle CPU. In generale comunque ogni sistema embedded ha un'architettura diversa, in quanto viene mappato su silicio uno specifico algoritmo o un'architettura più complessa.
+
+Un sistema embedded deve costare il meno possibile e deve consumare il meno possibile, in base alle esigenze richieste; ovviamente potrà eseguire solo il compito per cui è stata progettata; ha quindi una filosofia di progettazione opposta a quella dell'Hardware General Purpose.
 
 \subsection{Hardware Riprogrammabile}
 L'ultimo tipo di Hardware è quello riprogrammabile, ovvero permette di essere configurato a livello di celle di memoria più volte per implementare diversi comportamenti. Di solito viene utilizzato sia in ambito embedded, per permettere più libertà di progettazione e più efficienza, ma anche a scopo sperimentale, perchè è utile per testare un sistema in fase di sviluppo.
 
-\begin{figure}
-\centering
-\includegraphics[scale=0.6]{fpga.png}
-\caption{Architettura di una FPGA}\label{fig:00}
-\end{figure}
+La tecnologia che implementa questo tipo di hardware è la FPGA. Questa è un circuito integrato le cui funzionalità sono programmabili via software. Tali dispositivi consentono l'implementazione di funzioni logiche anche molto complesse, e sono caratterizzati da un'elevata scalabilità. Questo tipo di tecnologia ha assunto un ruolo sempre più importante nell'elettronica industriale così come nella ricerca scientifica.
 
-Un esempio di architettura (dipende molto dal modello che si vuole utilizzare) lo si può osservare nella figura \ref{fig:00}: la parte riconfigurabile, denotata con FPGA, consiste in un blocco di celle riconfigurabili, che, in base alla descrizione hardware caricata nella memoria flash, possono cambiare struttura. Attorno alla FPGA sono presenti vari moduli standard che possono servire per il consueto utilizzo in ambito di controlli, ma non sempre sono necessarie, in quanto si possono descrivere all'interno della parte riconfigurabile. Parte necessaria per il funzionamento corretto di una FPGA è la logica di controllo della parte riprogrammabile: deve esserci un hardware dedicato per rimappare questa parte, in modo che il processo di riconfigurazione avvenga più velocemente possibile; questo si occuperà quindi di riconfigurare, in base al bitstream che rappresenta l'hardware, la parte riconfigurabile.
+Esistono diversi tipi di FPGA, che comprendono sia dispositivi programmabili una sola volta, sia dispositivi riprogrammabili un grande numero di volte. I primi, detti OTP (One Time Programmable), sono costituiti da componenti il cui stato di funzionamento cambia in modo permanente, permettendo di mantenere la configurazione allo spegnimento del dispositivo. Alla seconda categoria appartengono i dispostivi basati su tecnologia SRAM (Static Random Access Memory), i quali devono essere riprogrammati ad ogni accensione, avendo una memoria di configurazione volatile.
 
-In base al suo utilizzo può assumere aspetti di un hardware general purpoise e di un hardware embedded; essendo una tecnologia piuttosto costosa si cerca di utilizzarla il meno possibile, o almeno solo in fase di test.
+I circuiti FPGA sono elementi che presentano caratteristiche intermedie rispetto ai dispositivi ASIC (Application Specific Integrated Circuit) da un lato e a quelli con architettura PAL (Programmable Array Logic) dall'altro. L'uso di componenti FPGA comporta alcuni vantaggi rispetto agli ASIC: si tratta infatti di dispositivi standard la cui funzionalità da implementare non viene impostata dal produttore che quindi può produrre su larga scala a basso prezzo. La loro genericità li rende adatti a un gran numero di applicazioni come consumer, comunicazioni, automotive eccetera. Essi sono programmati direttamente dall'utente finale, consentendo la diminuzione dei tempi di progettazione, di verifica mediante simulazioni e di prova sul campo dell'applicazione. Il grande vantaggio rispetto agli ASIC è che permettono di apportare eventuali modifiche o correggere errori semplicemente riprogrammando il dispositivo in qualsiasi momento. Per questo motivo sono utilizzati ampiamente nelle fasi di prototipazione, in quanto eventuali errori possono essere risolti semplicemente riconfigurando il dispositivo. L'ambiente di progettazione è anche più user-friendly e di relativamente facile apprendimento. Di contro, per applicazioni su grandi numeri sono antieconomici perché il prezzo unitario del dispositivo è superiore a quello degli ASIC (che di converso hanno elevati costi di progettazione).
+
+Il costo di tali dispositivi è oggi in rapida diminuzione: ciò li rende sempre di più una valida alternativa alla tecnologia standard cell. Usualmente vengono programmati con linguaggi come il Verilog o il VHDL, ma non bisogna dimenticare la modalità "schematic-entry", che consente un approccio veloce e semplificato a tale tecnologia pur essendo di pari potenzialità. Molte case costruttrici (ad esempio Xilinx e Altera) forniscono gratuitamente sistemi di sviluppo che supportano quasi tutta la loro gamma di prodotti.
+
+La struttura di una FPGA è in generale una matrice di blocchi logici configurabili, detti CLB (Configurable Logic Blocks), connessi fra loro attraverso interconnessioni programmabili. Ai margini di tale matrice vi sono i blocchi di ingresso/uscita, detti IOB (Input Output Block). I CLB realizzano le funzioni logiche, l'insieme di interconnessioni li mette in comunicazione, mentre gli IOB si occupano dell'interfacciamento del circuito con l'esterno. All'interno di tale matrice sono presenti anche altri tipi di risorsa, come i DCM (Digital Clock Manager), che generano il segnale di clock, la rete che trasporta il segnale di clock dai flip-flop ai CLB ed altre risorse di calcolo, come ad esempio le ALU (Arithmetic Logic Unit), e risorse di memoria distribuita. Ciascuno di questi elementi costitutivi ha un modello di funzionamento specifico, che riveste notevole importanza nella comprensione del corretto funzionamento del dispositivo.
+
+Attorno alla FPGA sono presenti vari moduli standard che possono servire per il consueto utilizzo in ambito di controlli, ma non sempre sono necessarie, in quanto si possono descrivere all'interno della parte riconfigurabile. Parte necessaria per il funzionamento corretto di una FPGA è la logica di controllo della parte riprogrammabile: deve esserci un hardware dedicato per rimappare questa parte, in modo che il processo di riconfigurazione avvenga più velocemente possibile; questo si occuperà quindi di riconfigurare, in base al bitstream che rappresenta l'hardware, la parte riconfigurabile.
+
+In base al suo utilizzo può assumere aspetti di un hardware general purpose e di un hardware embedded; essendo una tecnologia piuttosto costosa, ha un mercato più ristretto rispetto ai tipi di hardware precedentemente descritti.
 
 \section{Hardware Metamorfico e tecnologia associata}
 
@@ -136,15 +135,17 @@ Il ciclo di vita di un Hardware Metamorfico può essere rappresentato come nella
 
 \subsection{Hardware riconfigurabile}
 
-Per rendere utile l'hardware metamorfico, è necessario trovare una tecnologia che lo rappresenti, in modo da rendere concreto l'utilizzo di tale idea. Per renderla concreta, è necessaria la presenza di un oggetto che possa riprodurre sia il comportamento di silicio, sia il comportamento evolutivo dell'hardware metamorfico. Nel 1985, la Xilinx aveva creato le prime FPGA, rilasciando in commercio il primo modello ``XC2064'', utilizzabile perloppiù per la prototipizzazione di circuiti programmabili. Questa tecnologia sembra prestarsi coerentemente con l'idea di Hardware metamorfico, in quanto è in grado di poter cambiare il proprio comportamento a livello hardware cambiando la propria struttura interna. Il suo carattere riconfigurabile però è stato progettato e utilizzato per la prototipizzazione, non per l'effettivo mutamento di comportamento durante il suo ciclo di vita.
+Per rendere utile l'hardware metamorfico, è necessario trovare una tecnologia che lo rappresenti, in modo da rendere concreto l'utilizzo di tale idea. Per renderla concreta, è necessaria la presenza di un oggetto che possa riprodurre sia il comportamento di silicio, sia il comportamento evolutivo dell'hardware metamorfico. Nel 1985, la Xilinx aveva creato le prime FPGA, rilasciando in commercio il primo modello ``XC2064'', utilizzabile perloppiù per la prototipazione di circuiti programmabili. Questa tecnologia sembra prestarsi coerentemente con l'idea di Hardware metamorfico, in quanto è in grado di poter cambiare il proprio comportamento a livello hardware cambiando la propria struttura interna. Il suo carattere riconfigurabile però è stato progettato e utilizzato per la prototipazione, non per l'effettivo mutamento di comportamento durante il suo ciclo di vita.
 
-Nei primi anni `90 nasce una tecnica di progettazione chiamata ``Riconfigurabilità'', da qui poi la tecnologia di applicazione, appunto le FPGA. Questa tecnica consiste nell'utilizzare Hardware con tecnologia riprogrammabile che, tramite la memoria messa a disposizione dentro il sistema, riesce a modificare il suo comportamento. Non è un comportamento appreso completamente dall'ambiente, ma è un comportamento previsto e quindi implementato che va a sostituire un comportamento esistente; il ciclo di vita quindi non sarà composto da un vero e proprio ``apprendimento'', ma sarà una modifica prevista dal progettista. Questo può sembrare limitante, in quanto non c'è piena libertà da parte del dispositivo, ma non avrebbe senso far prendere iniziativa a questo (per i principi della computabilità, non sarebbe nemmeno possibile).
+Nei primi anni `90 nasce una tecnica di progettazione chiamata ``Riconfigurabilità'', da qui poi la tecnologia di applicazione, appunto le FPGA. Questa tecnica consiste nell'utilizzare Hardware con tecnologia riprogrammabile che, tramite la memoria messa a disposizione dentro il sistema, riesce a modificare il suo comportamento. Non è un comportamento appreso completamente dall'ambiente, ma è un comportamento previsto e quindi implementato che va a sostituire un comportamento esistente; il ciclo di vita quindi non sarà composto da un vero e proprio ``apprendimento'', ma sarà una modifica prevista dal progettista.
 
 Quindi, più precisamente, si più parlare di ``riconfigurabilità parziale'' e ``riconfigurabilità run-time'': il primo termine pone enfasi su la parziale capacità del dispositivo di modificarsi, in quanto ci sarà una parte progettata che non deve modificarsi ma soprattutto perché il dispositivo non si modificherà completamente, avrà delle modifiche consentite prestabilite; il secondo termine indica il fatto di potersi modificare durante il suo ciclo di vita, cambiando la propria configurazione di porte logiche ottenendo quindi una forma diversa.
 
+In particolare, questo tipo di sistema è composto da 2 parti: la parte statica e quella dinamico. La parte statica è quella parte del sistema che non si modifica durante l'esecuzione del sistema e solitamente dirige la riconfigurazione della parte dinamica; la parte dinamica invece è la parte in cui avviene la riconfigurazione, ovvero dove vengono caricate le varie configurazioni del sistema descritte dal progettista (ovvero dove avviene la riconfigurazione parziale).  Si può interpretare come architettura Master-Slave, in cui la parte statica (Master) controlla la parte dinamica (Slave) affinchè esegua correttamente tutte le riconfigurazioni previste.
+
 \subsection{Metodi di riconfigurazione}
 
-Essendo la Riconfigurabilità una tecnica di progettazione, prevede vari metodi per essere implementata, che possono essere scelti sia per la tecnologia sia in base alle risorse disponibili su essa. Questi metodi sono stati proposti dall'Altera \cite{PR1} e dall'insegnante Dirk Koch , dell'Università di Manchester \cite{PR2}.
+Essendo la Riconfigurabilità una tecnica di progettazione, prevede vari metodi per essere implementata, che possono essere scelti sia per la tecnologia sia in base alle risorse disponibili su essa. Questi metodi sono stati proposti dall'Altera \cite{PR1} e da vari cultori della materia \cite{PR2}.
 
 La prima tecnica è la ``Riconfigurazione parziale dinamica'', che consiste nel cambiare una parte della FPGA mentre il rimanente circuito continua il suo ciclo di vita. Per fare ciò, esiste una partizione riconfigurabile e in questa si carica il bitstream che corrisponde al nuovo circuito da una memoria esterna. Per far comunicare la parte statica con quella dinamica, è posto un bridge fisico tra di esse.
 
@@ -155,35 +156,25 @@ Questa tecnica è molto efficace quando si ha a disposizione poca memoria per me
 
 La seconda tecnica è la ``Rilocazione parziale di bitstream'', che consiste nello ``spostare'' i moduli compilati che descrivono l'hardware (che rappresentano la parte riconfigurabile) da un'area della FPGA all'altra con le stesse dimensioni e proprietà. Questa tecnica è più limitante della precendente, un quanto si pone il vincolo di avere due moduli con stesse dimensioni e proprietà, però può essere utile per questioni di ottimizzazione di codice, in quanto i due moduli possono rappresentare la stessa unità ma al loro interno eseguono lo stesso algoritmo in maniera differente.
 
+La parte cruciale quindi di queste tecniche è proprio la reallocazione dei moduli, in quanto la riconfigurabilità consiste proprio nello ``spostare'' un modulo da una sezione attiva a una non attiva. Esistono due metodi di reallocazione dei moduli riconfigurabili: usando dei tool offerti dalla Xilinx e usando il bus.
 
-\subsection{Metodi di reallocazione}
+I tool della Xilinx sono dei software che fungono da middleware per gestire lo spostamento da un'area all'altra e vengono dati in dotazione in base al sistema acquistato. Le direttive del bus sono delle macro da utilizzare durante l'esecuzione del codice per istruire il bus prima di far comunicare i diversi moduli e collegarli. 
 
-La parte cruciale quindi di queste tecniche è proprio la reallocazione dei moduli, in quanto la riconfigurabilità consiste proprio nello ``spostare'' un modulo da una sezione attiva a una non attiva. Esistono due modalità di reallocazione: usando dei tools offerti dalla Xilinx e usando il bus.
-
-I tools della Xilinx sono dei software che fungono da middleware per gestire lo spostamento da un'area all'altra e vengono dati in dotazione in base al sistema acquistato. Le direttive del bus sono delle macro da utilizzare durante l'esecuzione del codice per istruire il bus prima di far comunicare i diversi moduli e collegarli. Entrambe le modalità creano un ``ponte'' tra la zona statica e la zona dinamica della logica programmabile, in modo da interconnetterle per generare una nuova descrizione hardware.
+I metodi descritti creano un ``ponte'' tra la zona statica e la zona dinamica della logica programmabile, in modo da interconnetterle per generare una nuova descrizione hardware.
 
 Entrambi i metodi si basano sulla riconfigurazione runtime della parte di logica programmabile tramite lo stesso hardware della FPGA che si occupa della riconfigurazione statica (quindi durante la progettazione da parte del progettista), ma in maniera automatica: il modulo di controllo di riconfigurazione sceglie quale può essere la zona di logica programmabile corretta (la prima che ha abbastanza spazio per contenere la nuova logica) e genera il segnale di riconfigurazione; al momento del segnale, si esegue la procedura di riconfigurazione come da prassi ma il bitstream da caricare non deriva da un programma esterno via JTAG bensì dalla memoria interna. Quindi ciò che viene caricato non viene generato runtime, è già presente all'interno della memoria, ma il comportamento globale del sistema cambia in quanto viene caricata una porzione di bitstream che andrà ad alterare il circuito generato dal bitstream statico (che non cambia mai) e quello dinamico (caricato runtime).
 
 \subsection{Aree di reallocazione}
 
-\begin{figure}
-\centering
-\includegraphics[scale=0.5]{protocollo_riconfigurazione.png}
-\caption{Flusso di riconfigurazione}\label{fig:2}
-\end{figure}
+La parte statica e la parte dinamica del sistema si trovano all'interno della zona di logica programmabile della FPGA, denominata ``Programmable logic'', dove risidede effettivamente il codice che descrive il sistema. Le due parti del sistema normalmente possiedono una frammentazione interna ed esterna, in quando il codice non sempre occupa tutti i settori di memoria; proprio per questo si può deframmentare e ottenere dei settori vuoti in cui inserire runtime il codice.
 
-Il processo di reallocazione visto finora è riassumibile con la figura \ref{fig:2}, in cui si può vedere come la parte di  ``processing system'' (PS) configuri l'informazione da inviare alla parte di ``programmable logic'' (PL) tramite il bridge; caricato il file che rappresenta la nuova parte sintetizzata di programma dalla memoria, si invia alla parte da configurare PL utilizzando il protocollo del bridge.
-Le aree precedentemente descritte quindi si trovano all'interno di PL, dove risiede l'effettiva parte logica. Queste aree normalmente possiedono una frammentazione interna ed esterna, in quando il codice non sempre occupa tutti i settori; proprio per questo si può deframmentare e ottenere dei settori vuoti in cui inserire runtime il codice.
-
-Spostare un nuovo settore dentro la parte di logica programmata significa quindi configurare hardware precedentemente inattivo, dando quindi una nuova configurazione hardware e quindi un diverso comportamento del sistema. In base alla grandezza delle aree da spostare, possono coesistere all'interno dell'area PL, ma non avrebbe senso perché potrebbe significare avere hardware non utilizzato e configurato, quindi si spreca silicio.
+Spostare un nuovo settore dentro la parte di logica programmata significa quindi configurare hardware precedentemente inattivo, dando quindi una nuova configurazione hardware e quindi un diverso comportamento del sistema. In base alla grandezza delle aree da spostare, possono coesistere più codici di parti dinamiche all'interno della zona di logica programmabile, ma si sconsiglia l'utilizzo di questa strategia in quanto si utilizza molto più silicio rispetto ad aver allocato un unico codice.
 
 \subsection{La progettazione}
-
+TODO
 Poichè non esiste un metodo standard per progettare, sviluppare o semplicemente simulare questi sistemi, si vuole creare un nuovo flusso di progettazione per gestire al meglio la fase di sviluppo. Poiché questi sistemi fanno parte di un sottoinsieme dei Sistemi Embedded generici, si utilizzerà ciò che è noto durante la fase di sviluppo di un normale Sistema Embedded per poi aggiungere ciò che serve per specializzare tale sistema in uno Metamorfico.
 
 Il punto di partenza della progettazione non dovrà essere l'analisi dell'ambiente in cui calare il sistema da progettare, bensì sarà scindere cosa deve essere statico e cosa deve essere dinamico: una business logic, ad esempio, può essere una parte statica, mentre un insieme di range su cui fare misure può essere una parte dinamica perché dipende dall'ambiente. Una volta scelte le due parti, si procede con la progettazione come da prassi di un sistema embedded, progettando contemporaneamente queste parti: in questo modo, durante la progettazione, si può capire se le scelte adottate sono state corrette. Infine si configura l'hardware in modo da prepararlo per la sua futura metamorfosi, impostando la parte riconfigurabile, per poi osservare come cambia durante l'acquisizione delle informazioni.
-
-Lo scopo di questa tesi sarà comunque capire come sviluppare al meglio la progettazione di questo tipo di sistema, comprendendo il grado di libertà che si può raggiungere per la parte dinamica e capire quale tipo di riconfigurabilità è più conveniente usare, oltre al fatto di essere sicuri che sia conveniente sfruttare la metamorfosi per risparmiare tempo e denaro durante la progettazione di un sistema embedded.
 
 \section{Simulazione e sintesi di sistemi embedded}
 
@@ -191,14 +182,19 @@ Esistono vari metodi per progettare un sistema embedded; l'approccio ingegnerist
 
 \subsection{Simulazione}
 
-Per la descrizione ad alto livello e simulazione, solitamente si utilizza SystemC a diversi livelli, passando da una descrizione mirata a osservare il comportamento dei diversi moduli durante la loro interazione (TLM), fino alla descrizione a livello di EFSM cycle accurate o analogica (RTL e AMS). I vantaggi dell'utilizzo di SystemC sono molteplici, soprattutto grazie allo scheduler interno si riesce a simulare correttamente i vari comportamenti a livello di segnali e attivazione dei moduli.
+Per la descrizione dei sistemi e la loro simulazione, solitamente si utilizza SystemC, passando da una descrizione mirata a osservare il comportamento dei diversi moduli durante la loro interazione (TLM), fino alla descrizione a livello di EFSM cycle accurate o analogica (RTL e AMS). I vantaggi dell'utilizzo di SystemC sono molteplici, soprattutto grazie allo scheduler interno si riesce a simulare correttamente i vari comportamenti a livello di segnali e attivazione dei moduli.
+
+\subsection{SystemC}
+Il SystemC è un insieme di librerie e macro scritte in C++ con cui è possibile simulare processi concorrenti, ovvero che avvengono nello stesso momento, ognuno descritto attraverso la sintassi C++. Nell'ambiente di lavoro del SystemC, gli oggetti descritti possono comunicare in un contesto simulato real-time usando segnali di tutti i tipi di dato offerti dal C++, insieme ad altri offerti dalle librerie SystemC, oltre a quelli definiti dall'utilizzatore.
+
+Il linguaggio offre una semantica simile a quella di VHDL e Verilog, ma al costo di un aggravamento sintattico rispetto a questi. D'altro canto, permette un maggiore libertà espressiva, come programmazione orientata agli oggetti e classi template. Più in generale, SystemC è sia un linguaggio di descrizione sia un sistema di simulazione che permette di generare un eseguibile che si comporta come il modello descritto al momento dell'esecuzione. Le prestazioni del sistema di simulazione sono difficilmente paragonabili a quelle dei simulatori VHDL/Verilog commercializzati attualmente, specialmente per via delle differenze di ambito applicativo. Mentre Verilog e VHDL sono stati pensati, originariamente proposti e nel tempo sviluppati per la progettazione a livello di trasferimento tra registri (RTL), il SystemC, nei suoi primi anni di vita, ha veicolato una forte spinta verso la progettazione a livelli di astrazione superiore, con produzione di strumenti per la Sintesi di Alto livello e successivi sviluppi del paradigma transazionale, nel quale la comunicazione tramite segnali digitali viene sostituita con un più generico passaggio di messaggi.
 
 \subsection{Scheduler di SystemC}
 
 Lo scheduler di SystemC è stato progettato in modo da rispettare una gerarchia di wakeup dei moduli, in quanto l'hardware solitamente è pilotato sia da un clock interno sia da segnali provenienti da diversi moduli, quindi è stato necessario modellare questo parallelismo tramite uno scheduler. Lo schedule eseguito dallo scheduler è diviso in passi:
 
 \begin{enumerate}
-\item Elaborazione: vengono create le strutture dati e viene fatto il binding delle porte;
+\item Elaborazione: vengono create le strutture dati e viene fatto il binding delle porte di input e di output;
 \item Inizializzazione: vengono inizializzate porte e segnali e vengono fatti eseguire tutti i processi fino alla loro terminazione o al primo wait, in modo da creare una coda d'esecuzione iniziale;
 \item Evaluation: viene fatto eseguire il primo processo pronto in coda d'esecuzione fino alla sua terminazione o ad un wait. Se vengono notificati eventi (con delle notify()), i processi interessati vengono messi in coda d'esecuzione. Se ci sono altri processi in coda pronti ad essere eseguiti ripeto le operazioni precedenti, altrimenti proseguo;
 \item Update: vengono aggiornate porte e segnali ed aggiunti in coda d'esecuzione i processi sensibili ad essi;
@@ -206,7 +202,7 @@ Lo scheduler di SystemC è stato progettato in modo da rispettare una gerarchia 
 \item Timed: Vengono aggiunti alla coda d'esecuzione tutti i processi sensibili alla prima timed notification (notify(SC\_TIME(n,SC\_NS))). Aggiorno il tempo di simulazione (clock). Se ci sono altri processi in coda pronti ad essere eseguiti ripeto le operazioni precedenti a partire dalla fase di evaluation, altrimenti termino la simulazione.
 \end{enumerate}
 
-Grazie a questo scheduler, si ha uno strumento che simula correttamente un sistema embedded, rispettando anche i tempi accuratamente di esecuzione, osservabili tramite timestamp.
+Grazie a questo scheduler, si ha uno strumento che simula correttamente un sistema embedded, rispettando accuratamente anche i tempi di esecuzione, osservabili tramite timestamp.
 
 \subsection{Sintesi}
 
@@ -220,7 +216,7 @@ Poichè non esiste un metodo standard per progettare sistemi metamorfici, bisogn
 
 Per la simulazione si vorrebbe utilizzare SystemC, in quanto offre una descrizione fedele dell'hardware da simulare e sfrutta la conoscenza di C++ per descrivere i sistemi. Attualmente esiste una libreria di SystemC per la descrizione di sistemi riconfigurabili chiamata ReChannel.
 
-ReChannel è una libreria sviluppata dall'Università di Bonn dal Prof. Armin Felke nel 2008, ceduta a GreenSocs con licenza open-source l'anno successivo e attualmente non più mantenuta, a seguito degli aggiornamenti di SystemC 2.0 che non permettevano la compilazione. La libreria è stata aggiornata e riscritta durante la stesura di questa tesi ed ora è compilabile ed utilizzabile.
+ReChannel è una libreria sviluppata nell'Università di Bonn nel 2007, ceduta a GreenSocs con licenza open-source l'anno successivo e attualmente non più mantenuta, a seguito degli aggiornamenti di SystemC 2.0 che non permettevano la compilazione. La libreria è stata aggiornata e riscritta durante la stesura di questa tesi ed ora è compilabile ed utilizzabile.
 
 La libreria si basa sul concetto di \textbf{switch}, ovvero l'elemento cardine di un sistema riconfigurabile: deve esserci la possibilità di cambiare un modulo con un altro, possibilmente di stessa dimensione e con la stessa quantità di input e output. Lo switch, in questa libreria, viene rappresentato come una sorta di multiplexer, che tiene collegati i diversi moduli della parte riconfigurabile con il modulo della parte statica; al momento opportuno, deciso dal progettista, sia dinamicamente sia staticamente in fase di compilazione, si imposta in modo che attivi il canale di comunicazione tra il modulo attivato e la parte statica, mentre disattiva i moduli della parte dinamica che vengono sostituiti. Lo switch permette la comunicazione sia da parte statica a parte dinamica sia viceversa: la prima viene chiamata \textit{portal}, la seconda viene chiamata \textit{exportal}.
 
@@ -230,7 +226,7 @@ La libreria si basa sul concetto di \textbf{switch}, ovvero l'elemento cardine d
 \caption{Rappresentazione dello switch}\label{fig:3}
 \end{figure}
 
-Lo switch permette quindi la comunicazione tra i moduli della parte statica e della parte dinamica; la comunicazione può essere semplice (a un solo valore) o multivalore (coda fifo). Questo modella correttamente il concetto di bridge descritto precedentemente, ossia quel componente che permette la comunicazione tra le parti della FPGA. Questo si può vedere come una sorta di bus, che dirige il traffico point to point tra i diversi moduli.
+La comunicazione tra parte statica e parte dinamica può essere semplice (a un solo valore) o multivalore (coda fifo). Questo modella correttamente il concetto di bridge descritto precedentemente, ossia quel componente che permette la comunicazione tra le parti della FPGA. Questo si può vedere come una sorta di bus, che dirige il traffico point to point tra i diversi moduli.
 
 L'utilizzo di questo componente per la comunicazione è un aspetto che si distanzia molto dalla solita progettazione di hardware in SystemC, poiché solitamente si definiscono i moduli con vari input e output e si effettua un collegamento punto-punto all'interno del main; con questa libreria invece si definiscono le modalità di comunicazione tra i moduli di diversa natura, per poi far gestire a questo componente i diversi collegamenti. Questo fatto modella correttamente le FPGA riconfigurabili moderne.
 
@@ -268,12 +264,20 @@ Come si può notare con la figura \ref{fig:5}, il tool automatico identifica i s
 
 L'ultimo passaggio del tool automatico è la creazione delle partizioni della FPGA, perché deve essere possibile identificare dove caricare la parte riconfigurabile e dove deve rimanere staticamente il codice; viene creato quindi il file delle partizioni, solitamente chiamato \textit{XPARTITION.xml}, che risiede in memoria e viene consultato ogni volta che deve avvenire una riconfigurazione.
 
+\subsection{YAML}
+YAML (pronunciato  `jaemel, in rima con ``camel'' ) è un formato per la serializzazione di dati utilizzabile da esseri umani. Il linguaggio sfrutta concetti di altri linguaggi come il C, il Perl e il Python e idee dal formato XML e dal formato per la posta elettronica (RFC2822).
+
+Proposto da Clark Evans nel 2001, è stato sviluppato da quest'ultimo e Brian Ingerson. Il nome definisce l'acronimo ricorsivo ``YAML Ain't a Markup Language''. Nella prima fase di sviluppo l'acronimo veniva definito come ``Yet Another Markup Language'', significato che è andato perso in favore di un nome che specificasse la natura orientata alla memorizzazione di dati del linguaggio, contrapposto all'utilizzo consono dei linguaggi di markup.
+
+\'{E} quindi un linguaggio di serializzazione dati che permette facilmente di descrivere con item e sequenze dati e parti di codice.
+
 \chapter{Obiettivi}
+Lo scopo di questa tesi sarà comunque capire come sviluppare al meglio la progettazione di questo tipo di sistema, comprendendo il grado di libertà che si può raggiungere per la parte dinamica e capire quale tipo di riconfigurabilità è più conveniente usare, oltre al fatto di essere sicuri che sia conveniente sfruttare la metamorfosi per risparmiare tempo e denaro durante la progettazione di un sistema embedded.
 TODO
 
 \chapter{Metodologia}
 
-Lo scopo di questo documento è di proporre una metodologia efficiente di progettazione e simulazione per questa particolare architettura. Attualmente non esiste un metodo standard per la progettazione di sistemi basati su questa architettura, quindi si è cercato di proporre un metodo più efficiente possibile per garantire anche a chi non conosce approfonditamente questa tecnologia di poterla sfruttare al meglio.
+Lo scopo di questo documento è di proporre una metodologia efficiente di progettazione e simulazione per hardware riconfigurabile dinamicamente. Attualmente non esiste un metodo standard per la progettazione di sistemi basati su questa architettura, quindi si è cercato di proporre un metodo più efficiente possibile per garantire anche a chi non conosce approfonditamente questa tecnologia di poterla sfruttare al meglio.
 Per decidere uno stile di progettazione, si è deciso di basarsi su uno stile già noto nei sistemi consuetudinari embedded, ovvero la progettazione di macchine a stati finiti. La tecnica delle macchine a stati finiti garantisce chiarezza di progettazione e un flusso chiaro di istruzioni che vengono eseguite durante la ``vita'' del sistema, evidenziando anche i possibili blocchi ed anomalie che possono esserci durante l'esecuzione. Inoltre ci si è serviti del noto concetto di ``macchine a stati finiti non deterministiche'': è possibile rappresentare un sistema a stati che può comportarsi ``contemporaneamente'' in molteplici modi, quindi avere più comportamenti tramite lo stesso input in ingresso (solitamente evitato durante la progettazione delle macchine a stati finiti, in quanto non è implementabile).
 
 La progettazione proposta quindi si differenzia in diverse fasi:
@@ -297,8 +301,7 @@ Il sistema finale dovrebbe essere simile alla figura \ref{fig:6}: si può notare
 La divisione netta tra parte statica e parte dinamica garantisce anche il parallelismo di esecuzione tra le diverse parti del sistema: potenzialmente la parte statica può eseguire codice in maniera del tutto asincrona rispetto alla parte dinamica, garantendo quindi più potenza di calcolo in termini di velocità. Infine, rappresentare il sistema con macchine a stati finiti permette di effettuare tutte le ottimizzazioni note per diminuire il numero degli stati del sistema, guadagnando ancor più spazio.
 Si vedrà nel dettaglio con il caso di studio il guadagno ottenuto da questa architettura proposta in contesto di vincoli realtime hard.
 
-Se da un lato si hanno degli ottimi benefici, con questa configurazione si ottengono anche degli svantaggi dal punto di vista implementativo: la parte dinamica e la parte statica necessitano di comunicazione tramite il bus, però essendo entrambi asincroni necessitano di meccanismi di sincronizzazione per evitare di perdere dati. Inoltre, visto che questo tipo di sistemi viene calato in contesti critici, essendo sistemi embedded, bisogna essere sicuri di progettare il sistema in modo che non presenti anomalie e quindi perdere l'efficacia dell'utilizzo di questa architettura.
-È quindi necessario garantire che il sistema sia sempre in stato ``safe'': come tutti i sistemi asincroni, se sono presenti le 3 condizioni necessarie (mutua esclusione, hold and wait, no preemption, attesa circolare), il sistema può andare in deadlock, quindi è necessario adottare tutte le strategie necessarie per evitare ciò.
+È quindi necessario garantire che il sistema sia sempre in stato ``safe'': come tutti i sistemi asincroni, se sono presenti le 4 condizioni necessarie (mutua esclusione, hold and wait, no preemption, attesa circolare), il sistema può andare in deadlock, quindi è necessario adottare tutte le strategie necessarie per evitare ciò.
 Fino ad ora la garanzia di stato safe del sistema dal punto di vista di asincronicità era lasciata al progettista, con questo progetto si propone invece un tool automatico per generare il software per SystemC Rechannel adottando questo metodo di progettazione, in modo da lasciare al progettista solo il compito di pensare e progettare il comportamento dei moduli del sistema.
 
 Con questo progetto quindi non si propone esclusivamente una metodologia di progettazione, ma anche un tool automatico per progettare correttamente questi sistemi.
@@ -306,25 +309,25 @@ Con questo progetto quindi non si propone esclusivamente una metodologia di prog
 
 \section{Rappresentazione della metodologia di progettazione}
 
-Il processo di progettazione proposto per questi sistemi deve seguire il Sequence Diagram proposto nella figura \ref{fig:7}.
-
 \begin{figure}[!hb]
 \centering
 \includegraphics[scale=0.75]{processo.png}
 \caption{Sequence diagram del processo di progettazione}\label{fig:7}
 \end{figure}
 
+Il processo di progettazione proposto per questi sistemi deve seguire il Sequence Diagram proposto nella figura \ref{fig:7}.
+
 Si può notare che il processo proposto risulta lineare, senza cicli e con un'unica diramazione: questo è molto importante dal punto di vista dello sviluppo in quanto non costringe lo sviluppatore ad eseguire delle scelte in base alla situazione e non deve iterare varie parti della progettazione in base al tipo di progetto. La complessità di progettazione quindi è pressochè costante, mentre il punto critico della diramazione consiste in un singolo passo quindi non può portare problemi di sviluppo (dal punto di vista di tempistiche e di utilizzo di risorse).
 
-Tutto parte dalla comprensione delle specifiche da parte del progettista: queste, descritte in qualsiasi forma, devono essere ben comprese dal progettista per identificare la ''forma'' del sistema futuro. Ogni sistema può essere rappresentato con una macchina a stati finiti estesa, quindi è necessario che il progettista riesca ad indentificare come formalizzare il sistema tramite una FSM estesa. Una volta formalizzata la FSM estesa, si può descrivere l'intero sistema disegnandolo come fosse una FSM.
+Tutto parte dalla comprensione delle specifiche da parte del progettista: queste, descritte in qualsiasi forma, devono essere ben comprese dal progettista per identificare la ''forma'' del sistema futuro. Ogni sistema può essere rappresentato con una macchina a stati finiti estesa, quindi è necessario che il progettista riesca ad indentificare come formalizzare il sistema tramite una FSM estesa. Una volta formalizzata la EFSM, si può descrivere l'intero sistema disegnandolo come fosse una EFSM.
 
-La FSM può essere descritta a proprio piacimento, ma deve essere abbastanza eloquente in modo da far capire quali siano le parte predestinate alla riconfigurazione. Questo significa che ogni parte del sistema deve essere descritta in maniera generica, tralasciando gli aspetti implementativi (ovvero la descrizione di ciò che avviene all'interno degli stati del sistema), ma bisogna descrivere nel dettaglio ogni potenziale stato del sistema. 
+La EFSM può essere descritta a proprio piacimento, ma deve essere abbastanza eloquente in modo da far capire quali siano le parte predestinate alla riconfigurazione. Questo significa che ogni parte del sistema deve essere descritta in maniera generica, tralasciando gli aspetti implementativi (ovvero la descrizione di ciò che avviene all'interno degli stati del sistema), ma bisogna descrivere nel dettaglio ogni potenziale stato del sistema. 
 
-Una volta ottenuta la FSM del sistema, si esegue manualmente il partizionamento della FSM candidata alla parte statica del sistema e alla parte dinamica: per farlo si possono seguire le seguenti euristiche:
+Una volta ottenuta la EFSM del sistema, si esegue manualmente il partizionamento della EFSM candidata alla parte statica del sistema e alla parte dinamica: per farlo si possono seguire le seguenti euristiche:
 
 \begin{itemize}
 
-\item considerare le parti ripetute della FSM (dal punto di vista semantico): quando si nota che una parte della FSM viene ripetuta, ovvero ha le stesse transizioni nel grafo e il comportamento interno ha lo stesso significato (ma l'implementazione futura genererà un comportamento diverso), allora si può inserire quella parte di FSM nella parte dinamica futura della FSM, mentre il restante grafico si implementerà nella parte statica;
+\item considerare le parti ripetute della EFSM (dal punto di vista semantico): quando si nota che una parte della EFSM viene ripetuta, ovvero ha le stesse transizioni nel grafo e il comportamento interno ha lo stesso significato (ma l'implementazione futura genererà un comportamento diverso), allora si può inserire quella parte di FSM nella parte dinamica futura della EFSM, mentre il restante grafico si implementerà nella parte statica;
 
  \item identificare i potenziali punti in cui il sistema dovrebbe riconfigurarsi e cambiare comportamento (rimanendo semanticamente uguale tra le configurazioni): in alcune situazioni è ben chiaro quando il sistema deve cambiare la propria descrizione interna in base alla situazione ed eseguire un task che contiene delle piccole variazioni rispetto ad altri. 
 
@@ -340,37 +343,29 @@ Quindi si può capire che ciò che caratterizza la parte dinamica del sistema è
 \caption{Descrizione della FSM standardizzata}\label{fig:8}
 \end{figure}
 
-In aggiunta a ciò, si propone anche uno standard di FSM presentato nella figura \ref{fig:8}: poiché questo metodo di progettazione è molto efficiente, si può utilizzare uno standard anche di rappresentazione della macchina a stati, in modo da rendere più semplice e chiara la partizione tra sistemi e più semplice la descrizione degli stati.
+In aggiunta a ciò, si propone anche uno standard di EFSM presentato nella figura \ref{fig:8}: poiché questo metodo di progettazione è molto efficiente, si può utilizzare uno standard anche di rappresentazione della macchina a stati, in modo da rendere più semplice e chiara la partizione tra sistemi e più semplice la descrizione degli stati.
 
-Questa FSM è composta da almeno 3 stati, uno di questi può essere esteso a quanti stati si vuole. Lo stato iniziale è lo stato ``Init'' (nella figura, ``I''), in cui avviene l'inizializzazione del sistema riconfigurabile (quindi si resettano i valori delle variabili, si aspetta che la configurazione sia pronta e si prepara il sistema ad eseguire il futuro algoritmo); lo stato successivo è lo stato di ``Work'' (nella figura, ``W''), in cui si esegue effettivamente l'algoritmo per cui il sistema è stato progettato; questo stato può essere esteso a quanti stati si vuole, in base al modello di sistema che si è rappresentato precedentemente. Infine, lo stato ``Reconfigure'' (nella figura, ``R''), esegue la riconfigurazione del sistema per ottenere un comportamento diverso dal precedente; si può dire che questo stato è l'opposto della fase di Init, in quando prepara il sistema alla futura fase di Init di un'altra configurazione.
+Questa EFSM è composta da almeno 3 stati, uno di questi può essere esteso a quanti stati si vuole. Lo stato iniziale è lo stato ``Init'' (nella figura, ``I''), in cui avviene l'inizializzazione del sistema riconfigurabile (quindi si resettano i valori delle variabili, si aspetta che la configurazione sia pronta e si prepara il sistema ad eseguire il futuro algoritmo); lo stato successivo è lo stato di ``Work'' (nella figura, ``W''), in cui si esegue effettivamente l'algoritmo per cui il sistema è stato progettato; questo stato può essere esteso a quanti stati si vuole, in base al modello di sistema che si è rappresentato precedentemente. Infine, lo stato ``Reconfigure'' (nella figura, ``R''), esegue la riconfigurazione del sistema per ottenere un comportamento diverso dal precedente; si può dire che questo stato è l'opposto della fase di Init, in quando prepara il sistema alla futura fase di Init di un'altra configurazione.
 
 Non è necessario rappresentare la FSM nel modo precedentemente descritto, ma è consigliato in quanto aiuta a comprendere meglio la partizione del sistema e a creare gli stati correttamente ed in maniera ordinata.
 
 ~ 
 
-Una volta eseguito il partizionamento si può ottenere il codice del sistema finale in 2 modi: o scrivendo il codice a mano in SystemC Rechannel, o utilizzando un tool automatico che genera il codice SystemC partendo da una descrizione ad alto livello. Il tool automatico verrà descritto nella prossima sezione.
+Una volta eseguito il partizionamento si può ottenere il codice del sistema finale utilizzando il tool automatico che genera il codice SystemC partendo da una descrizione ad alto livello. Il tool automatico verrà descritto nella prossima sezione.
 
 Infine, avendo il codice SystemC, è possibile sia simulare il sistema, tramite compilazione, sia generale l'effettivo codice finale per eseguire il deploy su FPGA dedicata. Per convertire il codice da SystemC a Netlist, si può utilizzare un qualsiasi tool automatico di conversione da codice a Netlist.
 
 \section{Tool automatico (Pyngu)}
 
-
-\begin{figure}[!ht]
-\centering
-\includegraphics[scale=0.2]{pyngulogo.png}
-\caption{Logo del tool Pyngu}\label{fig:9}
-\end{figure}
-
-
 Poichè il processo di generazione di codice è standard e meccanico, è possibile implementare con un tool automatico tutto il processo di scrittura di codice utilizzando un programma di supporto che possa aiutare il progettista. 
 
 Poiché non tutti i progettisti di sistemi embedded conoscono la teoria e la parte implementativa dell'hardware riconfigurabile, è utile astrarre il più possibile dall'utilizzo di SystemC Rechannel e dallo studio dei sistemi riconfigurabili e concentrarsi sulla semantica del sistema. Nasce quindi la necessità di rendere disponibile al progettista un tool automatico che utilizza un mezzo semplificato per descrivere ed implementare il sistema, senza perdere comunque l'espressività di SystemC Rechannel. Utilizzando questo tool, si implementa, secondo lo standard proposto precedentemente, l'intero sistema finale, ottenendo il codice SystemC Rechannel senza sapere i dettagli implementativi della libreria.
 
-Il tool proposto si chiama Pyngu, un interprete e compilatore code-to-code scritto in Python; il nome deriva dal noto personaggio dei cartoni, Pingu, che parlava una lingua incomprensibile all'uomo ma riusciva a farsi capire dai suoi simili, oltre al fatto di capire il linguaggio umano (ciò che fa anche questo tool, ovvero trasforma una descrizione ad alto livello del sistema in un linguaggio che non sempre è noto al progettista); l'aggiunga del suffisso ``Py'' è dovuto allo standard Python dei progetti.
+Il tool sviluppato si chiama Pyngu, un interprete e compilatore code-to-code scritto in Python; il nome deriva dal noto personaggio dei cartoni, Pingu, che parlava una lingua incomprensibile all'uomo ma riusciva a farsi capire dai suoi simili, oltre al fatto di capire il linguaggio umano (ciò che fa anche questo tool, ovvero trasforma una descrizione ad alto livello del sistema in un linguaggio che non sempre è noto al progettista); l'aggiunga del suffisso ``Py'' è dovuto allo standard Python dei progetti.
 
 Il tool prende in input una descrizione ad alto livello del sistema completo, tenendo conto della divisione tra parte statica e parte dinamica: in questo modo, il tool genererà i differenti file in base al modo in cui è stato descritto il sistema, tenendo separata la parte statica dalla parte dinamica.
 
-Come linguaggio di base ad alto livello è stato scelto YAML (pronunciato `jaemel), un linguaggio di serializzazione dati che permette facilmente di descrivere con item e sequenze dati e parti di codice; \'{E} stato scelto questo linguaggio perché è molto semplice da imparare e non richiede nessuna conoscenza di programmazione, in modo da renderlo comprensibile anche a chi non conosce i sistemi riconfigurabili.
+Come linguaggio di base ad alto livello è stato scelto YAML; è stato scelto questo linguaggio perché è molto semplice da imparare e non richiede nessuna conoscenza di programmazione, in modo da renderlo comprensibile anche a chi non conosce i sistemi riconfigurabili.
 
 Seguendo le regole del linguaggio di base ed aggiungendo delle parole chiave che hanno significato solo per il tool automatico, il tool automatico genera il sistema descritto. In particolare, il tool esegue gli stessi passi che esegue il progettista mentre progetta il sistema: identifica la descrizione della parte statica e dinamica del sistema, trasforma la descrizione in FSM in SystemC e infine genera il codice del sistema finale.
 
@@ -407,7 +402,7 @@ In questa parte si possono descrivere:
 
 \end{itemize}
 
-Nella prima parte quindi si dà particolare enfasi alla parte di specifiche strutturali, dove è fondamentale capire gli inputs e gli outputs del sistema, oltre ad implementare il metodo corretto di comunicazione tra parte statica e parte dinamica del sistema.
+Nella prima parte quindi si dà particolare enfasi alla parte di specifiche strutturali, dove è fondamentale capire gli input e gli output del sistema, oltre ad implementare il metodo corretto di comunicazione tra parte statica e parte dinamica del sistema.
 
 ~ 
 
@@ -440,7 +435,7 @@ Dopo la scrittura del codice, si otterrà il file YAML che rappresenta il sistem
 
 Il tool automatico risulta essere particolarmente efficace durante la progettazione, avendo fatto le giuste scelte implementative seguendo il flusso proposto. In particolare, il linguaggio riconosciuto dal tool, basato appunto su YAML, ha massimo potere espressivo nel contesto del flusso di progettazione, in quanto permette di descrivere ogni componente del sistema riconfigurabile da produrre. Se sono state fatte le scelte giuste (precedentemente descritte), la conversione delle FSM ottenute sarà molto facile seguendo il linguaggio, mentre scelte sbagliate renderanno la descrizione tramite il linguaggio leggermente più complesse (o comunque non efficaci).
 
-Il tool inoltre non ha un ruolo fondamentale, semplicemente aiuta il progettista che non conosce la libreria oppure necessita di una scrittura velocizzata del codice: lo stesso codice SystemC ottenuto dal tool può essere scritto a mano dal progettista. Si suppone che comunque il tempo necessario per apprendere il linguaggio PynguLang sia molto minore rispetto ad apprendere il funzionamento della libreria SystemC Rechannel, quindi un guadagno di apprendimento si ha, oltre al fatto di ottenere codice che risulta essere safe e corretto per costruzione.
+Si suppone che comunque il tempo necessario per apprendere il linguaggio PynguLang sia molto minore rispetto ad apprendere il funzionamento della libreria SystemC Rechannel, quindi un guadagno di apprendimento si ha, oltre al fatto di ottenere codice che risulta essere safe e corretto per costruzione.
 
 
 
