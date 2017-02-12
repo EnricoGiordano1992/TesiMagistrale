@@ -170,11 +170,13 @@ La parte statica e la parte dinamica del sistema si trovano all'interno della zo
 
 Spostare un nuovo settore dentro la parte di logica programmata significa quindi configurare hardware precedentemente inattivo, dando quindi una nuova configurazione hardware e quindi un diverso comportamento del sistema. In base alla grandezza delle aree da spostare, possono coesistere più codici di parti dinamiche all'interno della zona di logica programmabile, ma si sconsiglia l'utilizzo di questa strategia in quanto si utilizza molto più silicio rispetto ad aver allocato un unico codice.
 
-\subsection{La progettazione}
-TODO
-Poichè non esiste un metodo standard per progettare, sviluppare o semplicemente simulare questi sistemi, si vuole creare un nuovo flusso di progettazione per gestire al meglio la fase di sviluppo. Poiché questi sistemi fanno parte di un sottoinsieme dei Sistemi Embedded generici, si utilizzerà ciò che è noto durante la fase di sviluppo di un normale Sistema Embedded per poi aggiungere ciò che serve per specializzare tale sistema in uno Metamorfico.
+\subsection{Progettazione di sistemi riconfigurabili dinamicamente}
 
-Il punto di partenza della progettazione non dovrà essere l'analisi dell'ambiente in cui calare il sistema da progettare, bensì sarà scindere cosa deve essere statico e cosa deve essere dinamico: una business logic, ad esempio, può essere una parte statica, mentre un insieme di range su cui fare misure può essere una parte dinamica perché dipende dall'ambiente. Una volta scelte le due parti, si procede con la progettazione come da prassi di un sistema embedded, progettando contemporaneamente queste parti: in questo modo, durante la progettazione, si può capire se le scelte adottate sono state corrette. Infine si configura l'hardware in modo da prepararlo per la sua futura metamorfosi, impostando la parte riconfigurabile, per poi osservare come cambia durante l'acquisizione delle informazioni.
+Esistono diversi metodi di sviluppo di sistemi riconfigurabili dinamicamente, però essendo un tipo di sistema storicamente recente, non è stato ancora decisa una metodologia standard per la progettazione. Attualmente sono state proposte delle metodologie basate sull'analisi dell'applicativo finale (quindi un approccio Top-Down) e sulla generazione di modelli TLM in SystemC \cite{ReconfigurMetod1} \cite{ReconfigurMetod2}.
+
+Il metodo normalmente utilizzato per la progettazione di questi sistemi è lo stesso dei sistemi embedded, ovvero si crea un modello di sistema, scegliendo il linguaggio e l'ambiente di simulazione più adatto alla situazione e, dopo aver verificato il sistema, si procede con il test e la sintesi. Per quest'ultima parte, in base alla FPGA scelta, si utilizza l'apposito software dato in dotazione dalla casa produttrice della FPGA.
+
+Perciò, si vuole creare un nuovo flusso di progettazione per gestire al meglio la fase di sviluppo. Poiché questi sistemi fanno parte di un sottoinsieme dei sistemi embedded (a causa della specificità dell'applicazione finale di questi sistemi), si utilizzerà ciò che è noto durante la fase di sviluppo di un normale Sistema Embedded per poi aggiungere ciò che serve per specializzare tale sistema in uno Metamorfico.
 
 \section{Simulazione e sintesi di sistemi embedded}
 
@@ -189,7 +191,15 @@ Il SystemC è un insieme di librerie e macro scritte in C++ con cui è possibile
 
 Il linguaggio offre una semantica simile a quella di VHDL e Verilog, ma al costo di un aggravamento sintattico rispetto a questi. D'altro canto, permette un maggiore libertà espressiva, come programmazione orientata agli oggetti e classi template. Più in generale, SystemC è sia un linguaggio di descrizione sia un sistema di simulazione che permette di generare un eseguibile che si comporta come il modello descritto al momento dell'esecuzione. Le prestazioni del sistema di simulazione sono difficilmente paragonabili a quelle dei simulatori VHDL/Verilog commercializzati attualmente, specialmente per via delle differenze di ambito applicativo. Mentre Verilog e VHDL sono stati pensati, originariamente proposti e nel tempo sviluppati per la progettazione a livello di trasferimento tra registri (RTL), il SystemC, nei suoi primi anni di vita, ha veicolato una forte spinta verso la progettazione a livelli di astrazione superiore, con produzione di strumenti per la Sintesi di Alto livello e successivi sviluppi del paradigma transazionale, nel quale la comunicazione tramite segnali digitali viene sostituita con un più generico passaggio di messaggi.
 
+SystemC, per la rappresentazione dei moduli hardware da implementare, utilizza un oggetto chiamato ``processo'', che a sua volta può essere di 3 tipi: ``sc\_method'', ``sc\_thread'' e ``sc\_clocked\_thread''; il primo appare come una funzione in C++ che quando viene chiamata viene eseguita completamente e viene riattivata secondo la sensitivity list; il secondo differente dal primo tipo può essere bloccato durante la sua esecuzione; il terzo funziona come un sc\_thread ma è associato ad un oggetto ``clock'', ovvero un contatore che può riattivare questo tipo di processo anche se è stato precedentemente messo in pausa. Tra questi tipi di processi, l'unico sintetizzabile è il ``sc\_method'', in quando gli altri processi possono essere bloccati durante l'esecuzione, cosa non possibile per un dispositivo hardware. 
+
 \subsection{Scheduler di SystemC}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.6]{scheduler_systemc.png}
+\caption{Lo scheduler di SystemC}\label{fig:schedsysc}
+\end{figure}
 
 Lo scheduler di SystemC è stato progettato in modo da rispettare una gerarchia di wakeup dei moduli, in quanto l'hardware solitamente è pilotato sia da un clock interno sia da segnali provenienti da diversi moduli, quindi è stato necessario modellare questo parallelismo tramite uno scheduler. Lo schedule eseguito dallo scheduler è diviso in passi:
 
@@ -216,7 +226,7 @@ Poichè non esiste un metodo standard per progettare sistemi metamorfici, bisogn
 
 Per la simulazione si vorrebbe utilizzare SystemC, in quanto offre una descrizione fedele dell'hardware da simulare e sfrutta la conoscenza di C++ per descrivere i sistemi. Attualmente esiste una libreria di SystemC per la descrizione di sistemi riconfigurabili chiamata ReChannel.
 
-ReChannel è una libreria sviluppata nell'Università di Bonn nel 2007, ceduta a GreenSocs con licenza open-source l'anno successivo e attualmente non più mantenuta, a seguito degli aggiornamenti di SystemC 2.0 che non permettevano la compilazione. La libreria è stata aggiornata e riscritta durante la stesura di questa tesi ed ora è compilabile ed utilizzabile.
+ReChannel è una libreria sviluppata nell'Università di Bonn nel 2007 \cite{PR2}, ceduta a GreenSocs con licenza open-source l'anno successivo e attualmente non più mantenuta, a seguito degli aggiornamenti di SystemC 2.0 che non permettevano la compilazione. La libreria è stata aggiornata e riscritta durante la stesura di questa tesi ed ora è compilabile ed utilizzabile.
 
 La libreria si basa sul concetto di \textbf{switch}, ovvero l'elemento cardine di un sistema riconfigurabile: deve esserci la possibilità di cambiare un modulo con un altro, possibilmente di stessa dimensione e con la stessa quantità di input e output. Lo switch, in questa libreria, viene rappresentato come una sorta di multiplexer, che tiene collegati i diversi moduli della parte riconfigurabile con il modulo della parte statica; al momento opportuno, deciso dal progettista, sia dinamicamente sia staticamente in fase di compilazione, si imposta in modo che attivi il canale di comunicazione tra il modulo attivato e la parte statica, mentre disattiva i moduli della parte dinamica che vengono sostituiti. Lo switch permette la comunicazione sia da parte statica a parte dinamica sia viceversa: la prima viene chiamata \textit{portal}, la seconda viene chiamata \textit{exportal}.
 
@@ -225,6 +235,8 @@ La libreria si basa sul concetto di \textbf{switch}, ovvero l'elemento cardine d
 \includegraphics[scale=0.5]{portal.png}
 \caption{Rappresentazione dello switch}\label{fig:3}
 \end{figure}
+
+Come si può vedere nella figura \ref{fig:3}, lo switch ha lo stesso funzionamento di un multiplexer: i moduli riconfigurabili M1 ed M2 vengono collegati entrambi allo switch, che a sua volta è collegato al modulo statico S; in base al segnale ``sel'', pilotato da S, lo switch attiverà il corrispondente modulo riconfigurabile, in modo che abbia un collegamento diretto e unico con il modulo statico. Il processo non attivo rimarrà bloccato fino alla prossima riattivazione. Questo rappresenta di fatto ciò che avviene in una FPGA riconfigurabile dinamicamente, anche se in forma diversa, ovvero mentre qui il modulo riconfigurabile viene disattivato, nella FPGA viene deallocato per poi allocare il modulo riconfigurabile da attivare.
 
 La comunicazione tra parte statica e parte dinamica può essere semplice (a un solo valore) o multivalore (coda fifo). Questo modella correttamente il concetto di bridge descritto precedentemente, ossia quel componente che permette la comunicazione tra le parti della FPGA. Questo si può vedere come una sorta di bus, che dirige il traffico point to point tra i diversi moduli.
 
@@ -238,10 +250,11 @@ Il problema principale ora, conoscendo lo scheduler di SystemC, è gestire le mo
 \caption{Scheduler esteso con ReChannel}\label{fig:4}
 \end{figure}
 
-Come si può notare con la figura \ref{fig:4}, è stato esteso lo scheduler dando priorità alla riconfigurazione, quindi nella fase di Evaluation si aggiunge un'ulteriore fase, ovvero il controllo sui processi attivi, oltre ad aggiungere passaggi nella fase di inizializzazione.
-Durante la fase di inizializzazione, vengono istanziati tutti i moduli riconfigurabili e disattivati; è compito del progettista decidere quale modulo inizialmente deve essere attivato, ma non è necessario che ci siano moduli attivi. Successivamente, un modulo può essere attivato in qualunque momento; lo scheduler lo attiverà appena entrerà nella parte finale della fase di Evaluation, controllando che ci siano processi attivi pendenti (quindi da attivare).
+Come si può notare con la figura \ref{fig:4}, è stato esteso lo scheduler dando priorità alla riconfigurazione, quindi nella fase di Evaluation si aggiunge un'ulteriore fase, ovvero il controllo sui processi SystemC attivi, oltre ad aggiungere passaggi nella fase di inizializzazione. Di fatto i moduli riconfigurabili sono processi SystemC che vengono bloccati se un modulo deve essere disattivato (deallocato) e riattivati quando vengono ricaricati (reallocati).
 
-Solitamente si utilizza un modulo statico che si occupa di fare da transattore tra la parte statica e la parte dinamica; solitamente viene chiamato processo ``Top'' e si occupa sia di descrivere lo switch sia di effettuare la commutazione dei moduli della parte dinamica. Anche in questo caso, viene modellata correttamente l'architettura riconfigurabile, in quando deve esserci un'entità del sistema che si occupa di effettuare la riconfigurazione, che può essere il processore nella board della FPGA o lo stesso progettista se si descrive una riconfigurazione statica.
+Durante la fase di inizializzazione, vengono istanziati tutti i moduli riconfigurabili e disattivati; è compito del progettista decidere quale modulo inizialmente deve essere attivato, ma non è necessario che ci siano moduli attivi. Successivamente, un modulo può essere attivato in qualunque momento; lo scheduler lo attiverà appena entrerà nella parte finale della fase di Evaluation, controllando che ci siano processi SystemC associati ai moduli riconfigurabili (quindi pronti per essere attivati). 
+
+Solitamente, come controllore dei moduli dinamici, si utilizza un modulo ``statico'' di SystemC Rechannel, che ti fatto è un normale processo SystemC che rappresenta un circuito, che si occupa di fare da transattore tra la parte statica e la parte dinamica del sistema riconfigurabile; solitamente viene chiamato processo ``Top'' e si occupa sia di descrivere lo switch sia di effettuare la commutazione dei moduli della parte dinamica. Anche in questo caso, viene modellata correttamente l'architettura riconfigurabile, in quando deve esserci un'entità del sistema che si occupa di effettuare la riconfigurazione, che può essere il processore nella board della FPGA o lo stesso progettista se si descrive una riconfigurazione statica.
 
 Un ultimo aspetto molto importante che simula correttamente la realtà è la possibilità di impostare il tempo necessario per la riconfigurazione: ogni modulo, in base alla FPGA target, può metterci tempi differenti per essere attivato e disattivare gli altri, quindi è neccesario un meccanismo per modellare il tempo di riconfigurazione. Questa libreria modella il tempo di riconfigurazione in base al caso pessimo di tempistiche, ovvero permette al progettista di impostare il tempo massimo che impiega il modulo ad essere attivato (infatti non sempre impiega lo stesso tempo per essere riconfigurato, per questo bisogna ragionare per caso pessimo). Può essere deciso questo tempo secondo le specifiche della FPGA target proporzionali all'area che il circuito ricopre (si possono effettuare delle stime in base a quante e quali operazioni vengono eseguite).
 
@@ -272,8 +285,12 @@ Proposto da Clark Evans nel 2001, è stato sviluppato da quest'ultimo e Brian In
 \'{E} quindi un linguaggio di serializzazione dati che permette facilmente di descrivere con item e sequenze dati e parti di codice.
 
 \chapter{Obiettivi}
-Lo scopo di questa tesi sarà comunque capire come sviluppare al meglio la progettazione di questo tipo di sistema, comprendendo il grado di libertà che si può raggiungere per la parte dinamica e capire quale tipo di riconfigurabilità è più conveniente usare, oltre al fatto di essere sicuri che sia conveniente sfruttare la metamorfosi per risparmiare tempo e denaro durante la progettazione di un sistema embedded.
-TODO
+
+I sistemi riconfigurabili dinamicamente sono una tecnologia piuttosto giovane e vedono come campo di applicazione solo l'area della ricerca, quindi non sono sistemi ancora commercialmente diffusi, mancando di un metodo di progettazione semplice che possa aiutare nella progettazione e comprensione di questi sistemi. Si è voluto quindi creare un modo per rendere più facilmente sfruttabile questa tecnologia e il suo sviluppo tramite una metodologia ricorosa di sviluppo, in grado di di aiutare anche chi non conosce a pieno questa tecnologia.
+
+Si è voluto quindi creare un metodo per la progettazione di questi sistemi, basato sull'utilizzo di un modello di sistema standardizzato e del tool creato appositamente per sfruttare il modello in maniera automatica. Utilizzando il modello proposto e il tool automatico proposto, il progettista sarà in grado di sviluppare ed implementare l'intero sistema in poco tempo e con piena consapevolezza del sistema: oltre al fatto che risulta difficile sviluppare in tempi ragionevoli questi sistemi a causa della difficoltà di comprensione del target finale, il codice del sistema è risulta difficile da mantenere per la mancanza di una linea guida standard o di un tool di sviluppo efficace che possa aiutare il progettista per tutto il processo di implementazione.
+
+Il metodo quindi per risolvere il problema della progettazione efficace si è concretizzato quindi nello sviluppo del modello del sistema con il tool automatico di generazione di codice: inizialmente si è cercato di creare un modello che potesse comprendere più casi possibili 
 
 \chapter{Metodologia}
 
@@ -294,10 +311,10 @@ La progettazione proposta quindi si differenzia in diverse fasi:
 \begin{figure}[!ht]
 \centering
 \includegraphics[scale=0.6]{reconfigurable_structure.png}
-\caption{Struttura finale del sistema progettato}\label{fig:6}
+\caption{Struttura finale del sistema progettato}\label{fig:a}
 \end{figure}
 
-Il sistema finale dovrebbe essere simile alla figura \ref{fig:6}: si può notare che il sistema risulta modulare e ben diviso tra parte statica e parte dinamica: questo, oltre a facilitare la comprensibilità del progetto, garantisce anche una buona analisi in fase di simulazione e validazione, in quanto è possibile analizzare nel dettaglio le singole parti del sistema e garantire l'analisi di ogni stato e di ogni modulo.
+Il sistema finale dovrebbe essere simile alla figura \ref{fig:a}: si può notare che il sistema risulta modulare e ben diviso tra parte statica e parte dinamica: questo, oltre a facilitare la comprensibilità del progetto, garantisce anche una buona analisi in fase di simulazione e validazione, in quanto è possibile analizzare nel dettaglio le singole parti del sistema e garantire l'analisi di ogni stato e di ogni modulo.
 La divisione netta tra parte statica e parte dinamica garantisce anche il parallelismo di esecuzione tra le diverse parti del sistema: potenzialmente la parte statica può eseguire codice in maniera del tutto asincrona rispetto alla parte dinamica, garantendo quindi più potenza di calcolo in termini di velocità. Infine, rappresentare il sistema con macchine a stati finiti permette di effettuare tutte le ottimizzazioni note per diminuire il numero degli stati del sistema, guadagnando ancor più spazio.
 Si vedrà nel dettaglio con il caso di studio il guadagno ottenuto da questa architettura proposta in contesto di vincoli realtime hard.
 
@@ -312,10 +329,10 @@ Con questo progetto quindi non si propone esclusivamente una metodologia di prog
 \begin{figure}[!hb]
 \centering
 \includegraphics[scale=0.75]{processo.png}
-\caption{Sequence diagram del processo di progettazione}\label{fig:7}
+\caption{Sequence diagram del processo di progettazione}\label{fig:b}
 \end{figure}
 
-Il processo di progettazione proposto per questi sistemi deve seguire il Sequence Diagram proposto nella figura \ref{fig:7}.
+Il processo di progettazione proposto per questi sistemi deve seguire il Sequence Diagram proposto nella figura \ref{fig:b}.
 
 Si può notare che il processo proposto risulta lineare, senza cicli e con un'unica diramazione: questo è molto importante dal punto di vista dello sviluppo in quanto non costringe lo sviluppatore ad eseguire delle scelte in base alla situazione e non deve iterare varie parti della progettazione in base al tipo di progetto. La complessità di progettazione quindi è pressochè costante, mentre il punto critico della diramazione consiste in un singolo passo quindi non può portare problemi di sviluppo (dal punto di vista di tempistiche e di utilizzo di risorse).
 
@@ -691,6 +708,8 @@ Innanzitutto si è partiti dai diversi tipi di architetture hardware ora esisten
 \bibitem{EIE} Sekanina, L. ; Brno Univ. of Technol., Brno ; Martinek, T. ; Gajda, Z., \textit{Extrinsic and Intrinsic Evolution of Multifunctional Combinational Modules}, 2006
 \bibitem{PR1} Altera, \textit{FPGA Run-Time Reconfiguration: Two Approaches}, 2008
 \bibitem{PR2} Dirk Koch, \textit{Partial Reconfiguration on FPGAs}, 2013
+\bibitem{ReconfigurMetod1}Alisson V. Brito, Matthias Kuhnle, Michael Hubner, ``Modelling and Simulation of Dynamic and Partially Reconfigurable Systems using SystemC'', IEEE Computer Society Annual Symposium on, 2007
+\bibitem{ReconfigurMetod2} F. Cancare;  C. Pilato;   A. Cazzaniga;  D. Sciuto;  M. D. Santambrogio, ``D-RECS: A complete methodology to implement Self Dynamic Reconfigurable FPGA-based systems'', Reconfigurable and Communication-Centric Systems-on-Chip (ReCoSoC), 2013 8th International Workshop on, 2013
 \bibitem{Rechannel} Raabe A., Tech. Comput. Sci., Univ. of Bonn, Felke A., \textit{A SYSTEMC language extension for high-level reconfiguration modelling}, 2008
 \bibitem{Rechannel2} Erlangung des Doktorgrades, Mathematisch-Naturwissenschaftlichen Fakultat, Rheinischen Friedrich-Wilhelms-Universitat Bonn, \textit{Describing and Simulating Dynamic Reconfiguration in SystemC Exemplified by a Dedicated 3D Collision Detection Hardware}, 2008
 \bibitem{robot_syntax} Masahiro Fujita Hiroaki Kit an0 Toshitada Doi, \textit{Syntactic-Semantic Analysis of Reconfigurable Robot}, 1999

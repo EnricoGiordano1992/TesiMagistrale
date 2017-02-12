@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.11.8)  11 FEB 2017 01:27
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.11.8)  13 FEB 2017 00:21
 entering extended mode
 **C:/Users/enric_000/Documents/TESI/Documento/tesi.tex
 (C:/Users/enric_000/Documents/TESI/Documento/tesi.tex
@@ -917,12 +917,6 @@ subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
 LaTeX Warning: Label `fig:9' multiply defined.
 
 
-LaTeX Warning: Label `fig:9' multiply defined.
-
-
-LaTeX Warning: Label `fig:7' multiply defined.
-
-
 LaTeX Warning: Label `fig:8' multiply defined.
 
 )
@@ -1037,46 +1031,56 @@ Underfull \vbox (badness 1803) has occurred while \output is active []
 
  [9]
 [10 <C:/Users/enric_000/Documents/TESI/Documento/ciclo_evolutivo.png>] [11]
-[12] [13] <portal.png, id=75, 361.95226pt x 248.127pt>
+[12] <scheduler_systemc.png, id=71, 719.0865pt x 374.5995pt>
+File: scheduler_systemc.png Graphic file (type png)
+
+<use scheduler_systemc.png>
+Package pdftex.def Info: scheduler_systemc.png used on input line 200.
+(pdftex.def)             Requested size: 431.45523pt x 224.76143pt.
+
+Overfull \hbox (13.20155pt too wide) in paragraph at lines 200--201
+ [][] 
+ []
+
+[13] [14 <C:/Users/enric_000/Documents/TESI/Documento/scheduler_systemc.png>]
+<portal.png, id=82, 452.4403pt x 310.15875pt>
 File: portal.png Graphic file (type png)
  <use portal.png>
-Package pdftex.def Info: portal.png used on input line 225.
-(pdftex.def)             Requested size: 180.97568pt x 124.06319pt.
-
-[14] <scheduler_rechannel.png, id=80, 719.0865pt x 374.5995pt>
+Package pdftex.def Info: portal.png used on input line 235.
+(pdftex.def)             Requested size: 226.2196pt x 155.079pt.
+ [15 <C:/Users/enric_000/Documents/TESI/Documento/portal.png>]
+<scheduler_rechannel.png, id=87, 719.0865pt x 374.5995pt>
 File: scheduler_rechannel.png Graphic file (type png)
 
 <use scheduler_rechannel.png>
-Package pdftex.def Info: scheduler_rechannel.png used on input line 237.
+Package pdftex.def Info: scheduler_rechannel.png used on input line 249.
 (pdftex.def)             Requested size: 359.54237pt x 187.29929pt.
- [15 <C:/Users/enric_000/Documents/TESI/Documento/portal.png> <C:/Users/enric_0
-00/Documents/TESI/Documento/scheduler_rechannel.png>] <processo_sintesi.png, id
-=84, 463.13025pt x 460.72125pt>
+ [16 <C:/Users/enric_000/Documents/TESI/Documento/scheduler_rechannel.png>]
+<processo_sintesi.png, id=91, 463.13025pt x 460.72125pt>
 File: processo_sintesi.png Graphic file (type png)
 
 <use processo_sintesi.png>
-Package pdftex.def Info: processo_sintesi.png used on input line 259.
+Package pdftex.def Info: processo_sintesi.png used on input line 272.
 (pdftex.def)             Requested size: 277.8803pt x 276.43488pt.
- [16] [17 <C:/Users/enric_000/Documents/TESI/Documento/processo_sintesi.png>] [
-18
-
-]
+ [17] [18 <C:/Users/enric_000/Documents/TESI/Documento/processo_sintesi.png>]
 Capitolo 3.
-[19] [20
+[19
+
+] [20
 
 ]
 Capitolo 4.
-[21] <reconfigurable_structure.png, id=104, 625.33624pt x 355.3275pt>
+[21] <reconfigurable_structure.png, id=108, 625.33624pt x 355.3275pt>
 File: reconfigurable_structure.png Graphic file (type png)
 
 <use reconfigurable_structure.png>
-Package pdftex.def Info: reconfigurable_structure.png used on input line 296.
+Package pdftex.def Info: reconfigurable_structure.png used on input line 313.
 (pdftex.def)             Requested size: 375.20464pt x 213.19814pt.
 
-<processo.png, id=106, 342.5297pt x 730.22812pt>
+<processo.png, id=109, 342.5297pt x 730.22812pt>
 File: processo.png Graphic file (type png)
  <use processo.png>
-Package pdftex.def Info: processo.png used on input line 314.
+Package pdftex.def Info: processo.png used on input line 331.
 (pdftex.def)             Requested size: 256.89664pt x 547.66974pt.
 
 Underfull \vbox (badness 2980) has occurred while \output is active []
@@ -1091,115 +1095,108 @@ Overfull \vbox (4.13954pt too high) has occurred while \output is active []
 
 
 [23 <C:/Users/enric_000/Documents/TESI/Documento/processo.png>]
-<fsm.png, id=115, 88.07906pt x 71.51718pt>
+<fsm.png, id=118, 88.07906pt x 71.51718pt>
 File: fsm.png Graphic file (type png)
  <use fsm.png>
-Package pdftex.def Info: fsm.png used on input line 342.
+Package pdftex.def Info: fsm.png used on input line 359.
 (pdftex.def)             Requested size: 132.11824pt x 107.2755pt.
- [24]
-<pyngulogo.png, id=119, 452.69125pt x 460.72125pt>
-File: pyngulogo.png Graphic file (type png)
- <use pyngulogo.png>
-Package pdftex.def Info: pyngulogo.png used on input line 363.
-(pdftex.def)             Requested size: 90.53664pt x 92.14261pt.
- [25 <C:/Users/enric_000/Documents/TESI/Documento/fsm.png> <C:/Users/enric_000/
-Documents/TESI/Documento/pyngulogo.png>]
-<pyngu_init_example.png, id=125, 700.11563pt x 299.61937pt>
+ [24] [25 <C:/Users/enric_000/Documents/TESI/Documento/fsm.png>]
+<pyngu_init_example.png, id=126, 700.11563pt x 299.61937pt>
 File: pyngu_init_example.png Graphic file (type png)
 
 <use pyngu_init_example.png>
-Package pdftex.def Info: pyngu_init_example.png used on input line 396.
+Package pdftex.def Info: pyngu_init_example.png used on input line 405.
 (pdftex.def)             Requested size: 420.07262pt x 179.77301pt.
 
-Overfull \hbox (1.81894pt too wide) in paragraph at lines 396--397
+Overfull \hbox (1.81894pt too wide) in paragraph at lines 405--406
  [][] 
  []
 
 [26]
-Overfull \hbox (0.7194pt too wide) in paragraph at lines 409--410
+Overfull \hbox (0.7194pt too wide) in paragraph at lines 418--419
 []\OT1/cmr/m/n/10 altre va-ria-bi-li di sup-por-to de-fi-ni-te dal pro-get-ti-s
 ta (tra-mi-te il tag ``common-other-variables''),
  []
 
-<pyngu_code_example.png, id=129, 681.29532pt x 497.60907pt>
+<pyngu_code_example.png, id=130, 681.29532pt x 497.60907pt>
 File: pyngu_code_example.png Graphic file (type png)
 
 <use pyngu_code_example.png>
-Package pdftex.def Info: pyngu_code_example.png used on input line 421.
+Package pdftex.def Info: pyngu_code_example.png used on input line 430.
 (pdftex.def)             Requested size: 408.78035pt x 298.56773pt.
  [27 <C:/Users/enric_000/Documents/TESI/Documento/pyngu_init_example.png>] [28 
-<C:/Users/enric_000/Documents/TESI/Documento/pyngu_code_example.png>] [29] [30
-
-]
+<C:/Users/enric_000/Documents/TESI/Documento/pyngu_code_example.png>]
 Capitolo 5.
-[31] [32] <robot_riconfigurabile1.jpg, id=149, 401.5pt x 184.69pt>
+[29
+
+] [30] <robot_riconfigurabile1.jpg, id=143, 401.5pt x 184.69pt>
 File: robot_riconfigurabile1.jpg Graphic file (type jpg)
 
 <use robot_riconfigurabile1.jpg>
-Package pdftex.def Info: robot_riconfigurabile1.jpg used on input line 512.
+Package pdftex.def Info: robot_riconfigurabile1.jpg used on input line 521.
 (pdftex.def)             Requested size: 200.7495pt x 92.34476pt.
- [33 <C:/Users/enric_000/Documents/TESI/Documento/robot_riconfigurabile1.jpg>]
-<screen_blender.png, id=153, 1444.39626pt x 937.5025pt>
+ [31 <C:/Users/enric_000/Documents/TESI/Documento/robot_riconfigurabile1.jpg>]
+<screen_blender.png, id=148, 1444.39626pt x 937.5025pt>
 File: screen_blender.png Graphic file (type png)
 
 <use screen_blender.png>
-Package pdftex.def Info: screen_blender.png used on input line 547.
+Package pdftex.def Info: screen_blender.png used on input line 556.
 (pdftex.def)             Requested size: 288.87413pt x 187.49718pt.
- [34]
-<tobor_sdraiato.png, id=157, 478.78876pt x 425.59pt>
+ [32]
+<tobor_sdraiato.png, id=152, 478.78876pt x 425.59pt>
 File: tobor_sdraiato.png Graphic file (type png)
  <use tobor_sdraiato.png>
-Package pdftex.def Info: tobor_sdraiato.png used on input line 558.
+Package pdftex.def Info: tobor_sdraiato.png used on input line 567.
 (pdftex.def)             Requested size: 143.63773pt x 127.67798pt.
 
-<tobor_quadrupede.png, id=158, 429.605pt x 392.46625pt>
+<tobor_quadrupede.png, id=153, 429.605pt x 392.46625pt>
 File: tobor_quadrupede.png Graphic file (type png)
 
 <use tobor_quadrupede.png>
-Package pdftex.def Info: tobor_quadrupede.png used on input line 560.
+Package pdftex.def Info: tobor_quadrupede.png used on input line 569.
 (pdftex.def)             Requested size: 128.88249pt x 117.74077pt.
- [35 <C:/Users/enric_000/Documents/TESI/Documento/screen_blender.png> <C:/Users
+ [33 <C:/Users/enric_000/Documents/TESI/Documento/screen_blender.png> <C:/Users
 /enric_000/Documents/TESI/Documento/tobor_sdraiato.png> <C:/Users/enric_000/Doc
-uments/TESI/Documento/tobor_quadrupede.png>] [36]
-<cavallo_passo.jpg, id=168, 237.88875pt x 205.76875pt>
+uments/TESI/Documento/tobor_quadrupede.png>] [34]
+<cavallo_passo.jpg, id=163, 237.88875pt x 205.76875pt>
 File: cavallo_passo.jpg Graphic file (type jpg)
  <use cavallo_passo.jpg>
-Package pdftex.def Info: cavallo_passo.jpg used on input line 610.
+Package pdftex.def Info: cavallo_passo.jpg used on input line 619.
 (pdftex.def)             Requested size: 118.94408pt x 102.88411pt.
 
-<passo1.png, id=169, 589.20125pt x 399.4925pt>
+<passo1.png, id=164, 589.20125pt x 399.4925pt>
 File: passo1.png Graphic file (type png)
  <use passo1.png>
-Package pdftex.def Info: passo1.png used on input line 612.
+Package pdftex.def Info: passo1.png used on input line 621.
 (pdftex.def)             Requested size: 147.29994pt x 99.87288pt.
- [37 <C:/Users/enric_000/Documents/TESI/Documento/cavallo_passo.jpg> <C:/Users/
-enric_000/Documents/TESI/Documento/passo1.png>] <a_star.jpg, id=174, 903.375pt 
+ [35 <C:/Users/enric_000/Documents/TESI/Documento/cavallo_passo.jpg> <C:/Users/
+enric_000/Documents/TESI/Documento/passo1.png>] <a_star.jpg, id=168, 903.375pt 
 x 722.7pt>
 File: a_star.jpg Graphic file (type jpg)
 
 <use a_star.jpg>
-Package pdftex.def Info: a_star.jpg used on input line 633.
+Package pdftex.def Info: a_star.jpg used on input line 642.
 (pdftex.def)             Requested size: 271.01459pt x 216.81166pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [38 <C:/Users/enric_000/Documents/TESI/Documento/a_star.jpg>] [39] [40
+ [36 <C:/Users/enric_000/Documents/TESI/Documento/a_star.jpg>] [37] [38
 
 ]
 Capitolo 6.
-[41] [42
+[39] [40
 
 ]
 Capitolo 7.
-[43] [44
+[41] [42
 
 ]
-Underfull \hbox (badness 4454) in paragraph at lines 704--705
+Underfull \hbox (badness 4454) in paragraph at lines 715--716
 []\OT1/cmr/m/n/10 Masahiro Fu-ji-ta Hi-roa-ki Kit an0 To-shi-ta-da Doi, \OT1/cm
 r/m/it/10 Syntactic-Semantic Ana-ly-sis of
  []
 
-[45] (C:\Users\enric_000\Documents\TESI\Documento\tesi.aux)
+[43] (C:\Users\enric_000\Documents\TESI\Documento\tesi.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -1209,13 +1206,13 @@ LaTeX Warning: There were multiply-defined labels.
 ### simple group (level 1) entered at line 1061 ({)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 6657 strings out of 493921
- 94085 string characters out of 3144864
- 183420 words of memory out of 3000000
- 9845 multiletter control sequences out of 15000+200000
+ 6661 strings out of 493921
+ 94183 string characters out of 3144864
+ 183451 words of memory out of 3000000
+ 9849 multiletter control sequences out of 15000+200000
  7170 words of font info for 26 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 44i,12n,43p,1602b,2007s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,12n,43p,1602b,2008s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/
 cm/cmbx10.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm
 /cmbx12.pfb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/c
@@ -1227,9 +1224,9 @@ fb><C:/Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb>
 /Program Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Pro
 gram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Progr
 am Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on tesi.pdf (45 pages, 1344963 bytes).
+Output written on tesi.pdf (43 pages, 1367859 bytes).
 PDF statistics:
- 229 PDF objects out of 1000 (max. 8388607)
+ 224 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  91 words of extra memory for PDF output out of 10000 (max. 10000000)
 

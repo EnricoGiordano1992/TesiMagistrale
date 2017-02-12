@@ -10,30 +10,30 @@
 \contentsline {subsection}{\numberline {2.2.2}Hardware riconfigurabile}{10}
 \contentsline {subsection}{\numberline {2.2.3}Metodi di riconfigurazione}{11}
 \contentsline {subsection}{\numberline {2.2.4}Aree di reallocazione}{12}
-\contentsline {subsection}{\numberline {2.2.5}La progettazione}{12}
+\contentsline {subsection}{\numberline {2.2.5}Progettazione di sistemi riconfigurabili dinamicamente}{12}
 \contentsline {section}{\numberline {2.3}Simulazione e sintesi di sistemi embedded}{12}
 \contentsline {subsection}{\numberline {2.3.1}Simulazione}{12}
 \contentsline {subsection}{\numberline {2.3.2}SystemC}{13}
 \contentsline {subsection}{\numberline {2.3.3}Scheduler di SystemC}{13}
 \contentsline {subsection}{\numberline {2.3.4}Sintesi}{14}
 \contentsline {subsection}{\numberline {2.3.5}Simulazione e sintesi di sistemi metamorfici}{14}
-\contentsline {subsection}{\numberline {2.3.6}Simulazione con SystemC ReChannel}{14}
-\contentsline {subsection}{\numberline {2.3.7}Sintesi}{16}
-\contentsline {subsection}{\numberline {2.3.8}YAML}{16}
+\contentsline {subsection}{\numberline {2.3.6}Simulazione con SystemC ReChannel}{15}
+\contentsline {subsection}{\numberline {2.3.7}Sintesi}{17}
+\contentsline {subsection}{\numberline {2.3.8}YAML}{17}
 \contentsline {chapter}{\numberline {3}Obiettivi}{19}
 \contentsline {chapter}{\numberline {4}Metodologia}{21}
 \contentsline {section}{\numberline {4.1}Rappresentazione della metodologia di progettazione}{24}
 \contentsline {section}{\numberline {4.2}Tool automatico (Pyngu)}{25}
 \contentsline {subsection}{\numberline {4.2.1}Il linguaggio (PynguLang)}{26}
-\contentsline {section}{\numberline {4.3}Utilizzo del tool durante la progettazione}{28}
-\contentsline {chapter}{\numberline {5}Caso di studio}{31}
-\contentsline {section}{\numberline {5.1}Hardware riconfigurabile}{32}
-\contentsline {section}{\numberline {5.2}Robot riconfigurabile}{33}
-\contentsline {subsection}{\numberline {5.2.1}I robot riconfigurabili}{33}
-\contentsline {subsection}{\numberline {5.2.2}Progettazione}{34}
-\contentsline {subsection}{\numberline {5.2.3}Configurazione a serpente doppio}{36}
-\contentsline {subsection}{\numberline {5.2.4}Configurazione a quadrupede}{37}
-\contentsline {section}{\numberline {5.3}Intelligenza Artificiale}{37}
-\contentsline {subsection}{\numberline {5.3.1}Algoritmo}{39}
-\contentsline {chapter}{\numberline {6}Conclusione e sviluppi futuri}{41}
-\contentsline {chapter}{\numberline {7}Bibliografia}{43}
+\contentsline {section}{\numberline {4.3}Utilizzo del tool durante la progettazione}{27}
+\contentsline {chapter}{\numberline {5}Caso di studio}{29}
+\contentsline {section}{\numberline {5.1}Hardware riconfigurabile}{30}
+\contentsline {section}{\numberline {5.2}Robot riconfigurabile}{31}
+\contentsline {subsection}{\numberline {5.2.1}I robot riconfigurabili}{31}
+\contentsline {subsection}{\numberline {5.2.2}Progettazione}{32}
+\contentsline {subsection}{\numberline {5.2.3}Configurazione a serpente doppio}{34}
+\contentsline {subsection}{\numberline {5.2.4}Configurazione a quadrupede}{35}
+\contentsline {section}{\numberline {5.3}Intelligenza Artificiale}{35}
+\contentsline {subsection}{\numberline {5.3.1}Algoritmo}{37}
+\contentsline {chapter}{\numberline {6}Conclusione e sviluppi futuri}{39}
+\contentsline {chapter}{\numberline {7}Bibliografia}{41}
