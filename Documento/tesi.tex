@@ -80,12 +80,12 @@ Si presenteranno quindi i seguenti aspetti nei vari capitoli:
 \chapter{Stato dell'arte}
 
 \section{Tecnologia attuale del silicio}
-Attualmente esistono 3 tecnologie differenti riguardo l'utilizzo del silicio per scopi computazionali: Hardware General Purpoise, Hardware Embedded e Hardware Riprogrammabile. Queste 3 tipologie differiscono sia per la composizione, sia per la progettazione ma anche per il settore di utilizzo.
+Attualmente esistono 3 tecnologie differenti riguardo l'utilizzo del silicio per scopi computazionali: Hardware General Purpose, Hardware Embedded e Hardware Riprogrammabile. Queste 3 tipologie differiscono sia per la composizione, sia per la progettazione ma anche per il settore di utilizzo.
 
 \subsection{Hardware General Purpose}
 L'Hardware General Purpose identifica quel tipo di hardware che serve per risolvere problemi generali e quindi non è dedicato ad una specifica funzione. 
 
-Questo tipo di Hardware lo si può trovare in processori e microprocessori utilizzati in strumenti di calcolo generici, come PC, moderni telefoni e televisori, che non rispondono a una particolare esigenza ma si adattano a quelle dell'utilizzatore. . La caratteristica peculiare di questi è la generalità: non essendo stati progettati per un sistema specifico, devono permettere di eseguire più operazioni possibili ed essere riprogrammati a piacimento.
+Questo tipo di Hardware lo si può trovare in processori e microprocessori utilizzati in strumenti di calcolo generici, come PC, moderni telefoni e televisori, che non rispondono a una particolare esigenza ma si adattano a quelle dell'utilizzatore. La caratteristica peculiare di questi dispositivi hardware è la generalità: non essendo stati progettati per un sistema specifico, devono permettere di eseguire più operazioni possibili ed essere riprogrammati a piacimento.
 
 Questo tipo di hardware è molto utile per implementare sistemi generici: la filosofia alla base di questa tecnologia è l'utilizzo più generico possibile. Un esempio di questa tecnologia è la CPU, unità di elaborazione di un PC domestico, che deve essere in grado di eseguire programmi di vario tipo, non limitandosi ad una specifica funzione.
 
@@ -107,7 +107,7 @@ Esistono diversi tipi di FPGA, che comprendono sia dispositivi programmabili una
 
 I circuiti FPGA sono elementi che presentano caratteristiche intermedie rispetto ai dispositivi ASIC (Application Specific Integrated Circuit) da un lato e a quelli con architettura PAL (Programmable Array Logic) dall'altro. L'uso di componenti FPGA comporta alcuni vantaggi rispetto agli ASIC: si tratta infatti di dispositivi standard la cui funzionalità da implementare non viene impostata dal produttore che quindi può produrre su larga scala a basso prezzo. La loro genericità li rende adatti a un gran numero di applicazioni come consumer, comunicazioni, automotive eccetera. Essi sono programmati direttamente dall'utente finale, consentendo la diminuzione dei tempi di progettazione, di verifica mediante simulazioni e di prova sul campo dell'applicazione. Il grande vantaggio rispetto agli ASIC è che permettono di apportare eventuali modifiche o correggere errori semplicemente riprogrammando il dispositivo in qualsiasi momento. Per questo motivo sono utilizzati ampiamente nelle fasi di prototipazione, in quanto eventuali errori possono essere risolti semplicemente riconfigurando il dispositivo. L'ambiente di progettazione è anche più user-friendly e di relativamente facile apprendimento. Di contro, per applicazioni su grandi numeri sono antieconomici perché il prezzo unitario del dispositivo è superiore a quello degli ASIC (che di converso hanno elevati costi di progettazione).
 
-Il costo di tali dispositivi è oggi in rapida diminuzione: ciò li rende sempre di più una valida alternativa alla tecnologia standard cell. Usualmente vengono programmati con linguaggi come il Verilog o il VHDL, ma non bisogna dimenticare la modalità "schematic-entry", che consente un approccio veloce e semplificato a tale tecnologia pur essendo di pari potenzialità. Molte case costruttrici (ad esempio Xilinx e Altera) forniscono gratuitamente sistemi di sviluppo che supportano quasi tutta la loro gamma di prodotti.
+Il costo di tali dispositivi è oggi in rapida diminuzione: ciò li rende sempre di più una valida alternativa alla tecnologia standard cell. Usualmente vengono programmati con linguaggi come il Verilog o il VHDL. Molte case costruttrici (ad esempio Xilinx e Altera) forniscono gratuitamente sistemi di sviluppo che supportano quasi tutta la loro gamma di prodotti.
 
 La struttura di una FPGA è in generale una matrice di blocchi logici configurabili, detti CLB (Configurable Logic Blocks), connessi fra loro attraverso interconnessioni programmabili. Ai margini di tale matrice vi sono i blocchi di ingresso/uscita, detti IOB (Input Output Block). I CLB realizzano le funzioni logiche, l'insieme di interconnessioni li mette in comunicazione, mentre gli IOB si occupano dell'interfacciamento del circuito con l'esterno. All'interno di tale matrice sono presenti anche altri tipi di risorsa, come i DCM (Digital Clock Manager), che generano il segnale di clock, la rete che trasporta il segnale di clock dai flip-flop ai CLB ed altre risorse di calcolo, come ad esempio le ALU (Arithmetic Logic Unit), e risorse di memoria distribuita. Ciascuno di questi elementi costitutivi ha un modello di funzionamento specifico, che riveste notevole importanza nella comprensione del corretto funzionamento del dispositivo.
 
@@ -139,9 +139,9 @@ Per rendere utile l'hardware metamorfico, è necessario trovare una tecnologia c
 
 Nei primi anni `90 nasce una tecnica di progettazione chiamata ``Riconfigurabilità'', da qui poi la tecnologia di applicazione, appunto le FPGA. Questa tecnica consiste nell'utilizzare Hardware con tecnologia riprogrammabile che, tramite la memoria messa a disposizione dentro il sistema, riesce a modificare il suo comportamento. Non è un comportamento appreso completamente dall'ambiente, ma è un comportamento previsto e quindi implementato che va a sostituire un comportamento esistente; il ciclo di vita quindi non sarà composto da un vero e proprio ``apprendimento'', ma sarà una modifica prevista dal progettista.
 
-Quindi, più precisamente, si più parlare di ``riconfigurabilità parziale'' e ``riconfigurabilità run-time'': il primo termine pone enfasi su la parziale capacità del dispositivo di modificarsi, in quanto ci sarà una parte progettata che non deve modificarsi ma soprattutto perché il dispositivo non si modificherà completamente, avrà delle modifiche consentite prestabilite; il secondo termine indica il fatto di potersi modificare durante il suo ciclo di vita, cambiando la propria configurazione di porte logiche ottenendo quindi una forma diversa.
+Quindi, più precisamente, si può parlare di ``riconfigurabilità parziale'' e ``riconfigurabilità run-time'': il primo termine pone enfasi sulla parziale capacità del dispositivo di modificarsi, in quanto ci sarà una parte progettata che non deve modificarsi ma soprattutto perché il dispositivo non si modificherà completamente, avrà delle modifiche consentite prestabilite; il secondo termine indica il fatto di potersi modificare durante il suo ciclo di vita, cambiando la propria configurazione di porte logiche ottenendo quindi una forma diversa.
 
-In particolare, questo tipo di sistema è composto da 2 parti: la parte statica e quella dinamico. La parte statica è quella parte del sistema che non si modifica durante l'esecuzione del sistema e solitamente dirige la riconfigurazione della parte dinamica; la parte dinamica invece è la parte in cui avviene la riconfigurazione, ovvero dove vengono caricate le varie configurazioni del sistema descritte dal progettista (ovvero dove avviene la riconfigurazione parziale).  Si può interpretare come architettura Master-Slave, in cui la parte statica (Master) controlla la parte dinamica (Slave) affinchè esegua correttamente tutte le riconfigurazioni previste.
+In particolare, questo tipo di sistema è composto da 2 parti: la parte statica e quella dinamica. La parte statica è quella parte del sistema che non si modifica durante l'esecuzione del sistema e solitamente dirige la riconfigurazione della parte dinamica; la parte dinamica invece è la parte in cui avviene la riconfigurazione, ovvero dove vengono caricate le varie configurazioni del sistema descritte dal progettista (ovvero dove avviene la riconfigurazione parziale).  Si può interpretare come architettura Master-Slave, in cui la parte statica (Master) controlla la parte dinamica (Slave) affinchè esegua correttamente tutte le riconfigurazioni previste.
 
 \subsection{Metodi di riconfigurazione}
 
@@ -156,13 +156,13 @@ Questa tecnica è molto efficace quando si ha a disposizione poca memoria per me
 
 La seconda tecnica è la ``Rilocazione parziale di bitstream'', che consiste nello ``spostare'' i moduli compilati che descrivono l'hardware (che rappresentano la parte riconfigurabile) da un'area della FPGA all'altra con le stesse dimensioni e proprietà. Questa tecnica è più limitante della precendente, un quanto si pone il vincolo di avere due moduli con stesse dimensioni e proprietà, però può essere utile per questioni di ottimizzazione di codice, in quanto i due moduli possono rappresentare la stessa unità ma al loro interno eseguono lo stesso algoritmo in maniera differente.
 
-La parte cruciale quindi di queste tecniche è proprio la reallocazione dei moduli, in quanto la riconfigurabilità consiste proprio nello ``spostare'' un modulo da una sezione attiva a una non attiva. Esistono due metodi di reallocazione dei moduli riconfigurabili: usando dei tool offerti dalla Xilinx e usando il bus.
+La parte cruciale quindi di queste tecniche è proprio la reallocazione dei moduli, in quanto la riconfigurabilità consiste proprio nello ``spostare'' un modulo da una sezione attiva a una non attiva. Esistono due metodi di reallocazione dei moduli riconfigurabili: usando dei tool offerti dalla Xilinx e usando le direttive del bus.
 
-I tool della Xilinx sono dei software che fungono da middleware per gestire lo spostamento da un'area all'altra e vengono dati in dotazione in base al sistema acquistato. Le direttive del bus sono delle macro da utilizzare durante l'esecuzione del codice per istruire il bus prima di far comunicare i diversi moduli e collegarli. 
+I tool della Xilinx sono dei software che fungono da middleware per gestire lo spostamento da un'area all'altra e vengono dati in dotazione in base al sistema acquistato. Le direttive del bus invece sono delle macro da utilizzare durante l'esecuzione del codice per istruire il bus prima di far comunicare i diversi moduli e collegarli. 
 
 I metodi descritti creano un ``ponte'' tra la zona statica e la zona dinamica della logica programmabile, in modo da interconnetterle per generare una nuova descrizione hardware.
 
-Entrambi i metodi si basano sulla riconfigurazione runtime della parte di logica programmabile tramite lo stesso hardware della FPGA che si occupa della riconfigurazione statica (quindi durante la progettazione da parte del progettista), ma in maniera automatica: il modulo di controllo di riconfigurazione sceglie quale può essere la zona di logica programmabile corretta (la prima che ha abbastanza spazio per contenere la nuova logica) e genera il segnale di riconfigurazione; al momento del segnale, si esegue la procedura di riconfigurazione come da prassi ma il bitstream da caricare non deriva da un programma esterno via JTAG bensì dalla memoria interna. Quindi ciò che viene caricato non viene generato runtime, è già presente all'interno della memoria, ma il comportamento globale del sistema cambia in quanto viene caricata una porzione di bitstream che andrà ad alterare il circuito generato dal bitstream statico (che non cambia mai) e quello dinamico (caricato runtime).
+Entrambi i metodi si basano sulla riconfigurazione runtime della parte di logica programmabile tramite lo stesso hardware della FPGA che si occupa della riconfigurazione statica, ovvero quel tipo di riconfigurazione che viene attuata da parte del progettista ogni volta che vuole riconfigurare manualmente una FPGA standard, ma in maniera automatica: il modulo di controllo di riconfigurazione sceglie quale può essere la zona di logica programmabile corretta (la prima che ha abbastanza spazio per contenere la nuova logica) e genera il segnale di riconfigurazione; al momento del segnale, si esegue la procedura di riconfigurazione, ma il bitstream da caricare non deriva da un programma esterno via JTAG bensì dalla memoria interna. Quindi ciò che viene caricato non viene generato runtime, è già presente all'interno della memoria, ma il comportamento globale del sistema cambia in quanto viene caricata una porzione di bitstream che andrà ad alterare il circuito generato dal bitstream statico (che non cambia mai) e quello dinamico (caricato runtime).
 
 \subsection{Aree di reallocazione}
 
@@ -189,9 +189,7 @@ Per la descrizione dei sistemi e la loro simulazione, solitamente si utilizza Sy
 \subsection{SystemC}
 Il SystemC è un insieme di librerie e macro scritte in C++ con cui è possibile simulare processi concorrenti, ovvero che avvengono nello stesso momento, ognuno descritto attraverso la sintassi C++. Nell'ambiente di lavoro del SystemC, gli oggetti descritti possono comunicare in un contesto simulato real-time usando segnali di tutti i tipi di dato offerti dal C++, insieme ad altri offerti dalle librerie SystemC, oltre a quelli definiti dall'utilizzatore.
 
-Il linguaggio offre una semantica simile a quella di VHDL e Verilog, ma al costo di un aggravamento sintattico rispetto a questi. D'altro canto, permette un maggiore libertà espressiva, come programmazione orientata agli oggetti e classi template. Più in generale, SystemC è sia un linguaggio di descrizione sia un sistema di simulazione che permette di generare un eseguibile che si comporta come il modello descritto al momento dell'esecuzione. Le prestazioni del sistema di simulazione sono difficilmente paragonabili a quelle dei simulatori VHDL/Verilog commercializzati attualmente, specialmente per via delle differenze di ambito applicativo. Mentre Verilog e VHDL sono stati pensati, originariamente proposti e nel tempo sviluppati per la progettazione a livello di trasferimento tra registri (RTL), il SystemC, nei suoi primi anni di vita, ha veicolato una forte spinta verso la progettazione a livelli di astrazione superiore, con produzione di strumenti per la Sintesi di Alto livello e successivi sviluppi del paradigma transazionale, nel quale la comunicazione tramite segnali digitali viene sostituita con un più generico passaggio di messaggi.
-
-SystemC, per la rappresentazione dei moduli hardware da implementare, utilizza un oggetto chiamato ``processo'', che a sua volta può essere di 3 tipi: ``sc\_method'', ``sc\_thread'' e ``sc\_clocked\_thread''; il primo appare come una funzione in C++ che quando viene chiamata viene eseguita completamente e viene riattivata secondo la sensitivity list; il secondo differente dal primo tipo può essere bloccato durante la sua esecuzione; il terzo funziona come un sc\_thread ma è associato ad un oggetto ``clock'', ovvero un contatore che può riattivare questo tipo di processo anche se è stato precedentemente messo in pausa. Tra questi tipi di processi, l'unico sintetizzabile è il ``sc\_method'', in quando gli altri processi possono essere bloccati durante l'esecuzione, cosa non possibile per un dispositivo hardware. 
+Il linguaggio offre una semantica simile a quella di VHDL e Verilog, ma al costo di un aggravamento sintattico rispetto a questi. D'altro canto, permette un maggiore libertà espressiva, come programmazione orientata agli oggetti e classi template. Più in generale, SystemC è sia un linguaggio di descrizione sia un sistema di simulazione che permette di generare un eseguibile che si comporta come il modello descritto al momento dell'esecuzione. Le prestazioni del sistema di simulazione sono difficilmente paragonabili a quelle dei simulatori VHDL/Verilog commercializzati attualmente, specialmente per via delle differenze di ambito applicativo. 
 
 \subsection{Scheduler di SystemC}
 
@@ -213,6 +211,11 @@ Lo scheduler di SystemC è stato progettato in modo da rispettare una gerarchia 
 \end{enumerate}
 
 Grazie a questo scheduler, si ha uno strumento che simula correttamente un sistema embedded, rispettando accuratamente anche i tempi di esecuzione, osservabili tramite timestamp.
+
+\subsection{Processi SystemC}
+
+SystemC, per la rappresentazione dei moduli hardware da implementare, utilizza un oggetto chiamato ``processo'', che a sua volta può essere di 3 tipi: ``sc\_method'', ``sc\_thread'' e ``sc\_clocked\_thread''; il primo appare come una funzione in C++ che quando viene chiamata viene eseguita completamente e viene riattivata secondo la sensitivity list; il secondo differente dal primo tipo può essere bloccato durante la sua esecuzione; il terzo funziona come un sc\_thread ma è associato ad un oggetto ``clock'', ovvero un contatore che può riattivare questo tipo di processo anche se è stato precedentemente messo in pausa. Tra questi tipi di processi, l'unico sintetizzabile è il ``sc\_method'', in quando gli altri processi possono essere bloccati durante l'esecuzione, cosa non possibile per un dispositivo hardware. 
+
 
 \subsection{Sintesi}
 
@@ -286,11 +289,24 @@ Proposto da Clark Evans nel 2001, è stato sviluppato da quest'ultimo e Brian In
 
 \chapter{Obiettivi}
 
-I sistemi riconfigurabili dinamicamente sono una tecnologia piuttosto giovane e vedono come campo di applicazione solo l'area della ricerca, quindi non sono sistemi ancora commercialmente diffusi, mancando di un metodo di progettazione semplice che possa aiutare nella progettazione e comprensione di questi sistemi. Si è voluto quindi creare un modo per rendere più facilmente sfruttabile questa tecnologia e il suo sviluppo tramite una metodologia ricorosa di sviluppo, in grado di di aiutare anche chi non conosce a pieno questa tecnologia.
+I sistemi riconfigurabili dinamicamente sono una tecnologia piuttosto giovane e vedono come campo di applicazione, per ora, solo quello della ricerca, quindi non sono sistemi ancora commercialmente diffusi, mancando di un metodo di progettazione semplice che possa aiutare nella progettazione e comprensione di questi sistemi. Si vuole quindi creare un modo per rendere più facilmente sfruttabile questa tecnologia tramite una metodologia rigorosa di sviluppo, in grado di aiutare anche chi non conosce a pieno questi sistemi.
 
-Si è voluto quindi creare un metodo per la progettazione di questi sistemi, basato sull'utilizzo di un modello di sistema standardizzato e del tool creato appositamente per sfruttare il modello in maniera automatica. Utilizzando il modello proposto e il tool automatico proposto, il progettista sarà in grado di sviluppare ed implementare l'intero sistema in poco tempo e con piena consapevolezza del sistema: oltre al fatto che risulta difficile sviluppare in tempi ragionevoli questi sistemi a causa della difficoltà di comprensione del target finale, il codice del sistema è risulta difficile da mantenere per la mancanza di una linea guida standard o di un tool di sviluppo efficace che possa aiutare il progettista per tutto il processo di implementazione.
+Si vuole quindi creare un metodo per la progettazione di questi sistemi, basato sull'utilizzo di un modello di sistema standardizzato e di un tool creato appositamente per sfruttare tale modello in maniera automatica. Utilizzando il modello e il tool automatico proposti, il progettista sarà in grado di sviluppare ed implementare l'intero sistema in poco tempo e con piena consapevolezza del progetto.
 
-Il metodo quindi per risolvere il problema della progettazione efficace si è concretizzato quindi nello sviluppo del modello del sistema con il tool automatico di generazione di codice: inizialmente si è cercato di creare un modello che potesse comprendere più casi possibili 
+~ 
+
+Il metodo per risolvere il problema della progettazione efficace si concretizza nello sviluppo del modello del sistema con il tool automatico di generazione di codice: inizialmente si cercherà di creare un modello che potesse generalizzare al meglio questi sistemi, in modo che, al momento della progettazione, si possa identificare subito cosa è necessario implementare; successivamente, creato tale modello, si potrà generare in maniera automatica, a partire da questo modello, il codice che lo rappresenta.  Si creerà il tool e il linguaggio interpretato da tale tool in modo che si possa facilmente generare codice SystemC in maniera efficace e senza obbligare lo sviluppatore ad imparare l'utilizzo di nuovi software per la progettazione: infatti il linguaggio interpretato da questo tool risulta molto facile da imparare e sfrutta una formattazione tipica di un linguaggio già noto, ovvero YAML.
+
+~ 
+
+Quindi, viste le problematiche dello stato dell’arte, viene proposto un modello di sistema caratterizzato da un'architettura Master-Slave (parte statica Master con parte dinamica Slave) composta da una ``descrizione comune'' di una EFSM composta da 3 stati: ``Init'', ``Work'', ``Reset''. Con ``descrizione comune'' si intende la descrizione della parte statica e della parte dinamica utilizzando un modello che li rappresenta con la stessa forma (ovvero con gli stati Init, Work e Reset), ma con il codice differente per i 3 stati. Il modello poi verrà convertito tramite il tool creato, chiamato Pyngu, descrivendolo prima con il linguaggio interpretato dal tool, chiamato PynguLang, per poi ottenere come output del tool il codice finale SystemC.
+
+~ 
+
+Successivamente a ciò, per testare l'efficacia della metodologia progettata, si implementerà un caso di studio apposito piuttosto complesso, in modo da verificare se effettivamente risulta utile durante la progettazione. 
+~ 
+
+Nei prossimi capitoli verrà descritta nel dettaglio la metodologia proposta e il caso di studio.
 
 \chapter{Metodologia}
 
@@ -392,7 +408,80 @@ Inoltre il tool rispetta lo standard di SystemC Rechannel, aggiungendo lo standa
 
 \subsection{Il linguaggio (PynguLang)}
 
-Il linguaggio riconosciuto dal tool automatico serve per descrivere sia la parte statica sia la parte dinamica del sistema ad alto livello basandosi sulla conoscenza dello standard YAML. Il progettista dovrà essere in grado, dopo lo studio di questo linguaggio, di creare un file ``.yaml'' contenente la descrizione del sistema secondo lo standard del linguaggio, in modo da astrarsi completamente dalla conoscenza e studio di SystemC Rechannel.
+Il linguaggio riconosciuto dal tool automatico serve per descrivere sia la parte statica sia la parte dinamica del sistema ad alto livello basandosi sulla conoscenza dello standard YAML. Il progettista dovrà essere in grado, dopo lo studio di questo linguaggio, di creare un file ``.yaml'' contenente la descrizione del sistema secondo la sintassi del linguaggio, in modo da astrarsi completamente dalla conoscenza e studio di SystemC Rechannel.
+
+\subsubsection{Sintassi}
+
+TODO
+port
+	num
+	type
+
+top-init
+	variables
+		type, name, value
+	channels
+		type, name
+	portals
+		type, io-type, name
+
+reconfigurable-modules-init
+	num
+	port
+		num
+	channels_in:
+		- type, name
+	channels_out:
+		-type,name
+	configuration-names []
+	create:
+		- type, name, activation_delay, activation_delay_measure
+	first-module: *
+	
+fsm-init:
+	num: #
+	states: []
+
+common-other-variables:
+	- type, name
+	
+specularity-code: *
+
+top-code:
+	pre-code: *
+	debug-activation: t/f
+	
+	producer:
+		variables
+			-type, name
+			
+		code: *
+	
+	controller:
+		variables:
+			-type, name
+
+		code: *
+		
+	monitor:
+		code: *
+
+
+modules-code:		
+	descriptions:
+		- type
+		fsm:
+			- state, code
+		other-code: *
+		
+common-code: *
+
+main:
+	includes: *
+	init: *
+	code: *
+
+\subsubsection{Metodologia di programmazione}
 
 La descrizione del sistema tramite il linguaggio  consiste in 2 passaggi: la descrizione della parte di struttura delle singole parti del sistema (quindi parte statica e parte dinamica) e la descrizione del comportamento interno delle singole parti.
 
@@ -465,7 +554,7 @@ Sono stati utilizzati quindi i seguenti tool di simulazione:
 \begin{itemize}
   \item \textit{Blender} per la progettazione e implementazione della parte fisica ed estetica del robot;
   \item \textit{V-REP} per la simulazione del robot implementato in Blender, utilizzando il più possibile una fisica realistica;
-  \item \textit{SystemC Rechannel} per la simulazione dell'hardware riconfigurabile;
+  \item \textit{SystemC Rechannel} per la simulazione dell'hardware riconfigurabile, che comanda i motori del robot in modo che possa muoversi e riconfigurarsi secondo l'ambiente;
   \item \textit{Linux Ubuntu} per simulare il programma di intelligenza artificiale che dovrebbe essere eseguito su un qualsiasi processore e che deve interfacciarsi con la parte riconfigurabile (implementata in SystemC Rechannel).
 \end{itemize}
 
@@ -486,7 +575,7 @@ Si vedranno ora nel dettaglio le diverse implementazioni dei componenti.
 
 \section{Hardware riconfigurabile}
 
-Il sistema riconfigurabile svolge la funzione di moto, riconfigurazione e sensoristica del robot: tutta la parte di cinematica viene delegata a questa parte, con i relativi controlli sui sensori. Si potrebbe paragonare ad un sistema nervoso adattivo: esso è in grado di adattarsi all'ambiente percependolo, ma non comprendendolo. La comprensione di tutti i segnali viene delegata alla parte di intelligenza artificiale, questa parte si occupa solo di acquisire dati e di inviarli al ``sistema di controllo e comprensione''.
+Il sistema riconfigurabile svolge la funzione di moto, riconfigurazione e sensoristica del robot: tutta la parte di cinematica viene delegata a questa parte, con i relativi controlli sui sensori. Si potrebbe paragonare ad un sistema nervoso adattivo: esso è in grado di adattarsi all'ambiente percependolo, ma non comprendendolo. La comprensione di tutti i segnali viene delegata alla parte di intelligenza artificiale, mentre l'hardware riconfigurabile si occupa di acquisire dati e di inviarli al ``sistema di controllo e comprensione'' e riconfigurarsi in base all'ambiente circostante.
 Questo è stato implementato in simulazione su SystemC Rechannel ed è composto da 2 entità:
 
 \begin{itemize}
@@ -560,7 +649,7 @@ Come primo passaggio è stato disegnato il singolo modulo per capire come poteva
 Il robot è poi stato importato nel programma di simulazione V-REP. Una volta importato, è stato necessario creare il modello dei moduli e quindi del robot completo definendo i punti di collisione, ovvero gli oggetti solidi che compongono il robot. Il modello di mesh infatti non possiede proprietà fisiche dell'oggetto, è compito del progettista (anche se si cerca di ricavarli in maniera automatica dalle mesh) generare i punti di collisione dalla mesh.
 Una volta creati i punti di collisione, è stato verificato che il robot rimanesse in equilibrio statico; a causa della discretizzazione (e della creazione non molto precisa con Blender), il robot rimane in equilibrio statico ma tende a ``scivolare'' durante la simulazione. Purtroppo non è stato possibile aumentare il coefficiente di attrito dell'oggetto, quindi si ha una simulazione poco precisa.
 
-In ambiente VREP poi sono stati aggiunti poi 1 sensore di visione da 64x64 px e 5 sensori di prossimità; il sensore di visione, posto sopra il robot, è stato impostato per vedere solo le fonti di calore (che rappresentano il target di movimento) e con una bassissima risoluzione, in modo da minimizzare il calcolo da parte dell'hardware riconfigurabile, mentre i sensori di prossimità hanno il fascio cilindrico e sono stati posti ad ogni lato del robot, leggermente sopraelevati rispetto alla base del robot in modo che i movimenti del robot non possano interferire con la rilevazione degli ostacoli.
+In ambiente VREP poi sono stati aggiunti 1 sensore di visione da 64x64 px e 5 sensori di prossimità; il sensore di visione, posto sopra il robot, è stato impostato per vedere solo le fonti di calore (che rappresentano il target di movimento) e con una bassissima risoluzione, in modo da minimizzare il calcolo da parte dell'hardware riconfigurabile, mentre i sensori di prossimità hanno il fascio cilindrico e sono stati posti ad ogni lato del robot, leggermente sopraelevati rispetto alla base del robot in modo che i movimenti del robot non possano interferire con la rilevazione degli ostacoli.
 
 \begin{figure}[htbp]
 \centering
@@ -597,10 +686,10 @@ Si deve pensare che queste 2 equazioni si devono eseguire ciclicamente in modo d
 
 A causa della natura del robot, poichè la parte centrale è statica, si deve eseguire il movimento con più potenza del necessario, in modo da essere in un'istantanea fase di volo che può dare la spinta necessaria per avanzare (e quindi spostare la parte statica del robot).
 
-Per la rappresentazione spaziale, è stato adottato il modello di \textit{Chirikjian - Burdick}, in cui si prende come sistema di riferimento fisso la ``cod'' del serpente, cioè l’ultimo giunto, e tutti i calcoli relativi ai successivi giunti del corpo serpentoide del robot verranno eseguiti in base a tale scelta. In particolare, il sistema viene visto come un insieme di 4 serpenti collegati ad un corpo rigido:
+Per la rappresentazione spaziale, è stato adottato il modello di \textit{Chirikjian - Burdick}\cite{serpe1}, in cui si prende come sistema di riferimento fisso la ``coda'' del serpente, cioè l’ultimo giunto, e tutti i calcoli relativi ai successivi giunti del corpo serpentoide del robot verranno eseguiti in base a tale scelta. In particolare, il sistema viene visto come un insieme di 4 serpenti collegati ad un corpo rigido:
 in questo modo i movimenti vengono semplicemente ripetuti in maniera speculare o come prolungamento di altri serpenti, semplicemente riferendosi ai giunti sequenziali del robot.
 
-Poichè ogni posizione di ogni giunto è nota durante l'esecuzione, è stata utilizzata la cinematica diretta per determinare la posizione e il movimento di ogni componente. Inoltre, poiché il numero dei giunti era molto elevato, è stata utilizzata la convenzione di \textit{Denavit-Hartenberg}, rappresentando una trasformazione geometrica nello spazio euclideo tridimensionale con 4 parametri.
+Poichè ogni posizione di ogni giunto è nota durante l'esecuzione, è stata utilizzata la cinematica diretta per determinare la posizione e il movimento di ogni componente. Inoltre, poiché il numero dei giunti era molto elevato, è stata utilizzata la convenzione di \textit{Denavit-Hartenberg}\cite{serpe2}, rappresentando una trasformazione geometrica nello spazio euclideo tridimensionale con 4 parametri.
 Calcolando questi valori, è stato possibile quindi calcolare la posizione dei giunti in maniera ottimale per il corretto movimento del robot.
 
 Quindi, implementando ogni posizione dei giunti, si è riusciti a far muovere il robot con il moto ondulatorio verticale.
@@ -701,19 +790,24 @@ Il programma sarà sempre sincronizzato con il sistema sottostante, non ha visio
 Si ripercorrono ora i passi descritti precedentemente per dare rilevanza al lavoro svolto.
 Innanzitutto si è partiti dai diversi tipi di architetture hardware ora esistenti, focalizzandosi in particolar modo sui sistemi metamorfici, in quando si basano su un concetto di evoluzione molto utile per risolvere particolari problemi e dare valore aggiunto alle tecnologie hardware; rimane il problema di trovare una tecnologia che riesca ad implementare questo concetto, trovando nella tecnologia dell'hardware riconfigurabile una buona strategia implementativa. Contrariamente alle altre tecnologie però, non esiste una metodologia di sviluppo rigorosa ed ingegnerizzata per progettare questi sistemi, quindi si è cercato di creare un ambiente di sviluppo, analisi e sintesi in modo da sfruttare al meglio questi sistemi. Si è quindi creata, tramite una libreria caduta in disuso (SystemC Rechannel), una metodologia di sviluppo di questi sistemi basata sulla creazione di una EFSM associata ai diversi comportamenti del sistema, dividendo rigorosamente una parte dedicata alla riconfigurazione e una parte statica. Inoltre per l'implementazione velocizzata, è stato creato un linguaggio apposito per la descrizione facilitata del sistema, oltre a rendere possibile ad ogni progettista di progettare un sistema del genere senza conoscere le problematiche di fondo e senza conoscere la libreria di supporto di SystemC. È stato provato questo approccio con un progetto di esempio che rappresenta al meglio questo sistema, dimostrando che con questi sistemi si può implementare abbastanza facilmente qualcosa di molto complesso.
 
-\chapter{Bibliografia}
-
 \begin{thebibliography}{1}
-\bibitem{MS1} Garrison W. Greenwood,Senior Member, IEEE and Andy M. Tyrrell,Senior Member, IEEE, ``\textit{Metamorphic Systems: A New Model for Adaptive System Design''}, 2010
-\bibitem{EIE} Sekanina, L. ; Brno Univ. of Technol., Brno ; Martinek, T. ; Gajda, Z., \textit{Extrinsic and Intrinsic Evolution of Multifunctional Combinational Modules}, 2006
-\bibitem{PR1} Altera, \textit{FPGA Run-Time Reconfiguration: Two Approaches}, 2008
-\bibitem{PR2} Dirk Koch, \textit{Partial Reconfiguration on FPGAs}, 2013
-\bibitem{ReconfigurMetod1}Alisson V. Brito, Matthias Kuhnle, Michael Hubner, ``Modelling and Simulation of Dynamic and Partially Reconfigurable Systems using SystemC'', IEEE Computer Society Annual Symposium on, 2007
-\bibitem{ReconfigurMetod2} F. Cancare;  C. Pilato;   A. Cazzaniga;  D. Sciuto;  M. D. Santambrogio, ``D-RECS: A complete methodology to implement Self Dynamic Reconfigurable FPGA-based systems'', Reconfigurable and Communication-Centric Systems-on-Chip (ReCoSoC), 2013 8th International Workshop on, 2013
-\bibitem{Rechannel} Raabe A., Tech. Comput. Sci., Univ. of Bonn, Felke A., \textit{A SYSTEMC language extension for high-level reconfiguration modelling}, 2008
-\bibitem{Rechannel2} Erlangung des Doktorgrades, Mathematisch-Naturwissenschaftlichen Fakultat, Rheinischen Friedrich-Wilhelms-Universitat Bonn, \textit{Describing and Simulating Dynamic Reconfiguration in SystemC Exemplified by a Dedicated 3D Collision Detection Hardware}, 2008
-\bibitem{robot_syntax} Masahiro Fujita Hiroaki Kit an0 Toshitada Doi, \textit{Syntactic-Semantic Analysis of Reconfigurable Robot}, 1999
-\bibitem{robot_horse} S.Makita, N.Murakami, M.Sakaguchi, J.Furusho, \textit{Development of Horse-type Quadruped Robot}, 1999
+
+\bibitem{MS1} Garrison W. Greenwood, Andy M. Tyrrell, ``\textit{Metamorphic Systems: A New Model for Adaptive System Design''}, Evolutionary Computation (CEC), 2010 IEEE Congress on, 2010
+\bibitem{EIE} Sekanina, L. ; Brno Univ. of Technol., Brno ; Martinek, T. ; Gajda, Z., \textit{Extrinsic and Intrinsic Evolution of Multifunctional Combinational Modules}, Evolutionary Computation, 2006. CEC 2006. IEEE Congress on, 2006
+\bibitem{PR1} R. Kenny, D. Rupe, \textit{FPGA Run-Time Reconfiguration: Two Approaches}, Altera, 2008
+\bibitem{PR2} Dirk Koch, \textit{Partial Reconfiguration on FPGAs}, Springer, 2013
+\bibitem{ReconfigurMetod1}Alisson V. Brito, Matthias Kuhnle, Michael Hubner, ``\textit{Modelling and Simulation of Dynamic and Partially Reconfigurable Systems using SystemC}'', IEEE Computer Society Annual Symposium on, 2007
+\bibitem{ReconfigurMetod2} F. Cancare;  C. Pilato;   A. Cazzaniga;  D. Sciuto;  M. D. Santambrogio, ``\textit{D-RECS: A complete methodology to implement Self Dynamic Reconfigurable FPGA-based systems}'', Reconfigurable and Communication-Centric Systems-on-Chip (ReCoSoC), 2013 8th International Workshop on, 2013
+\bibitem{Rechannel} Raabe A., Felke A., \textit{A SYSTEMC language extension for high-level reconfiguration modelling}, Specification, Verification and Design Languages, 2008. FDL 2008. Forum on, 2008
+\bibitem{Rechannel2} , Andreas Raabe , \textit{Describing and Simulating Dynamic Reconfiguration in SystemC Exemplified by a Dedicated 3D Collision Detection Hardware}, 2008
+\bibitem{robot_syntax} Masahiro Fujita Hiroaki Kit an0 Toshitada Doi, \textit{Syntactic-Semantic Analysis of Reconfigurable Robot}, Intelligent Robots and Systems, 1999. IROS '99. Proceedings. 1999 IEEE/RSJ International Conference on, 1999
+\bibitem{robot_horse} S.Makita, N.Murakami, M.Sakaguchi, J.Furusho, \textit{Development of Horse-type Quadruped Robot},Systems, Man, and Cybernetics, 1999. IEEE SMC '99 Conference Proceedings. 1999 IEEE International Conference on, 1999
+\bibitem{serpe1} G. S. Chirikjian; J. W. Burdick, \textit{Kinematics of hyper-redundant robot locomotion with applications to grasping}, Proceedings. 1991 IEEE International Conference on Robotics and Automation, 1991
+\bibitem{serpe2} Jacques Denavit, Richard S. Hartenberg, \textit{A kinematic notation for lower-pair mechanisms based on matrices}, in Trans ASME J. Appl. Mech, nº 23, 1955, pp. 215-221
+
 \end{thebibliography}
+
+\addcontentsline{toc}{chapter}{\bibname}
+
 
 \end{document}
