@@ -530,6 +530,93 @@ Indica che forma deve avere la EFSM, ovvero quanti stati deve avere e quali sono
 
 Indica tutte le variabili che possono essere usate all'interno del codice in maniera globale. Tramite la proprietà \textit{common-other-variables} si crea una lista contenente il tipo di varibile definibile tramite la proprietà \textit{type} e il relativo nome tramite \textit{name}.
 
+\paragraph{specularity-code}
+\begin{lstlisting}[frame=single]
+	
+	specularity-code: *
+	
+\end{lstlisting}
+
+Con questa proprietà si definisce il codice in comune tra la parte statica e la parte dinamica del sistema. Il codice in comune possono essere funzioni (che non necessitano di doppia dichiarazione), macro o componenti base da includere nei moduli.
+
+\paragraph{top-code}
+
+\begin{lstlisting}[frame=single]
+
+	top-code:
+		debug-activation: true, false
+		producer:
+			variables:
+				-type: *
+				name: *
+			code: *
+		controller:
+			variables:
+				- type: *
+				name: *
+			code: *
+		monitor:
+			code: *
+
+\end{lstlisting}
+
+Questa proprietà identifica il codice del modulo statico chiamato Top; con questa si definiscono i 3 sottomoduli precedentemente descritti (Producer, Controller e Monitor) con le relative variabili e codice.
+
+Si può definire l'attivazione delle stampe di debug tramite la proprietà \textit{debug-activation}, che può avere come valori true o false.
+
+La proprietà \textit{producer} identifica la descrizione del modulo Producer, si possono definire tramite le sue proprietà le variabili del modulo tramite \textit{variables} definendo una lista di tipi di variabili con \textit{type} e il relativo nome tramite \textit{name}, per poi definire il codice di questo modulo tramite la proprietà \textit{code}.
+
+La proprietà \textit{controller} identifica la descrizione del modulo Controller, si possono definire tramite le sue proprietà le variabili del modulo tramite \textit{variables} definendo una lista di tipi di variabili con \textit{type} e il relativo nome tramite \textit{name}, per poi definire il codice di questo modulo tramite la proprietà \textit{code}.
+
+La proprietà \textit{monitor} identifica la descrizione del modulo Monitor, si può definire il codice di questo modulo tramite la proprietà \textit{code}.
+
+
+\paragraph{modules-code}
+
+\begin{lstlisting}[frame=single]
+
+	modules-code:
+		descriptions:
+			- type: *
+			fsm:
+				-state: *
+				code: *
+			other-code: *
+
+\end{lstlisting}
+
+Questa proprietà identifica il codice dei moduli dinamici; per ogni modulo si identificano gli stati della EFSM e il relativo codice.
+
+Per ogni tipo di configurazione (precedentemente elencate nella proprietà \textit{reconfigurable-modules-init}), si descrive la rispettiva EFSM, quindi tramite la lista di proprietà \textit{type}, si definisce la EFSM tramite la proprietà \textit{fsm}, identificando la lista di stati che si vogliono descrivere, scrivendo il nome nella proprietà \textit{state} e il relativo codice nella proprietà \textit{code}.
+
+Se per ogni modulo si vuole aggiungere codice in più rispetto alla EFSM, si può definire la proprietà \textit{other-code} e scrivere codice al suo interno.
+
+
+\paragraph{common-code}
+
+\begin{lstlisting}[frame=single]
+
+	common-code: *
+
+\end{lstlisting}
+
+Per il codice comune alla parte statica e dinamica o tra moduli riconfigurabili, si può definire la proprietà \textit{common-code} e descrivere al suo interno le funzioni comuni. Si otterrà codice globale sfruttabile da ogni parte del sistema.
+
+
+\paragraph{main}
+
+\begin{lstlisting}[frame=single]
+
+	main:
+		includes: *
+		init: *
+		code: *
+
+\end{lstlisting}
+
+
+Si deve descrivere il main del progetto tramite la proprietà \textit{main}, in cui si definiscono gli includes di SystemC tramite la proprietà \textit{includes}, l'inizializzazione delle variabli tramite la proprietà \textit{init} e il codice del main tramite la proprietà \textit{code}.
+
 \subsubsection{Metodologia di programmazione}
 
 La descrizione del sistema tramite il linguaggio  consiste in 2 passaggi: la descrizione della parte di struttura delle singole parti del sistema (quindi parte statica e parte dinamica) e la descrizione del comportamento interno delle singole parti.

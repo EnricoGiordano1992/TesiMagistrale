@@ -31,16 +31,22 @@
 \contentsline {paragraph}{\numberline {4.2.1.1.2}top-init}{27}
 \contentsline {paragraph}{\numberline {4.2.1.1.3}reconfigurable-modules-init}{28}
 \contentsline {paragraph}{\numberline {4.2.1.1.4}fsm-init}{29}
-\contentsline {subsubsection}{\numberline {4.2.1.2}Metodologia di programmazione}{29}
-\contentsline {section}{\numberline {4.3}Utilizzo del tool durante la progettazione}{30}
-\contentsline {chapter}{\numberline {5}Caso di studio}{33}
-\contentsline {section}{\numberline {5.1}Hardware riconfigurabile}{34}
-\contentsline {section}{\numberline {5.2}Robot riconfigurabile}{35}
-\contentsline {subsection}{\numberline {5.2.1}I robot riconfigurabili}{35}
-\contentsline {subsection}{\numberline {5.2.2}Progettazione}{36}
-\contentsline {subsection}{\numberline {5.2.3}Configurazione a serpente doppio}{38}
-\contentsline {subsection}{\numberline {5.2.4}Configurazione a quadrupede}{39}
-\contentsline {section}{\numberline {5.3}Intelligenza Artificiale}{39}
-\contentsline {subsection}{\numberline {5.3.1}Algoritmo}{41}
-\contentsline {chapter}{\numberline {6}Conclusione e sviluppi futuri}{43}
-\contentsline {chapter}{Bibliografia}{45}
+\contentsline {paragraph}{\numberline {4.2.1.1.5}common-other-variables}{29}
+\contentsline {paragraph}{\numberline {4.2.1.1.6}specularity-code}{29}
+\contentsline {paragraph}{\numberline {4.2.1.1.7}top-code}{29}
+\contentsline {paragraph}{\numberline {4.2.1.1.8}modules-code}{30}
+\contentsline {paragraph}{\numberline {4.2.1.1.9}common-code}{31}
+\contentsline {paragraph}{\numberline {4.2.1.1.10}main}{31}
+\contentsline {subsubsection}{\numberline {4.2.1.2}Metodologia di programmazione}{31}
+\contentsline {section}{\numberline {4.3}Utilizzo del tool durante la progettazione}{32}
+\contentsline {chapter}{\numberline {5}Caso di studio}{35}
+\contentsline {section}{\numberline {5.1}Hardware riconfigurabile}{36}
+\contentsline {section}{\numberline {5.2}Robot riconfigurabile}{37}
+\contentsline {subsection}{\numberline {5.2.1}I robot riconfigurabili}{37}
+\contentsline {subsection}{\numberline {5.2.2}Progettazione}{38}
+\contentsline {subsection}{\numberline {5.2.3}Configurazione a serpente doppio}{40}
+\contentsline {subsection}{\numberline {5.2.4}Configurazione a quadrupede}{41}
+\contentsline {section}{\numberline {5.3}Intelligenza Artificiale}{41}
+\contentsline {subsection}{\numberline {5.3.1}Algoritmo}{43}
+\contentsline {chapter}{\numberline {6}Conclusione e sviluppi futuri}{45}
+\contentsline {chapter}{Bibliografia}{47}
