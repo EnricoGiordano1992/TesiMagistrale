@@ -29,6 +29,14 @@
 \usepackage{amsmath}
 \usepackage[]{algorithm2e}
 
+\usepackage{titlesec}
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+
 
 %%% HEADERS & FOOTERS
 \usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
@@ -36,6 +44,8 @@
 \renewcommand{\headrulewidth}{0pt} % customise the layout...
 \lhead{}\chead{}\rhead{}
 \lfoot{}\cfoot{\thepage}\rfoot{}
+
+\usepackage{listings}
 
 
 \begin{document}
@@ -334,7 +344,7 @@ Il sistema finale dovrebbe essere simile alla figura \ref{fig:a}: si può notare
 La divisione netta tra parte statica e parte dinamica garantisce anche il parallelismo di esecuzione tra le diverse parti del sistema: potenzialmente la parte statica può eseguire codice in maniera del tutto asincrona rispetto alla parte dinamica, garantendo quindi più potenza di calcolo in termini di velocità. Infine, rappresentare il sistema con macchine a stati finiti permette di effettuare tutte le ottimizzazioni note per diminuire il numero degli stati del sistema, guadagnando ancor più spazio.
 Si vedrà nel dettaglio con il caso di studio il guadagno ottenuto da questa architettura proposta in contesto di vincoli realtime hard.
 
-È quindi necessario garantire che il sistema sia sempre in stato ``safe'': come tutti i sistemi asincroni, se sono presenti le 4 condizioni necessarie (mutua esclusione, hold and wait, no preemption, attesa circolare), il sistema può andare in deadlock, quindi è necessario adottare tutte le strategie necessarie per evitare ciò.
+È quindi necessario garantire che il sistema sia sempre in stato ``safe'': come tutti i sistemi asincroni, se sono presenti le 4 condizioni necessarie (mutua esclusione, hold and wait, no preemption, attesa circolare), il sistema può andare in deadlock, quindi è necessario adottare tutte le strategie necessarie per evitare ciò. Verrà esplicitata la strategia per permettere di rimanere nello stato safe nella sezione di presentazione del tool automatico.
 Fino ad ora la garanzia di stato safe del sistema dal punto di vista di asincronicità era lasciata al progettista, con questo progetto si propone invece un tool automatico per generare il software per SystemC Rechannel adottando questo metodo di progettazione, in modo da lasciare al progettista solo il compito di pensare e progettare il comportamento dei moduli del sistema.
 
 Con questo progetto quindi non si propone esclusivamente una metodologia di progettazione, ma anche un tool automatico per progettare correttamente questi sistemi.
@@ -400,11 +410,21 @@ Il tool prende in input una descrizione ad alto livello del sistema completo, te
 
 Come linguaggio di base ad alto livello è stato scelto YAML; è stato scelto questo linguaggio perché è molto semplice da imparare e non richiede nessuna conoscenza di programmazione, in modo da renderlo comprensibile anche a chi non conosce i sistemi riconfigurabili.
 
-Seguendo le regole del linguaggio di base ed aggiungendo delle parole chiave che hanno significato solo per il tool automatico, il tool automatico genera il sistema descritto. In particolare, il tool esegue gli stessi passi che esegue il progettista mentre progetta il sistema: identifica la descrizione della parte statica e dinamica del sistema, trasforma la descrizione in FSM in SystemC e infine genera il codice del sistema finale.
+Seguendo le regole del linguaggio di base ed aggiungendo delle parole chiave che hanno significato solo per il tool automatico, il tool automatico genera il sistema descritto. In particolare, il tool esegue gli stessi passi che esegue il progettista mentre progetta il sistema: identifica la descrizione della parte statica e dinamica del sistema, trasforma la descrizione in EFSM in SystemC e infine genera il codice del sistema finale.
 
 Il tool fa sia da interprete sia da compilatore code-to-code: prima di tutto controlla che non ci siano errori nel codice scritto dal progettista, analizzando i tag che riesce a riconoscere, poi, partendo da dei template di file SystemC che contengono la struttura del sistema secondo lo standard, popola i file finali SystemC trasformando ciò che ha descritto il progettista in codice.
 
 Inoltre il tool rispetta lo standard di SystemC Rechannel, aggiungendo lo standard proposto in questa tesi, oltre al fatto di gestire le condizioni di safety descritte precedentemente: utilizzando correttamente questo tool e il relativo linguaggio, si eviteranno futuri errori di implementazione che potrebbero compromettere l'intero funzionamento del sistema.
+
+Per risolvere il problema della safety, il tool genera un'architettura Master-Slave dividendo la parte statica del sistema in 3 processi SystemC:
+
+\begin{itemize}
+\item Producer, che si occupa di produrre i dati ed inviarli al modulo riconfigurabile attualmente attivo;
+\item Controller, che si occupa di gestire la macchina a stati dell'intero sistema;
+\item Monitor, che si occupa di leggere i dati di risposta del modulo riconfigurabile attualmente attivo.
+\end{itemize}
+
+Durante il funzionamento del sistema, il Producer invia al modulo riconfigurabile il comando che dovrà eseguire; nel frattempo il Monitor rimane in attesa della risposta del modulo riconfigurabile e il Controller gestisce periodicamente la EFSM in base agli stimoli esterni ed istruendo il Producer a generare il rispettivo output in base allo stato in cui ci si trova. Il modulo infine possiede una coda fifo di comandi in modo che non si possa perdere nessun comando inviato dal Producer. Come si può notare, non si ha mutua esclusione e nemmeno attesa circolare, quindi si è sicuri di essere in uno stato safe e perciò non sono possibili deadlock di sistema.
 
 \subsection{Il linguaggio (PynguLang)}
 
@@ -412,74 +432,103 @@ Il linguaggio riconosciuto dal tool automatico serve per descrivere sia la parte
 
 \subsubsection{Sintassi}
 
-TODO
-port
-	num
-	type
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.45]{strutturayaml.png}
+\caption{Struttura del file YAML}\label{fig:yamlfile}
+\end{figure}
 
-top-init
-	variables
-		type, name, value
-	channels
-		type, name
-	portals
-		type, io-type, name
+Il linguaggio presenta la stessa sintassi del linguaggio YAML ma possiede delle keyword predefinite per permettere al tool automatico di creare i componenti per SystemC Rechannel. Il file dovrà avere genericamente la struttura presentata nella figura \ref{fig:yamlfile}; essendo basato su YAML, è necessario mantenere la gerarchia della descrizione rappresentata come da figura. Come convenzione, il simbolo ``-'' prima di una proprietà indica un elenco, il simbolo ``[]'' indica un array o elenco, il simbolo ``*'' indica un qualsiasi tipo di stringa e il simbolo ``\#'' indica un numero.
 
-reconfigurable-modules-init
-	num
-	port
-		num
-	channels_in:
-		- type, name
-	channels_out:
-		-type,name
-	configuration-names []
-	create:
-		- type, name, activation_delay, activation_delay_measure
-	first-module: *
-	
-fsm-init:
-	num: #
-	states: []
 
-common-other-variables:
-	- type, name
-	
-specularity-code: *
+\paragraph{port}
 
-top-code:
-	pre-code: *
-	debug-activation: t/f
-	
-	producer:
-		variables
-			-type, name
-			
-		code: *
-	
-	controller:
+\begin{lstlisting}[frame=single]
+	port:
+		num: #
+		type: #
+\end{lstlisting}
+
+Indica le porte di comunicazione tra la parte statica del sistema e la parte dinamica. Si può definire la quantità di queste porte tramite la proprietà \textit{num} e il tipo tramite la proprietà \textit{type}. \textit{type} rappresenta una lista di valori e la quantità di valori dipende dalla proprietà \textit{num}.
+ 
+\paragraph{top-init} 
+
+\begin{lstlisting}[frame=single]
+	top-init:
 		variables:
-			-type, name
+			- type: *
+			name: *
+			value: *
+		channels:
+			- type: *
+			name: *
+		portals:
+			- type: *
+			io-type: *
+			name: *
+\end{lstlisting}
 
-		code: *
-		
-	monitor:
-		code: *
+Indica come inizializzare la parte statica del sistema, ovvero i modulo ``Top''. Di questo modulo, è necessario dichiarare le variabili che utilizza, i canali di input e output e i canali di comunicazione per comunicare con la parte dinamica del sistema; questi sono rispettivamente le proprietà ``\textit{variables}'', ``\textit{channels}'' e ``\textit{portals}''.
 
+Per la proprietà \textit{variables} si deve definire una lista composta dal tipo di variabile tramite la proprietà \textit{type}, il nome della variabile tramite \textit{name} e il valore iniziale tramite \textit{value}.
 
-modules-code:		
-	descriptions:
-		- type
-		fsm:
-			- state, code
-		other-code: *
-		
-common-code: *
+Per la proprietà \textit{channels} si deve definire una lista composta dal tipo di dato che si vuole trasmettere o ricevere tramite la proprietà \textit{type} e il nome del canale tramite \textit{name}.
 
-main:
-	includes: *
-	init: *
-	code: *
+Per la proprietà \textit{portals} si deve definire una lista composta dal tipo di dato che si vuole trattare tramite la proprietà \textit{type}, il tipo di canale (ovvero se di input o di output) tramite \textit{io-type} e il nome del canale di comunicazione tramite \textit{name}.
+
+\paragraph{reconfigurable-modules-init}
+
+\begin{lstlisting}[frame=single]
+
+	reconfigurable-modules-init:
+		num: #
+		port:
+			num: #
+		channels_in:
+			- type: *
+			name: *
+		channels_out:
+			- type: *
+			name: *
+		configuration-names: [*]
+		create:
+			- type: *
+			name: *
+			activation_delay: #
+			activation_delay_measure: *
+		first-module: *
+
+\end{lstlisting}
+
+Indica come inizializzare la parte dinamica del sistema, ovvero i moduli riconfigurabili. Di questi moduli bisogna dichiarare quanti possono essere, la struttura comune e alcune proprietà specifiche di ogni modulo, oltre ad identificare quale sarà il primo modulo ad essere caricato all'avvio del sistema.
+
+La proprietà \textit{num} indica quanti moduli sono previsti per questo sistema, mentre la proprietà \textit{port} indica quanti canali di comunicazione hanno i vari moduli, definendone il numero tramite la proprietà \textit{num}. I canali di comunicazione vengono poi definiti in maniera specifica tramite la proprietà \textit{channels\_in} per gli ingressi e \textit{channels\_out} per le uscite; entrambe le proprietà devono contenere una lista composta dal tipo di dato che viene inviato o ricevuto tramite la proprietà \textit{type} e dal nome del canale di comunicazione tramite \textit{name}.
+
+ Si devono definire poi i nomi concettuali delle configurazioni tramite la proprietà \textit{configuration-names}; i nomi sono importanti in quanto verranno utilizzati per identificare i vari moduli, quindi è importante essere coerenti con le successive dichiarazioni. Queste verranno poi utilizzate come macro nel codice SystemC, quindi si consiglia di scriverle in maiuscolo.
+ 
+ Si definiscono poi nello specifico i vari moduli tramite la proprietà \textit{create}, in cui si definisce una lista composta dal tipo di configurazione (nome mnemonico a scelta del progettista) tramite la proprietà \textit{type}, il nome del modulo riconfigurabile tramite \textit{name}, il tempo di attivazione del modulo (ovvero il tempo che passa per allocarlo nella zona dinamica della FPGA) tramite \textit{activation\_delay} e l'unità di misura dell'attivazione tramite \textit{activation\_delay\_measure}.
+  
+\paragraph{fsm-init}
+
+\begin{lstlisting}[frame=single]
+
+	fsm-init:
+		num: #
+		states: [*]
+
+\end{lstlisting} 
+
+Indica che forma deve avere la EFSM, ovvero quanti stati deve avere e quali sono i nomi di questi stati. Tramite la proprietà \textit{num} si indica quanti stati deve avere la EFSM, mentre la proprietà \textit{states} si elencano i nomi degli stati di questa EFSM. Il numero degli stati deve essere coerente con la quantità di stati effettivamente descritti.
+
+\paragraph{common-other-variables}
+
+\begin{lstlisting}[frame=single]
+	common-other-variables:
+		- type: *
+		name: *
+\end{lstlisting}
+
+Indica tutte le variabili che possono essere usate all'interno del codice in maniera globale. Tramite la proprietà \textit{common-other-variables} si crea una lista contenente il tipo di varibile definibile tramite la proprietà \textit{type} e il relativo nome tramite \textit{name}.
 
 \subsubsection{Metodologia di programmazione}
 
