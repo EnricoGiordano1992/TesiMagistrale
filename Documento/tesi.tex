@@ -412,6 +412,13 @@ Come linguaggio di base ad alto livello è stato scelto YAML; è stato scelto qu
 
 Seguendo le regole del linguaggio di base ed aggiungendo delle parole chiave che hanno significato solo per il tool automatico, il tool automatico genera il sistema descritto. In particolare, il tool esegue gli stessi passi che esegue il progettista mentre progetta il sistema: identifica la descrizione della parte statica e dinamica del sistema, trasforma la descrizione in EFSM in SystemC e infine genera il codice del sistema finale.
 
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.65]{pyngu.png}
+\caption{Schema di funzionamento di Pyngu}\label{fig:pynguschema}
+\end{figure}
+
+
 Il tool fa sia da interprete sia da compilatore code-to-code: prima di tutto controlla che non ci siano errori nel codice scritto dal progettista, analizzando i tag che riesce a riconoscere, poi, partendo da dei template di file SystemC che contengono la struttura del sistema secondo lo standard, popola i file finali SystemC trasformando ciò che ha descritto il progettista in codice.
 
 Inoltre il tool rispetta lo standard di SystemC Rechannel, aggiungendo lo standard proposto in questa tesi, oltre al fatto di gestire le condizioni di safety descritte precedentemente: utilizzando correttamente questo tool e il relativo linguaggio, si eviteranno futuri errori di implementazione che potrebbero compromettere l'intero funzionamento del sistema.
@@ -694,6 +701,13 @@ Sono stati utilizzati quindi i seguenti tool di simulazione:
   \item \textit{Linux Ubuntu} per simulare il programma di intelligenza artificiale che dovrebbe essere eseguito su un qualsiasi processore e che deve interfacciarsi con la parte riconfigurabile (implementata in SystemC Rechannel).
 \end{itemize}
 
+\begin{figure}[!ht]
+\centering
+\includegraphics[scale=0.65]{casodistudio.png}
+\caption{Struttura del caso di studio}\label{fig:casodistudio}
+\end{figure}
+
+
 Il funzionamento del sistema è il seguente: il robot può avere 2 differenti configurazioni, ovvero configurazione a quadrupede e configurazione a doppio serpente; queste configurazioni vengono pilotate e mosse dal sistema riconfigurabile in base al percorso che il robot deve eseguire. Il robot è sensibile alle fonti di calore, ovvero tramite sensore di visione di calore, è in grado di percepire dove si trova una fonte di calore e capire quanto è distante da esso. Per capire quanto è distante dalla fonte di calore, viene fatto uno studio statistico sulla quantità di pixel rossi che appaiono nell'immagine acquisita.
 Il robot non conosce l'ambiente in cui si trova, si deve solo basare sui sensori di distanza posti su di esso, uno per ogni lato, e sul sensore di visione; non deve interagire con l'ambiente ma deve solo essere in grado di non essere ostacolato nei suoi movimenti. Il task del robot consiste nel raggiungere o di avvicinarsi il più possibile alla zona di calore e, per farlo, deve riuscire a trovare il percorso migliore (ovvero quello fattibile).
 La strategia del robot consiste nel ``provare'' quale delle 2 sue configurazioni può essergli utile per raggiungere l'obbiettivo: durante il suo tragitto, potrebbe trovare un ostacolo che gli impedisce di proseguire, quindi deve essere in grado di oltrepassarlo o passandoci sotto oppure raggirandolo. Deve inoltre essere in grado di capire se la scelta di strategia per oltrepassare l'ostacolo è corretta: è ammesso che il robot esegua degli sbagli durante le sue scelte, in quanto non ha una mappatura dell'ambiente, ma deve essere in grado di tornare indietro nelle sue scelte, capire quando è avvenuto l'errore della sua scelta e quindi adottare una strategia diversa per raggiungere il target.
@@ -865,12 +879,16 @@ La tecnica dell' A star si è dimostrata molto efficace, in quanto il percorso r
 \begin{figure}[htbp]
 \centering
 \includegraphics[scale=0.3]{a_star.jpg}
-\caption{Mappa in cui utilizzare A Star (percorso in rosso, ostacoli in verde, ostacoli in bianco oltrepassabili strisciando)}\label{fig:8}
+\caption{Mappa in cui utilizzare A Star (percorso in rosso, ostacoli pieni in verde, ostacoli vuoti in bianco)}\label{fig:8}
 \end{figure}
+
+\newpage
 
 \subsection{Algoritmo}
 
 L'algoritmo intelligente definisce una serie di regole che il robot deve adottare in modo da trovare il percorso corretto per raggiungere l'obbiettivo. Questo quindi consisterà in una serie di letture dei dati derivanti dai sensori, che verranno interpretati e quindi si deciderà quale azione eseguire. Da notare che l'ordine dei controlli è molto importante: si definisce una priorità di controlli in modo che, a parità di configurazione, la priorità delle scelte possa cambiare l'esecuzione del programma.
+
+
 Il programma sarà sempre sincronizzato con il sistema sottostante, non ha visione del mondo che lo circonda ma semplicemente interpreta tramite regole prestabilite i segnali che arrivano dai sensori. Infine, deve essere un algoritmo semplice e che non richieda troppo utilizzo di memoria e risorse, in quanto deve essere più veloce possibile e calato in un contesto di un microcontrollore che si trova a bordo del robot, quindi indubbiamente con non ottime capacità di calcolo.
 
 \begin{algorithm}[H]
@@ -925,6 +943,8 @@ Il programma sarà sempre sincronizzato con il sistema sottostante, non ha visio
 
 Si ripercorrono ora i passi descritti precedentemente per dare rilevanza al lavoro svolto.
 Innanzitutto si è partiti dai diversi tipi di architetture hardware ora esistenti, focalizzandosi in particolar modo sui sistemi metamorfici, in quando si basano su un concetto di evoluzione molto utile per risolvere particolari problemi e dare valore aggiunto alle tecnologie hardware; rimane il problema di trovare una tecnologia che riesca ad implementare questo concetto, trovando nella tecnologia dell'hardware riconfigurabile una buona strategia implementativa. Contrariamente alle altre tecnologie però, non esiste una metodologia di sviluppo rigorosa ed ingegnerizzata per progettare questi sistemi, quindi si è cercato di creare un ambiente di sviluppo, analisi e sintesi in modo da sfruttare al meglio questi sistemi. Si è quindi creata, tramite una libreria caduta in disuso (SystemC Rechannel), una metodologia di sviluppo di questi sistemi basata sulla creazione di una EFSM associata ai diversi comportamenti del sistema, dividendo rigorosamente una parte dedicata alla riconfigurazione e una parte statica. Inoltre per l'implementazione velocizzata, è stato creato un linguaggio apposito per la descrizione facilitata del sistema, oltre a rendere possibile ad ogni progettista di progettare un sistema del genere senza conoscere le problematiche di fondo e senza conoscere la libreria di supporto di SystemC. È stato provato questo approccio con un progetto di esempio che rappresenta al meglio questo sistema, dimostrando che con questi sistemi si può implementare abbastanza facilmente qualcosa di molto complesso.
+
+Come sviluppi futuri si potrà sicuramente migliorare il tool Pyngu per renderlo più efficiente, oltre a testare su FPGA l'effettivo funzionamento di SystemC Rechannel generato dal tool automatico.
 
 \begin{thebibliography}{1}
 
